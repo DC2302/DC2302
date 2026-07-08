@@ -42,6 +42,8 @@ function loadRegistry() {
       voice: settings.voice || "Polly.Joanna-Neural",
       language: settings.language || "en-US",
       transferNumber: settings.transferNumber || "",
+      notify: settings.notify || { smsNumbers: [] },
+      payments: settings.payments || null,
     };
 
     for (const number of company.phoneNumbers) {

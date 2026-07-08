@@ -85,7 +85,7 @@ app.post("/respond", validateTwilio, async (req, res) => {
   call.history.push({ role: "user", content: speech });
 
   try {
-    const { text, action } = await getAgentReply(company, call.history);
+    const { text, action } = await getAgentReply(company, call);
     call.history.push({ role: "assistant", content: text });
 
     if (action === "transfer" && company.transferNumber) {

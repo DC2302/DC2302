@@ -1,0 +1,20 @@
+{
+  "name": "CADD Truck Parking",
+  "phoneNumbers": ["+15550000001"],
+  "greeting": "Thank you for calling CADD Truck Parking! This is the virtual assistant. How can I help you today?",
+  "voice": "Polly.Matthew-Neural",
+  "language": "en-US",
+  "transferNumber": "",
+  "crmWebhookUrl": "",
+  "notify": {
+    "smsNumbers": ["+15550000002"]
+  },
+  "payments": {
+    "providers": ["square", "stripe"],
+    "squareAccessTokenEnv": "SQUARE_ACCESS_TOKEN_CADD",
+    "squareLocationIdEnv": "SQUARE_LOCATION_ID_CADD",
+    "stripeSecretKeyEnv": "STRIPE_SECRET_KEY_CADD",
+    "currency": "USD",
+    "maxAmountDollars": 2000
+  }
+}

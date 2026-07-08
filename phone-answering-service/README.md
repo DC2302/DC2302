@@ -33,9 +33,27 @@ companies/
 ```
 
 To onboard a new client: copy `example-company`, edit `company.json`, drop
-their materials into `knowledge/`, push, done. The agent only ever answers
-from the folder belonging to the number that was dialed — clients never
-bleed into each other.
+their materials into `knowledge/`, push, done — **no new repo per client**.
+The agent only ever answers from the folder belonging to the number that was
+dialed, so clients never bleed into each other. Full checklist:
+[docs/onboarding-a-new-client.md](docs/onboarding-a-new-client.md).
+
+## What the agent can DO (not just say)
+
+Beyond answering questions from the knowledge folder, each company's config
+can enable actions the agent takes live on the call:
+
+- **Book a callback** — collects name, number, and reason; saves the lead
+  (file + CRM webhook) and instantly **texts the responsible party**
+  (`notify.smsNumbers` in company.json). No lead is ever missed.
+- **Take a payment** — confirms the amount and the caller's provider
+  preference (**Square or Stripe**), then texts them a secure checkout
+  link. Card numbers are never spoken over the phone, and a per-company
+  `maxAmountDollars` caps what the agent may charge.
+- **Transfer to a human** — forwards the call to `transferNumber`.
+
+Capabilities appear automatically when their config is present, so every new
+client gets exactly the workflow they need with zero code changes.
 
 Training materials can be updated on GitHub directly, or synced from a
 client's Google Drive folder — see

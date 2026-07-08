@@ -10,6 +10,7 @@ export const config = {
   anthropicApiKey: process.env.ANTHROPIC_API_KEY || "",
   claudeModel: process.env.CLAUDE_MODEL || "claude-haiku-4-5-20251001",
   twilioAuthToken: process.env.TWILIO_AUTH_TOKEN || "",
+  twilioAccountSid: process.env.TWILIO_ACCOUNT_SID || "",
   // Root folder that holds one sub-folder per client company.
   companiesDir: path.resolve(__dirname, "..", "companies"),
 };
