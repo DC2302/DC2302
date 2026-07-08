@@ -6,6 +6,13 @@ stitched, brand-consistent short video plus ready-to-post social packaging.
 
 ## How to use
 
+**Intake app — OSO Content Design (OCD):** the branded web app in [`ocd/`](ocd/)
+(hosted on Vercel) collects everything in one form — brand details, logo,
+inspiration images, character references, and the video request — and commits it
+to `intake/` in this repo. Then just say `/brand-video` in Claude Code and the
+agent team picks up the pending submission, expands on it, and produces. See
+[`ocd/README.md`](ocd/README.md) for deploy steps.
+
 **Idea mode — you give one sentence, the agents do the rest:**
 
 ```
