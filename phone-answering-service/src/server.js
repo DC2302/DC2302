@@ -5,11 +5,16 @@ import { findCompanyByNumber, reloadCompanies } from "./companies.js";
 import { getAgentReply } from "./agent.js";
 import { startCall, getCall, endCall } from "./calls.js";
 import { logCallToCrm } from "./crm.js";
+import { webpay } from "./webpay.js";
 
 assertConfig();
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
+
+// Hosted payment pages (/p/<companyId>) — linked from each client's
+// website and Google Business Profile.
+app.use(webpay);
 
 const { VoiceResponse } = twilio.twiml;
 

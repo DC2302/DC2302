@@ -10,11 +10,12 @@ import { config } from "./config.js";
  * The Twilio number a caller dialed ("To") decides which company answers.
  */
 
-let registry = null; // phoneNumber (E.164) -> company object
+let registry = null; // { byNumber: Map, byId: Map }
 
 function loadRegistry() {
-  const map = new Map();
-  if (!fs.existsSync(config.companiesDir)) return map;
+  const byNumber = new Map();
+  const byId = new Map();
+  if (!fs.existsSync(config.companiesDir)) return { byNumber, byId };
 
   for (const entry of fs.readdirSync(config.companiesDir, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue;
@@ -44,13 +45,15 @@ function loadRegistry() {
       transferNumber: settings.transferNumber || "",
       notify: settings.notify || { smsNumbers: [] },
       payments: settings.payments || null,
+      web: settings.web || null,
     };
 
+    byId.set(company.id, company);
     for (const number of company.phoneNumbers) {
-      map.set(normalizeNumber(number), company);
+      byNumber.set(normalizeNumber(number), company);
     }
   }
-  return map;
+  return { byNumber, byId };
 }
 
 function normalizeNumber(number) {
@@ -59,10 +62,15 @@ function normalizeNumber(number) {
 
 export function findCompanyByNumber(calledNumber) {
   if (!registry) registry = loadRegistry();
-  return registry.get(normalizeNumber(calledNumber)) || null;
+  return registry.byNumber.get(normalizeNumber(calledNumber)) || null;
+}
+
+export function findCompanyById(id) {
+  if (!registry) registry = loadRegistry();
+  return registry.byId.get(id) || null;
 }
 
 export function reloadCompanies() {
   registry = loadRegistry();
-  return registry.size;
+  return registry.byNumber.size;
 }

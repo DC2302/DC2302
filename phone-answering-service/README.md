@@ -52,6 +52,15 @@ can enable actions the agent takes live on the call:
   `maxAmountDollars` caps what the agent may charge.
 - **Transfer to a human** — forwards the call to `transferNumber`.
 
+## Hosted payment page (website + Google Business Profile)
+
+Each company also gets a hosted payment page at `/p/<companyId>` supporting
+**card (Square/Stripe), Zelle, Cash App, and ACH**, gated behind a required
+**Terms and Conditions checkbox**. Every acceptance is recorded (name,
+contact, timestamp, IP, terms version) on disk and to the CRM webhook.
+Link the page from the client's website and Google Business Profile — see
+[docs/website-and-gbp.md](docs/website-and-gbp.md).
+
 Capabilities appear automatically when their config is present, so every new
 client gets exactly the workflow they need with zero code changes.
 
