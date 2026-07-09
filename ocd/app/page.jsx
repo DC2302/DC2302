@@ -30,6 +30,7 @@ function OsoMark({ size = 52 }) {
 export default function IntakePage() {
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState(null);
+  const [contentType, setContentType] = useState("brand-video");
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -162,12 +163,74 @@ export default function IntakePage() {
 
         <fieldset>
           <legend>What should we make?</legend>
-          <label htmlFor="idea">The idea — what do you want to talk about? *</label>
+          <label>Content type</label>
+          <div className="pills">
+            <label>
+              <input
+                type="radio"
+                name="contentType"
+                value="brand-video"
+                checked={contentType === "brand-video"}
+                onChange={() => setContentType("brand-video")}
+              />{" "}
+              Brand video
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="contentType"
+                value="music-video"
+                checked={contentType === "music-video"}
+                onChange={() => setContentType("music-video")}
+              />{" "}
+              Music video
+            </label>
+          </div>
+
+          {contentType === "music-video" && (
+            <>
+              <label htmlFor="songUrl">
+                Song link <small>— Suno share link or any direct audio URL</small>
+              </label>
+              <input
+                id="songUrl"
+                name="songUrl"
+                type="url"
+                placeholder="https://suno.com/song/…"
+              />
+              <label htmlFor="song">
+                …or upload the song <small>— MP3/WAV up to {MAX_FILE_MB}MB; use a link for bigger files</small>
+              </label>
+              <input className="file" id="song" name="song" type="file" accept="audio/*" />
+              <label htmlFor="lyrics">
+                Lyrics / song structure <small>— optional, makes the visuals hit the right beats</small>
+              </label>
+              <textarea
+                id="lyrics"
+                name="lyrics"
+                placeholder={"[Verse 1]\n…\n[Chorus]\n…"}
+              />
+              <p className="hint" style={{ marginTop: 10 }}>
+                Only submit music you own or have the rights to use. Full song or a
+                60-second cut of the best section — tell us below.
+              </p>
+            </>
+          )}
+
+          <label htmlFor="idea">
+            {contentType === "music-video"
+              ? "The vision — what should the video feel like / show? *"
+              : "The idea — what do you want to talk about? *"}
+          </label>
           <textarea
             id="idea"
             name="idea"
             required
-            placeholder="e.g. why most small businesses waste money on ads — and the one fix"
+            placeholder={
+              contentType === "music-video"
+                ? "e.g. our bear mascot wandering a neon city at night, chorus hits = rooftop shots — full song, or just the drop"
+                : "e.g. why most small businesses waste money on ads — and the one fix"
+            }
           />
           <label>Goal</label>
           <div className="pills">

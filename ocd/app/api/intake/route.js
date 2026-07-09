@@ -76,6 +76,7 @@ export async function POST(request) {
       wordsBan: text("wordsBan"),
     },
     request: {
+      contentType: text("contentType") || "brand-video",
       idea,
       goal: text("goal") || "agents-decide",
       platforms: fd.getAll("platforms").map(String),
@@ -83,9 +84,11 @@ export async function POST(request) {
       cta: text("cta"),
       specialInstructions: text("special"),
       characterNotes: text("characterNotes"),
+      songUrl: text("songUrl"),
+      lyrics: text("lyrics"),
     },
     contact: { email: text("email") },
-    assets: { logo: null, inspiration: [], characters: [] },
+    assets: { logo: null, song: null, inspiration: [], characters: [] },
   };
 
   // Collect files first so intake.json can reference them.
@@ -101,6 +104,7 @@ export async function POST(request) {
     }
   };
   collect("logo", true);
+  collect("song", true);
   collect("inspiration");
   collect("characters");
 

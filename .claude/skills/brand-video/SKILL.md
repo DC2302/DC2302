@@ -33,6 +33,10 @@ in the loop at the right checkpoints, and enforce brand consistency.
   (match render style + grading, never copy content); character images become
   character references the same way. When the run completes, set the
   submission's `status` to `"produced"` in its `intake.json` and commit.
+  If the submission's `request.contentType` is `"music-video"`, hand off to the
+  `/music-video` skill instead (its song is in `request.songUrl` or
+  `assets.song`, lyrics in `request.lyrics`) — still do the brand-profile merge
+  and asset imports here first.
 
 Also detect **auto mode**: if the user says "you choose", "run it end to end",
 "don't ask me", or the request arrives from a schedule/trigger, skip the optional

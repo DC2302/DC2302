@@ -33,6 +33,21 @@ Special instructions: end on the logo, never say "cheap", CTA is "Book a free de
 
 **Auto mode:** add "you choose, run it end to end" and it runs without checkpoints.
 
+**Music video mode — turn a song into a stitched music video:**
+
+```
+/music-video https://suno.com/song/abc123 — our bear mascot wandering a neon
+city at night, chorus = rooftop shots. Use the 60 seconds around the drop.
+```
+
+Works with a Suno link, any audio URL, an uploaded file, or an OCD intake
+submission. The `music-video-director` agent maps the song's structure (lyrics
+help) onto 10-second blocks and designs a shot per block with your recurring
+characters; the `video-designer` generates the clips; the `video-producer`
+stitches them locally with ffmpeg and lays the full song over the cut — the song
+is the only soundtrack. Full song or a chosen window (a 3-minute song is ~18
+clips, so a 60-second cut is the budget-friendly default for social).
+
 ## What happens
 
 | Phase | Agent | Deliverable |
