@@ -1,19 +1,36 @@
 # Frequently asked questions
 
-> TODO: replace with real answers.
+**Is the lot secure?**
+Yes — fully fenced and gated with controlled gate access, 24/7 camera
+surveillance, and a facilities officer on premises around the clock.
 
-**What size vehicles do you accommodate?**
-(fill in — e.g. full-size semis with 53-foot trailers, box trucks, etc.)
+**Can I get in at night or on weekends?**
+Yes, the lot is accessible 24/7 for authorized drivers through the
+controlled gate.
 
-**Is there a contract or minimum term?**
-(fill in)
+**Do you have showers?**
+Yes — private hot showers in our shower house for $1 per minute, or
+unlimited showers with a Gold membership.
 
-**How do I sign up?**
-The assistant collects the caller's name and number and books a callback,
-or — if they're ready — sends a payment link by text for the first payment.
+**Do you have laundry?**
+Yes — a full laundry facility with commercial washers and dryers, plus a
+driver lobby with restrooms, vending machines, and satellite TV.
 
-**What happens if I'm late on a payment?**
-(fill in)
+**What are your rates?**
+Daily, weekly, and monthly rates are available, priced per space, with
+discounts for multiple spaces. An annual plan (Elite status) is equivalent
+to two free months and includes a personalized reserved space. For an exact
+quote, the assistant should book a callback from management.
 
-**Can I get in after hours?**
-(fill in)
+**How do I reserve a space?**
+The assistant can take the caller's name, phone number, and how many spaces
+they need, and book a callback from management to confirm availability —
+or they can reserve online at caddtruckparking.com.
+
+**How do I pay?**
+By secure card payment link (sent by text during the call), or by Zelle,
+Cash App, or ACH through the payment page on our website.
+
+**What vehicles do you accommodate?**
+Semi-trucks, trailers, and commercial vehicles. (TODO: confirm max size
+and whether bobtail/RV/personal vehicles are allowed.)
