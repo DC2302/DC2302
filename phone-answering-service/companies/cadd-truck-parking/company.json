@@ -1,13 +1,13 @@
 {
   "name": "CADD Truck Parking",
   "phoneNumbers": ["+15550000001"],
-  "greeting": "Thank you for calling CADD Truck Parking! This is the virtual assistant. How can I help you today?",
-  "voice": "Polly.Matthew-Neural",
+  "greeting": "Hi there, thanks for calling CADD Truck Parking in Midland! How can I help you today?",
+  "voice": "Polly.Joanna-Neural",
   "language": "en-US",
   "transferNumber": "+13254507486",
   "crmWebhookUrl": "",
   "notify": {
-    "smsNumbers": ["+15550000002"]
+    "smsNumbers": ["+13254507486", "+12108951301"]
   },
   "payments": {
     "providers": ["square", "stripe"],
