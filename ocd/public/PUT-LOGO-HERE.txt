@@ -1,0 +1,2 @@
+Put the official badge here as oso-ocd-logo.png (transparent PNG).
+GitHub upload: ocd/public -> Add file -> Upload files.

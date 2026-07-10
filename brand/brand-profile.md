@@ -7,10 +7,11 @@ choice will be written back here so the next video matches).
 
 ## Identity
 
-- **Brand name:** TBD
-- **Tagline:** TBD
-- **What we do (one sentence):** TBD
+- **Brand name:** OSO Content Design (OCD-OSO)
+- **Tagline:** Obsessively consistent branding
+- **What we do (one sentence):** AI-powered image and video content production — brand videos, ads, and music videos built by an agentic pipeline.
 - **Website / link for CTAs:** TBD
+- **Logo:** `ocd/public/oso-ocd-logo.png` — shield badge: fierce grizzly over chrome "OSO" lettering, film strip + clapperboard, electric blue energy, transparent background
 
 ## Voice & tone
 
@@ -23,8 +24,8 @@ choice will be written back here so the next video matches).
 The pipeline generates ONE style key image and reuses it on every clip of every
 video so the whole catalog looks like one brand.
 
-- **Style descriptor:** TBD  <!-- e.g. "flat 2D vector, thick outlines, warm off-white background, brand palette accents, non-photorealistic" -->
-- **Palette:** TBD  <!-- hex codes -->
+- **Style descriptor:** bold esports-badge energy — deep ink-navy steel environments, chrome/silver detailing, electric ice-blue glow accents, cinematic contrast; grizzly-bear mascot styled like the OSO badge  <!-- edit freely; agents refine on first run -->
+- **Palette:** #0A111C ink navy · #182740 steel navy · #4FA8E8 electric blue · #EDF3F9 chrome white · #8FA5BB silver
 - **Locked style key (job/media id):** TBD  <!-- filled automatically after the first approved video; reused on every subsequent video -->
 - **Default aspect:** 9:16  <!-- 9:16 for Reels/TikTok/Shorts, 16:9 for YouTube -->
 

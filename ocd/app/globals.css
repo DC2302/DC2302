@@ -1,12 +1,13 @@
 :root {
-  --bg: #12100e;
-  --panel: #1c1917;
-  --panel-2: #24201c;
-  --line: #37312b;
-  --text: #f5f1ea;
-  --muted: #a79e92;
-  --accent: #f0a83c;
-  --accent-ink: #2b1d05;
+  /* OSO OCD badge palette: ink navy steel, chrome white, electric ice blue */
+  --bg: #0a111c;
+  --panel: #111c2b;
+  --panel-2: #182740;
+  --line: #27405c;
+  --text: #edf3f9;
+  --muted: #8fa5bb;
+  --accent: #4fa8e8;
+  --accent-ink: #05101e;
   --err: #e5684f;
   --ok: #7fc47f;
   --radius: 14px;
@@ -208,6 +209,7 @@ button.submit {
 
 button.submit:hover {
   filter: brightness(1.06);
+  box-shadow: 0 0 22px rgba(79, 168, 232, 0.45);
 }
 
 button.submit:disabled {

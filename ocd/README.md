@@ -26,7 +26,9 @@ cd ocd && npm install && GITHUB_TOKEN=... npm run dev
 
 - Uploads are capped at 4MB per file (Vercel request-body limit). Bigger assets
   can be added straight to the repo.
-- The bear mark in `app/page.jsx` (`OsoMark`) is a placeholder — swap in the real
-  OSO logo when ready ("oso" = bear, hence the bear).
+- The official OSO OCD badge loads from `public/oso-ocd-logo.png` (also used as
+  the favicon). To add/replace it: GitHub → `ocd/public/` → Add file → Upload
+  files → name it exactly `oso-ocd-logo.png`. Until it exists, a simple line-art
+  bear shows as fallback.
 - Producing a video from a submission: open Claude Code on this repo and say
   `/brand-video` — it checks `intake/` for pending submissions automatically.
