@@ -4,25 +4,40 @@ import { useState } from "react";
 
 const MAX_FILE_MB = 4;
 
-function OsoMark({ size = 52 }) {
+function OsoBadge({ size = 84 }) {
+  // Official OSO OCD badge — file lives at ocd/public/oso-ocd-logo.png.
+  // Falls back to a simple line-art bear until the PNG is uploaded.
+  const [imgOk, setImgOk] = useState(true);
+  if (imgOk) {
+    return (
+      <img
+        src="/oso-ocd-logo.png"
+        alt="OSO OCD — Content Design badge"
+        width={size}
+        height={size}
+        style={{
+          objectFit: "contain",
+          filter: "drop-shadow(0 4px 16px rgba(79, 168, 232, 0.35))",
+        }}
+        onError={() => setImgOk(false)}
+      />
+    );
+  }
   return (
     <svg
-      width={size}
-      height={size}
+      width={size * 0.75}
+      height={size * 0.75}
       viewBox="0 0 64 64"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-label="OSO logo"
     >
-      {/* bear ears */}
-      <circle cx="18" cy="16" r="9" stroke="#F0A83C" strokeWidth="4" />
-      <circle cx="46" cy="16" r="9" stroke="#F0A83C" strokeWidth="4" />
-      {/* bear head */}
-      <circle cx="32" cy="36" r="22" stroke="#F0A83C" strokeWidth="4" />
-      {/* muzzle = the middle "S" dot of O-S-O */}
-      <circle cx="32" cy="42" r="7" fill="#F0A83C" />
-      <circle cx="26" cy="30" r="2.6" fill="#F0A83C" />
-      <circle cx="38" cy="30" r="2.6" fill="#F0A83C" />
+      <circle cx="18" cy="16" r="9" stroke="#4FA8E8" strokeWidth="4" />
+      <circle cx="46" cy="16" r="9" stroke="#4FA8E8" strokeWidth="4" />
+      <circle cx="32" cy="36" r="22" stroke="#4FA8E8" strokeWidth="4" />
+      <circle cx="32" cy="42" r="7" fill="#4FA8E8" />
+      <circle cx="26" cy="30" r="2.6" fill="#4FA8E8" />
+      <circle cx="38" cy="30" r="2.6" fill="#4FA8E8" />
     </svg>
   );
 }
@@ -69,13 +84,13 @@ export default function IntakePage() {
   return (
     <main className="wrap">
       <header className="masthead">
-        <OsoMark />
+        <OsoBadge />
         <div>
           <div className="wordmark">
             OSO <span>Content Design</span>
           </div>
           <div style={{ fontSize: 13, color: "var(--muted)", letterSpacing: "0.14em" }}>
-            O·C·D — OBSESSIVELY CONSISTENT BRANDING
+            OCD-OSO — OBSESSIVELY CONSISTENT BRANDING
           </div>
         </div>
       </header>
