@@ -1,0 +1,24 @@
+# Render.com blueprint — deploys the phone answering service.
+# In Render: New + → Blueprint → point it at this repo. Every git push to
+# the connected branch then redeploys automatically, which is how knowledge
+# file updates go live.
+services:
+  - type: web
+    name: phone-answering-service
+    runtime: docker
+    rootDir: phone-answering-service
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      # Fill these in the Render dashboard (never commit real values to git)
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: PUBLIC_BASE_URL
+        sync: false
+      - key: CLAUDE_MODEL
+        value: claude-haiku-4-5-20251001
+      # Per-client payment keys go here too, e.g. SQUARE_ACCESS_TOKEN_CADD
