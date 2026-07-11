@@ -9,14 +9,14 @@ choice will be written back here so the next video matches).
 
 - **Brand name:** OSO Content Design (OCD-OSO)
 - **Tagline:** Obsessively consistent branding
-- **What we do (one sentence):** AI-powered image and video content production — brand videos, ads, and music videos built by an agentic pipeline.
-- **Website / link for CTAs:** TBD
+- **What we do (one sentence):** AI-powered image and video content production — brand videos, ads, and music videos built by an agentic pipeline. Parent brand: OSO — business efficiency and optimization consulting.
+- **Website / link for CTAs:** https://www.osoptimization.com/en
 - **Logo:** `ocd/public/oso-ocd-logo.png` — shield badge: fierce grizzly over chrome "OSO" lettering, film strip + clapperboard, electric blue energy, transparent background
 
 ## Voice & tone
 
-- **Tone:** TBD  <!-- e.g. confident, warm, no-hype, plain-spoken -->
-- **Words we use:** TBD
+- **Tone:** confident
+- **Words we use:** "Smarter Workflows. Stronger Bottom Line."
 - **Words we never use:** TBD
 
 ## Visual style (the "style lock")
