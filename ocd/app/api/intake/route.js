@@ -1,6 +1,62 @@
 export const runtime = "nodejs";
 
 const REPO = process.env.INTAKE_REPO || "DC2302/DC2302";
+
+// Tolerate the usual paste accidents: stray whitespace/newlines and wrapping quotes.
+function cleanToken(raw) {
+  return String(raw || "").trim().replace(/^["']+|["']+$/g, "").trim();
+}
+
+// GET /api/intake — self-diagnosis page: is the token set, and does GitHub accept it?
+export async function GET() {
+  const raw = process.env.GITHUB_TOKEN;
+  if (!raw) {
+    return Response.json({
+      status: "NOT CONFIGURED",
+      problem: "GITHUB_TOKEN env var is not set on this deployment.",
+      fix: "Add it in Vercel → dc-2302 → Settings → Environment Variables, then redeploy.",
+    });
+  }
+  const token = cleanToken(raw);
+  const shape = {
+    looksLikeFineGrainedPat: token.startsWith("github_pat_"),
+    length: token.length,
+    startsWith: token.slice(0, 11),
+    endsWith: "…" + token.slice(-4),
+    hadWhitespaceOrQuotes: token !== raw,
+  };
+  let github;
+  try {
+    const res = await fetch(`https://api.github.com/repos/${REPO}`, {
+      headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" },
+      cache: "no-store",
+    });
+    const body = await res.json().catch(() => ({}));
+    github = {
+      status: res.status,
+      canSeeRepo: res.ok,
+      canWrite: Boolean(body?.permissions?.push),
+    };
+  } catch (e) {
+    github = { status: "network-error", error: String(e).slice(0, 120) };
+  }
+  let verdict, fix;
+  if (github.canSeeRepo && github.canWrite) {
+    verdict = "ALL GOOD — submissions will work.";
+    fix = null;
+  } else if (github.status === 401) {
+    verdict = "TOKEN REJECTED (401 Bad credentials).";
+    fix =
+      "The stored value is not a live token. On GitHub the token value is shown only once — if it was regenerated after you copied it, the copy is dead. Generate a fresh token, use the copy button, paste it into Vercel (edit GITHUB_TOKEN, replace the whole value), save, then Redeploy.";
+  } else if (github.canSeeRepo && !github.canWrite) {
+    verdict = "TOKEN VALID BUT READ-ONLY.";
+    fix = "On GitHub, edit the token: Repository permissions → Contents → Read and write.";
+  } else {
+    verdict = `GITHUB RETURNED ${github.status}.`;
+    fix = "Check that the token's Repository access includes DC2302/DC2302.";
+  }
+  return Response.json({ status: verdict, fix, tokenShape: shape, github, repo: REPO });
+}
 const BRANCH = process.env.INTAKE_BRANCH || "main";
 const MAX_FILE_BYTES = 4 * 1024 * 1024;
 
@@ -38,7 +94,7 @@ async function commitFile(token, path, contentBase64, message) {
 }
 
 export async function POST(request) {
-  const token = process.env.GITHUB_TOKEN;
+  const token = cleanToken(process.env.GITHUB_TOKEN);
   if (!token) {
     return Response.json(
       { ok: false, error: "Server is not configured yet (missing GITHUB_TOKEN env var on Vercel)." },
