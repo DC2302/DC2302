@@ -1,0 +1,34 @@
+{
+  "submittedAt": "2026-07-11T20:00:03.164Z",
+  "status": "pending",
+  "brand": {
+    "name": "OSO",
+    "website": "https://www.osoptimization.com/en",
+    "oneLiner": "I consult for businesses to run more efficiently and optimized",
+    "tone": "confident",
+    "palette": "",
+    "wordsUse": "Smarter Workflows. Stronger Bottom Line",
+    "wordsBan": ""
+  },
+  "request": {
+    "contentType": "brand-video",
+    "idea": "video generating tool for optmized businesses",
+    "goal": "agents-decide",
+    "platforms": [],
+    "lengthSeconds": "agents-decide",
+    "cta": "",
+    "specialInstructions": "",
+    "characterNotes": "",
+    "songUrl": "",
+    "lyrics": ""
+  },
+  "contact": {
+    "email": "daniel@osoptimization.com"
+  },
+  "assets": {
+    "logo": "assets/logo-hf_20260710_174222_6bd20358-a40d-4004-9d4f-8f87df2c5d7c.png",
+    "song": null,
+    "inspiration": [],
+    "characters": []
+  }
+}
