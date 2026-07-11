@@ -19,9 +19,15 @@ a personalized (reserved) parking space.
 
 ## Payment
 
-We accept card payments by secure payment link (Square) sent by text
-message during the call, plus Zelle, Cash App, and ACH through the payment
-page on our website. We never take card numbers over the phone.
+We accept:
+
+- Card payments by secure payment link (Square), sent by text message
+  during the call or from the payment page on our website
+- Zelle — send to Daniel Sanchez at 325-450-7486
+- Cash App — $dc23cadd
+
+We do NOT accept checks or money orders. We never take card numbers over
+the phone.
 
 ## Availability
 

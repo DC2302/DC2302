@@ -28,8 +28,9 @@ they need, and book a callback from management to confirm availability —
 or they can reserve online at caddtruckparking.com.
 
 **How do I pay?**
-By secure card payment link (sent by text during the call), or by Zelle,
-Cash App, or ACH through the payment page on our website.
+By secure card payment link (sent by text during the call), by Zelle to
+Daniel Sanchez at 325-450-7486, or by Cash App to $dc23cadd. We do not
+accept checks or money orders.
 
 **What vehicles do you accommodate?**
 Semi-trucks, trailers, and commercial vehicles. (TODO: confirm max size

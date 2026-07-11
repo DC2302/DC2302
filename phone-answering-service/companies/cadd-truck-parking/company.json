@@ -21,10 +21,10 @@
     "termsVersion": "1.0",
     "payNote": "Monthly parking payments are due on the 1st of each month.",
     "zelle": {
-      "recipientName": "CADD Truck Parking",
-      "address": "payments@caddtruckparking.example"
+      "recipientName": "Daniel Sanchez",
+      "address": "325-450-7486"
     },
-    "cashAppTag": "$CADDTruckParking",
-    "achInstructions": "Bank name: (fill in)\nRouting number: (fill in)\nAccount number: (fill in)\nAccount name: CADD Truck Parking"
+    "cashAppTag": "$dc23cadd",
+    "achInstructions": ""
   }
 }
