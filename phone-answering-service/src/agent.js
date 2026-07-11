@@ -8,7 +8,7 @@ const anthropic = new Anthropic({ apiKey: config.anthropicApiKey });
 
 const MAX_TOOL_ROUNDS = 5;
 
-function buildSystemPrompt(company, tools) {
+function buildSystemPrompt(company, tools, lang) {
   const knowledge = loadKnowledge(company);
   const providers = availableProviders(company);
   const toolNames = tools.map((t) => t.name);
@@ -21,6 +21,16 @@ function buildSystemPrompt(company, tools) {
     "- Answer ONLY from the company training materials below. If the answer is not in the materials, say you are not sure and offer a callback so a team member can follow up.",
     "- Never invent prices, policies, availability, or medical/legal advice.",
   ];
+
+  if (lang === "es") {
+    lines.push(
+      "- The caller chose Spanish. Respond ONLY in natural, friendly Mexican Spanish (the training materials are in English — translate the facts, never the exact figures). Use 'usted'."
+    );
+  } else if (company.spanish) {
+    lines.push(
+      "- If the caller starts speaking Spanish, politely say in Spanish that they can say the word 'español' to switch to Spanish service."
+    );
+  }
 
   if (toolNames.includes("book_callback")) {
     lines.push(
@@ -64,7 +74,7 @@ function buildSystemPrompt(company, tools) {
  */
 export async function getAgentReply(company, call) {
   const tools = getToolsForCompany(company);
-  const system = buildSystemPrompt(company, tools);
+  const system = buildSystemPrompt(company, tools, call.lang);
 
   // Local working copy: the tool-use back-and-forth stays out of the
   // spoken transcript in call.history.

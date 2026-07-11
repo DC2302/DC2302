@@ -46,6 +46,9 @@ function loadRegistry() {
       notify: settings.notify || { smsNumbers: [] },
       payments: settings.payments || null,
       web: settings.web || null,
+      // Optional second language, e.g. { "language": "es-MX",
+      // "voice": "Polly.Mia-Neural", "greeting": "...", "invite": "..." }
+      spanish: settings.spanish || null,
     };
 
     byId.set(company.id, company);

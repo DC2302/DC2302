@@ -12,7 +12,7 @@ const calls = new Map(); // callSid -> { company, history, startedAt, from }
 const MAX_AGE_MS = 30 * 60 * 1000; // clean up calls older than 30 minutes
 
 export function startCall(callSid, company, from) {
-  const call = { company, history: [], startedAt: new Date(), from };
+  const call = { company, history: [], startedAt: new Date(), from, lang: "en" };
   calls.set(callSid, call);
   cleanup();
   return call;

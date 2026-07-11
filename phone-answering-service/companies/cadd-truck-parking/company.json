@@ -4,6 +4,12 @@
   "greeting": "Hi there, thanks for calling CADD Truck Parking in Midland! How can I help you today?",
   "voice": "Polly.Joanna-Neural",
   "language": "en-US",
+  "spanish": {
+    "language": "es-MX",
+    "voice": "Polly.Mia-Neural",
+    "invite": "Para español, diga español.",
+    "greeting": "¡Con mucho gusto! Gracias por llamar a CADD Truck Parking en Midland. ¿En qué le puedo ayudar hoy?"
+  },
   "transferNumber": "+13254507486",
   "crmWebhookUrl": "",
   "notify": {
