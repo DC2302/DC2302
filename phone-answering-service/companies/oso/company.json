@@ -1,0 +1,30 @@
+{
+  "name": "OS Optimization",
+  "phoneNumbers": ["+15550000003"],
+  "greeting": "Thank you for calling OS Optimization! This is the virtual assistant. How can I help you today?",
+  "voice": "Polly.Joanna-Neural",
+  "language": "en-US",
+  "transferNumber": "",
+  "crmWebhookUrl": "",
+  "notify": {
+    "smsNumbers": ["+15550000004"]
+  },
+  "payments": {
+    "providers": ["square", "stripe"],
+    "squareAccessTokenEnv": "SQUARE_ACCESS_TOKEN_OSO",
+    "squareLocationIdEnv": "SQUARE_LOCATION_ID_OSO",
+    "stripeSecretKeyEnv": "STRIPE_SECRET_KEY_OSO",
+    "currency": "USD",
+    "maxAmountDollars": 5000
+  },
+  "web": {
+    "termsVersion": "1.0",
+    "payNote": "",
+    "zelle": {
+      "recipientName": "OS Optimization",
+      "address": "daniel@osoptimization.com"
+    },
+    "cashAppTag": "",
+    "achInstructions": ""
+  }
+}

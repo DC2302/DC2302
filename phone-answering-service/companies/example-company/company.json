@@ -1,0 +1,9 @@
+{
+  "name": "Example Plumbing Co.",
+  "phoneNumbers": ["+15551234567"],
+  "greeting": "Thank you for calling Example Plumbing! This is the virtual assistant. How can I help you today?",
+  "voice": "Polly.Joanna-Neural",
+  "language": "en-US",
+  "transferNumber": "+15557654321",
+  "crmWebhookUrl": ""
+}
