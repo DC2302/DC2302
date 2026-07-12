@@ -1,0 +1,38 @@
+{
+  "submittedAt": "2026-07-12T06:19:23.539Z",
+  "status": "pending",
+  "brand": {
+    "name": "OSO-Operational Systems Optimization",
+    "website": "https://www.osoptimization.com/en",
+    "oneLiner": "I consult for businesses to run more efficiently and optimized",
+    "tone": "confident",
+    "palette": "",
+    "wordsUse": "Smarter Workflows. Stronger Bottom Line",
+    "wordsBan": ""
+  },
+  "request": {
+    "contentType": "brand-video",
+    "idea": "if you are tired of flying blind in your business, dont really have a grasp on your actual numbers, feel like the back office is not running in an optimized way, or you believ that there si room for improvement in streamlining and improving your workflows and processes but dont know how, call OSO, we can help",
+    "goal": "agents-decide",
+    "platforms": [],
+    "lengthSeconds": "40",
+    "cta": "Book a 30 minute Consultation",
+    "specialInstructions": "",
+    "characterNotes": "OSO",
+    "songUrl": "",
+    "lyrics": ""
+  },
+  "contact": {
+    "email": "daniel@osoptimization.com"
+  },
+  "assets": {
+    "logo": "assets/logo-ROOFERS.png",
+    "song": null,
+    "inspiration": [
+      "assets/inspiration-rigs2.jpg"
+    ],
+    "characters": [
+      "assets/characters-ChatGPT_Image_Feb_16_2026_08_43_28_AM.png"
+    ]
+  }
+}
