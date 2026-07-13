@@ -71,6 +71,21 @@ function wantsEnglish(speech) {
   );
 }
 
+// Plays the greeting and starts listening — the AI answers the call.
+function greetWithAgent(twiml, company, call) {
+  const g = gather(twiml, company, call);
+  say(g, company, company.greeting, call);
+  if (company.spanish) {
+    const invite = company.spanish.invite || "Para español, diga español.";
+    g.say(
+      { voice: company.spanish.voice || "Polly.Mia-Neural", language: company.spanish.language || "es-MX" },
+      invite
+    );
+  }
+  // If the caller says nothing, ask again instead of dropping the call.
+  twiml.redirect({ method: "POST" }, "/greet");
+}
+
 // Step 1 — Twilio hits this when a call comes in.
 // Point each Twilio phone number's "A call comes in" webhook at POST /voice.
 app.post("/voice", validateTwilio, (req, res) => {
@@ -82,17 +97,52 @@ app.post("/voice", validateTwilio, (req, res) => {
     twiml.hangup();
   } else {
     const call = getCall(req.body.CallSid) || startCall(req.body.CallSid, company, req.body.From);
-    const g = gather(twiml, company, call);
-    say(g, company, company.greeting, call);
-    if (company.spanish) {
-      const invite = company.spanish.invite || "Para español, diga español.";
-      g.say(
-        { voice: company.spanish.voice || "Polly.Mia-Neural", language: company.spanish.language || "es-MX" },
-        invite
-      );
+
+    if (company.ringFirst?.numbers?.length) {
+      // Human-first: ring the team's phones simultaneously. If nobody
+      // answers within the timeout, /dial-result hands the call to the AI.
+      // Keep the timeout shorter than the cells' voicemail (~20s) so
+      // voicemail can't swallow the call.
+      const dial = twiml.dial({
+        timeout: company.ringFirst.timeoutSeconds || 15,
+        answerOnBridge: true,
+        action: "/dial-result",
+        method: "POST",
+      });
+      for (const number of company.ringFirst.numbers) dial.number(number);
+    } else {
+      greetWithAgent(twiml, company, call);
     }
-    // If the caller says nothing, ask again instead of dropping the call.
-    twiml.redirect({ method: "POST" }, "/voice");
+  }
+
+  res.type("text/xml").send(twiml.toString());
+});
+
+// After the human-first ring: a team member answered (call is done), or
+// nobody picked up and the AI takes over.
+app.post("/dial-result", validateTwilio, (req, res) => {
+  const twiml = new VoiceResponse();
+  const call = getCall(req.body.CallSid);
+
+  if (req.body.DialCallStatus === "completed" || !call) {
+    twiml.hangup();
+  } else {
+    greetWithAgent(twiml, call.company, call);
+  }
+
+  res.type("text/xml").send(twiml.toString());
+});
+
+// Re-greets a caller who stayed silent (used by greetWithAgent's redirect).
+app.post("/greet", validateTwilio, (req, res) => {
+  const twiml = new VoiceResponse();
+  const call = getCall(req.body.CallSid);
+
+  if (!call) {
+    twiml.say("Sorry, something went wrong. Please call back. Goodbye.");
+    twiml.hangup();
+  } else {
+    greetWithAgent(twiml, call.company, call);
   }
 
   res.type("text/xml").send(twiml.toString());

@@ -49,6 +49,10 @@ function loadRegistry() {
       // Optional second language, e.g. { "language": "es-MX",
       // "voice": "Polly.Mia-Neural", "greeting": "...", "invite": "..." }
       spanish: settings.spanish || null,
+      // Optional human-first ring: rings these cells simultaneously for
+      // timeoutSeconds; the AI answers only if no one picks up.
+      // e.g. { "numbers": ["+1...", "+1..."], "timeoutSeconds": 15 }
+      ringFirst: settings.ringFirst || null,
     };
 
     byId.set(company.id, company);
