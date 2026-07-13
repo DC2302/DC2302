@@ -7,7 +7,7 @@ Block 2
 A customer who hasn't paid. Invoices piling up in the backlog. Trucks still out on the road. One more thing your crew didn't handle.
 
 Block 3
-We can't promise to fix everything. But we can help bring the problems to the surface, and address them. Nobody taught you the finances, the compliance, or the technology.
+We can't promise to fix everything. But we'll surface the problems and address them — the finances, the compliance, the technology nobody taught you.
 
 Block 4
 You don't have to do it alone. OSO can help. Book your free thirty-minute consultation today.
