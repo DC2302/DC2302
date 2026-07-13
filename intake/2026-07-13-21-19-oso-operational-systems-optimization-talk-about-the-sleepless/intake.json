@@ -1,0 +1,42 @@
+{
+  "submittedAt": "2026-07-13T21:19:29.855Z",
+  "status": "pending",
+  "brand": {
+    "name": "OSO-Operational Systems Optimization",
+    "website": "https://www.osoptimization.com/en",
+    "oneLiner": "I consult for businesses to run more efficiently and optimized",
+    "tone": "confident",
+    "palette": "",
+    "wordsUse": "Smarter Workflows. Stronger Bottom Line",
+    "wordsBan": ""
+  },
+  "request": {
+    "contentType": "brand-video",
+    "idea": "talk about the sleepless nights owners have when you run a business, making payroll this eek, customers not paying on time, invoicing not being processed quickly, vehicles on the road, not all employees doiing what they are supposed to, all things that keep you up at noght, we cant promise we can fix everything but we can sure;y help bring problems up to the surface and adress them accordingly, you learned how to do the work extremely well but nobody taught you about finances, accounting, compliance, or technology, you dont have to do it alone, Ohso can help, setup your free 30 minute consultation today",
+    "goal": "lead-generation",
+    "platforms": [
+      "TikTok",
+      "Instagram Reels",
+      "YouTube Shorts"
+    ],
+    "lengthSeconds": "agents-decide",
+    "cta": "Book a 30 minute Consultation",
+    "specialInstructions": "always end with logo",
+    "characterNotes": "Ohso",
+    "songUrl": "",
+    "lyrics": ""
+  },
+  "contact": {
+    "email": "daniel@osoptimization.com"
+  },
+  "assets": {
+    "logo": "assets/logo-ROOFERS.png",
+    "song": null,
+    "inspiration": [
+      "assets/inspiration-hf_20260325_011349_dfd113b8-9588-4711-b464-dd48701c2ddf.png"
+    ],
+    "characters": [
+      "assets/characters-ChatGPT_Image_Feb_16_2026_08_43_28_AM.png"
+    ]
+  }
+}
