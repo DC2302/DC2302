@@ -29,8 +29,25 @@ function validateTwilio(req, res, next) {
     url,
     req.body
   );
-  if (!valid) return res.status(403).send("Invalid Twilio signature");
+  if (!valid) {
+    console.warn(
+      `Rejected webhook ${req.originalUrl}: Twilio signature check failed. ` +
+        "If this happens on every call, TWILIO_AUTH_TOKEN or PUBLIC_BASE_URL is wrong."
+    );
+    return res.status(403).send("Invalid Twilio signature");
+  }
   next();
+}
+
+// Looks up the in-progress call, or reconstructs it from the webhook body —
+// the server restarts on every deploy and must not error live calls that
+// started before the restart.
+function ensureCall(req) {
+  const existing = getCall(req.body.CallSid);
+  if (existing) return existing;
+  const company = findCompanyByNumber(req.body.To);
+  if (!company) return null;
+  return startCall(req.body.CallSid, company, req.body.From);
 }
 
 // Per-call language: calls start in the company's primary language and can
@@ -122,7 +139,7 @@ app.post("/voice", validateTwilio, (req, res) => {
 // nobody picked up and the AI takes over.
 app.post("/dial-result", validateTwilio, (req, res) => {
   const twiml = new VoiceResponse();
-  const call = getCall(req.body.CallSid);
+  const call = ensureCall(req);
 
   if (req.body.DialCallStatus === "completed" || !call) {
     twiml.hangup();
@@ -136,7 +153,7 @@ app.post("/dial-result", validateTwilio, (req, res) => {
 // Re-greets a caller who stayed silent (used by greetWithAgent's redirect).
 app.post("/greet", validateTwilio, (req, res) => {
   const twiml = new VoiceResponse();
-  const call = getCall(req.body.CallSid);
+  const call = ensureCall(req);
 
   if (!call) {
     twiml.say("Sorry, something went wrong. Please call back. Goodbye.");
@@ -151,7 +168,9 @@ app.post("/greet", validateTwilio, (req, res) => {
 // Step 2 — Twilio sends us what the caller said; we answer with Claude.
 app.post("/respond", validateTwilio, async (req, res) => {
   const twiml = new VoiceResponse();
-  const call = getCall(req.body.CallSid);
+  // ensureCall: if the server restarted mid-call (deploys), the caller keeps
+  // talking to the agent — it just loses memory of the earlier exchanges.
+  const call = ensureCall(req);
 
   if (!call) {
     twiml.say("Sorry, something went wrong. Please call back. Goodbye.");

@@ -14,7 +14,7 @@
   "crmWebhookUrl": "",
   "ringFirst": {
     "numbers": ["+13254507486", "+12108951301"],
-    "timeoutSeconds": 15
+    "timeoutSeconds": 10
   },
   "notify": {
     "smsNumbers": ["+13254507486", "+12108951301"]
