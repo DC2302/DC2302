@@ -1,5 +1,6 @@
 ---
 name: video-designer
+model: sonnet
 description: AI video generation operator for the /brand-video pipeline. Executes the storyboard against the Higgsfield MCP - generates/reuses the style key image, character references, all block clips, and the per-block voiceover takes, then reports every job id and result URL. Use as Phase 4 of the brand-video pipeline.
 tools: "*"
 ---

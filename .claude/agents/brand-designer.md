@@ -1,5 +1,6 @@
 ---
 name: brand-designer
+model: sonnet
 description: Content design agent for the /brand-video pipeline. Turns brief + script into the visual system - a style key descriptor (the brand style-lock), character continuity notes, and a per-block storyboard with scene, motion, and ambient audio. Use as Phase 3 of the brand-video pipeline.
 tools: Read, Glob, Grep, Write
 ---

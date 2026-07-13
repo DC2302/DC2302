@@ -31,8 +31,8 @@ video so the whole catalog looks like one brand.
 
 ## Narrator
 
-- **Locked voice_id:** TBD  <!-- filled after you pick a voice on the first run; reused forever after -->
-- **Locked voice_type:** TBD  <!-- preset | element -->
+- **Locked voice_id:** dc382508-c8bd-443c-8cb2-46e57b8d2e6f  <!-- "Sterling" — deep, confident male -->
+- **Locked voice_type:** preset
 - **Language:** English
 
 ## Recurring characters / mascot
