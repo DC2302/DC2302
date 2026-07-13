@@ -1,5 +1,6 @@
 ---
 name: content-writer
+model: sonnet
 description: Script and copywriting agent for the /brand-video pipeline. Turns a creative brief into per-block narration (one 10-second block per clip) plus on-screen text suggestions and CTA copy. Use as Phase 2 of the brand-video pipeline after the creative brief exists.
 tools: Read, Glob, Grep, WebSearch, Write
 ---

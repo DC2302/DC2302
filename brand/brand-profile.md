@@ -26,13 +26,13 @@ video so the whole catalog looks like one brand.
 
 - **Style descriptor:** bold esports-badge energy — deep ink-navy steel environments, chrome/silver detailing, electric ice-blue glow accents, cinematic contrast; grizzly-bear mascot styled like the OSO badge  <!-- edit freely; agents refine on first run -->
 - **Palette:** #0A111C ink navy · #182740 steel navy · #4FA8E8 electric blue · #EDF3F9 chrome white · #8FA5BB silver
-- **Locked style key (job/media id):** TBD  <!-- filled automatically after the first approved video; reused on every subsequent video -->
+- **Locked style key (job/media id):** cd119d60-892c-42a7-9404-3144912bce87  <!-- 9:16 badge-style swatch; attach to every clip. NOTE: always pass aspect_ratio "9:16" explicitly to gemini_omni, and decline the "3D RENDER" preset with declined_preset_id when intercepted -->
 - **Default aspect:** 9:16  <!-- 9:16 for Reels/TikTok/Shorts, 16:9 for YouTube -->
 
 ## Narrator
 
-- **Locked voice_id:** TBD  <!-- filled after you pick a voice on the first run; reused forever after -->
-- **Locked voice_type:** TBD  <!-- preset | element -->
+- **Locked voice_id:** dc382508-c8bd-443c-8cb2-46e57b8d2e6f  <!-- "Sterling" — deep, confident male -->
+- **Locked voice_type:** preset
 - **Language:** English
 
 ## Recurring characters / mascot
@@ -42,7 +42,7 @@ the id is saved here and attached to every future scene featuring that character
 
 | Character | Description | Reference id |
 |---|---|---|
-| (none yet) | | |
+| OSO Grizzly | Fierce grizzly styled like the OSO badge: chrome/silver fur, steel-navy shadowing, glowing ice-blue eyes, broad esports-badge silhouette | e4c62fde-9371-47e7-80f1-9ba9dbca563d |
 
 ## Standing CTAs by goal
 

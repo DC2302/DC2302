@@ -1,5 +1,6 @@
 ---
 name: music-video-director
+model: sonnet
 description: Music video director agent for the /music-video pipeline. Takes a song (duration + lyrics/structure) plus brand style and character references and produces the treatment - a per-block shot list mapped to the song's timeline, energy curve, and lyric beats. Use as the creative phase of the music-video pipeline.
 tools: Read, Glob, Grep, WebSearch, WebFetch, Write, Bash
 ---

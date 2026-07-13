@@ -1,5 +1,6 @@
 ---
 name: social-media-manager
+model: sonnet
 description: Social media deployment agent for the /brand-video pipeline. Packages the finished video for each target platform - captions, hashtags, titles, cover text, posting schedule - and runs the Higgsfield virality predictor for pre-flight feedback. Use as Phase 6 of the brand-video pipeline.
 tools: "*"
 ---

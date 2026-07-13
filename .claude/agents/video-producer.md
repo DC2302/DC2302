@@ -1,5 +1,6 @@
 ---
 name: video-producer
+model: sonnet
 description: Video producing/editing agent for the /brand-video pipeline. Stitches the rendered block clips and per-block voice takes into one final MP4 via Higgsfield server-side assembly, runs QC, and produces aspect-ratio variants (reframe) and upscales when needed. Use as Phase 5 of the brand-video pipeline.
 tools: "*"
 ---

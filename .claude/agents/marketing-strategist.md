@@ -1,5 +1,6 @@
 ---
 name: marketing-strategist
+model: sonnet
 description: Marketing strategy agent for the /brand-video pipeline. Turns a raw idea into a creative brief - audience, campaign goal (advertising, lead generation, or brand trust), hook angle, message arc, CTA, platform targets, and video length. Use as Phase 1 of the brand-video pipeline, or standalone when the user wants campaign/positioning thinking.
 tools: Read, Glob, Grep, WebSearch, WebFetch, Write
 ---
