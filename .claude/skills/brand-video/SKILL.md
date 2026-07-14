@@ -46,9 +46,14 @@ the user what you locked in and how to change it).
 
 ## Setup (every run)
 
-1. Read `brand/brand-profile.md`. If it's all TBD, this is a first run: tell the
-   user you'll lock in their brand look and narrator this run and reuse them on
-   every future video.
+1. Determine WHOSE brand this video is for. OSO's own content uses
+   `brand/brand-profile.md`. A client submission (intake brand name ≠ OSO) uses
+   `brand/clients/<client-slug>/brand-profile.md` — create it from the intake's
+   brand block + assets on the client's first run, with its OWN style key,
+   narrator voice, characters, and logo; never mix a client's look with OSO's
+   locks or another client's. Pass the correct profile path to every agent. If
+   the active profile is all TBD, this is that brand's first run: locks get
+   chosen (auto mode: pick sensibly and report) and written back to THAT profile.
 2. Create `projects/<slug>/` (slug from the working title). All artifacts live
    there: `brief.md`, `script.md`, `storyboard.md`, `assets.md`,
    `deliverables.md`, `distribution.md`.
