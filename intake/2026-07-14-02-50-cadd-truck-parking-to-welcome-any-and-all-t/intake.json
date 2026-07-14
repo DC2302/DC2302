@@ -1,0 +1,38 @@
+{
+  "submittedAt": "2026-07-14T02:50:18.883Z",
+  "status": "pending",
+  "brand": {
+    "name": "CADD Truck Parking",
+    "website": "https://caddtruckparking.com/",
+    "oneLiner": "we provide safe and secure truck parking in the permian basin",
+    "tone": "Trusting and safe",
+    "palette": "",
+    "wordsUse": "safe, secure, clean, organized, big rigs, tractor trailer, best value, best bang for the buck, only lot in the permian with our amenities",
+    "wordsBan": "cheap, unsafe, expensive"
+  },
+  "request": {
+    "contentType": "brand-video",
+    "idea": "to welcome any and all truck drivers, owner operators, and fleet managers to come park with us where they will find a brotherhood and a safe and secure place that will provide a peaceful rest for you and your rig, mention the call to action which is to reserve now just go to our website at caddtruckparking.com",
+    "goal": "agents-decide",
+    "platforms": [],
+    "lengthSeconds": "agents-decide",
+    "cta": "\"Reserve Now at CADDTRUCKPARKING.COM\"",
+    "specialInstructions": "end with the logo and mention that we speak spanish by using this phrase, \"y no te olvides que tambien hablamos espanol\"",
+    "characterNotes": "\"Big D\"",
+    "songUrl": "",
+    "lyrics": ""
+  },
+  "contact": {
+    "email": "daniel@osoptimization.com"
+  },
+  "assets": {
+    "logo": "assets/logo-cadd_logo_transparent_bg.png",
+    "song": null,
+    "inspiration": [
+      "assets/inspiration-DS106.jpg"
+    ],
+    "characters": [
+      "assets/characters-copy_2561DDF6-50FD-46ED-9611-C1C01AF0931A.jpeg"
+    ]
+  }
+}
