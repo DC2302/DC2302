@@ -23,7 +23,7 @@ and commercial vehicles in Midland, Texas.
   unlimited showers with a Gold membership
 - Full laundry facility with commercial washers and dryers
 - Driver lobby with restrooms, vending machines, washer and dryer, and
-  satellite TV
+  TV with streaming capabilities (no satellite TV)
 
 > NOTE: The company's EIN and billing/mailing address are intentionally NOT
 > in this folder — the caller-facing agent must never read them out, and

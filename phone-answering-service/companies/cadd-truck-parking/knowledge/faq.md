@@ -14,7 +14,8 @@ unlimited showers with a Gold membership.
 
 **Do you have laundry?**
 Yes — a full laundry facility with commercial washers and dryers, plus a
-driver lobby with restrooms, vending machines, and satellite TV.
+driver lobby with restrooms, vending machines, and a TV with streaming
+capabilities.
 
 **What are your rates?**
 Daily, weekly, and monthly rates are available, priced per space, with
