@@ -20,7 +20,7 @@ videos — never OSO's own profile.
 ## Visual style (the "style lock")
 
 - **Style descriptor:** warm friendly cartoon illustration matching the Big D mascot — bold thick black outlines, flat warm shading, approachable and trustworthy; palette: CADD red (#A6192E), navy, denim blue, warm tan/cream (their real lot's buildings and shade sails), safety yellow accents, bright West-Texas blue sky; non-photorealistic
-- **Locked style key (job/media id):** TBD  <!-- filled on first production run -->
+- **Locked style key (job/media id):** 6eeb5d91-e1da-41d0-b7d5-c45450f2f212  <!-- established on cadd-welcome production run, 2026-07-14 -->
 - **Default aspect:** 9:16
 
 ## Narrator
