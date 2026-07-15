@@ -40,9 +40,14 @@ Results land in the `output/` folder:
 
 | File | What it is |
 |---|---|
+| `leads.xlsx` | **The main one.** Excel workbook: ranked leads with blank Phone / Contact / Call-notes columns to fill in as you work the list (SWD leads highlighted yellow), plus a raw-permits tab |
 | `call_sheet.md` | Who to call, ranked, with a talking point each |
-| `leads.csv` | Same list for Excel / Google Sheets |
+| `leads.csv` | Same list as plain CSV |
 | `permits_raw.csv` | Every raw permit record, if you want details |
+
+**To use it in Google Sheets:** go to [sheets.google.com](https://sheets.google.com),
+open a blank sheet, then **File → Import → Upload** and drop `leads.xlsx`
+in. Formatting and both tabs come across.
 
 Useful options:
 

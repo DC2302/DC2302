@@ -23,6 +23,7 @@ from lobos_leads.leads import build_leads
 from lobos_leads.report import (
     write_call_sheet,
     write_leads_csv,
+    write_leads_xlsx,
     write_permits_csv,
 )
 
@@ -122,11 +123,21 @@ def main() -> int:
     leads = build_leads(permits)
 
     leads_csv = out_dir / "leads.csv"
+    leads_xlsx = out_dir / "leads.xlsx"
     permits_csv = out_dir / "permits_raw.csv"
     call_sheet = out_dir / "call_sheet.md"
     write_leads_csv(leads, leads_csv)
     write_permits_csv(permits, permits_csv)
     write_call_sheet(leads, call_sheet, top_n=args.top, demo=args.demo)
+    try:
+        write_leads_xlsx(leads, permits, leads_xlsx)
+    except ImportError:
+        print(
+            "(Excel output skipped -- run 'pip install openpyxl' to get "
+            "leads.xlsx too)",
+            file=sys.stderr,
+        )
+        leads_xlsx = None
 
     print(f"\n{len(permits)} permit records -> {len(leads)} companies\n")
     print("Top 10 leads:")
@@ -136,8 +147,11 @@ def main() -> int:
             f"({lead['drilling_permits']} drill / {lead['swd_permits']} SWD)  "
             f"{', '.join(lead['counties'][:3])}"
         )
+    print("\nWrote:")
+    if leads_xlsx:
+        print(f"  {leads_xlsx}   (Excel -- also imports into Google Sheets)")
     print(
-        f"\nWrote:\n  {leads_csv}   (open in Excel/Sheets)\n"
+        f"  {leads_csv}   (same list as plain CSV)\n"
         f"  {call_sheet}   (who to call + talking points)\n"
         f"  {permits_csv}   (every raw permit record)"
     )
