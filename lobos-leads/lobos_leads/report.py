@@ -28,9 +28,9 @@ def write_leads_csv(leads: list, path: Path):
         writer = csv.writer(fh)
         writer.writerow(
             [
-                "rank", "operator", "score", "drilling_permits",
-                "swd_permits", "counties", "states", "latest_activity",
-                "pitch",
+                "rank", "operator", "category", "score", "drilling_permits",
+                "swd_permits", "pipeline_permits", "datacenter_projects",
+                "counties", "states", "latest_activity", "pitch",
             ]
         )
         for i, lead in enumerate(leads, 1):
@@ -38,9 +38,12 @@ def write_leads_csv(leads: list, path: Path):
                 [
                     i,
                     lead["operator"],
+                    lead["category"],
                     lead["score"],
                     lead["drilling_permits"],
                     lead["swd_permits"],
+                    lead["pipeline_permits"],
+                    lead["datacenter_projects"],
                     "; ".join(lead["counties"]),
                     "; ".join(lead["states"]),
                     lead["latest_activity"],
@@ -53,7 +56,8 @@ def write_permits_csv(permits: list, path: Path):
     if not permits:
         return
     cols = ["signal", "state", "operator", "county", "district",
-            "date", "purpose", "lease", "permit_no"]
+            "date", "purpose", "lease", "permit_no",
+            "contractor", "design_firm", "cost"]
     with path.open("w", newline="", encoding="utf-8") as fh:
         writer = csv.DictWriter(fh, fieldnames=cols, extrasaction="ignore")
         writer.writeheader()
@@ -61,8 +65,9 @@ def write_permits_csv(permits: list, path: Path):
 
 
 LEAD_COLUMNS = [
-    ("Rank", 6), ("Company", 38), ("Score", 7),
+    ("Rank", 6), ("Company", 38), ("Category", 12), ("Score", 7),
     ("Drilling permits", 15), ("SWD permits", 12),
+    ("Pipeline permits", 14), ("Data center projects", 12),
     ("Counties", 28), ("States", 8), ("Latest activity", 14),
     ("What to pitch", 90),
     ("Phone", 16), ("Contact name", 22), ("Call notes / status", 40),
@@ -89,14 +94,22 @@ def write_leads_xlsx(leads: list, permits: list, path: Path):
         cell.fill = header_fill
         ws.column_dimensions[get_column_letter(col)].width = width
 
-    swd_fill = PatternFill("solid", fgColor="FFF2CC")  # highlight SWD leads
+    swd_fill = PatternFill("solid", fgColor="FFF2CC")   # SWD leads
+    dc_fill = PatternFill("solid", fgColor="DDEBF7")    # data-center leads
+    pitch_col = next(
+        i for i, (title, _) in enumerate(LEAD_COLUMNS, 1)
+        if title == "What to pitch"
+    )
     for i, lead in enumerate(leads, 2):
         row = [
             i - 1,
             lead["operator"],
+            "Data center" if lead["category"] == "datacenter" else "Oil & gas",
             lead["score"],
             lead["drilling_permits"],
             lead["swd_permits"],
+            lead["pipeline_permits"],
+            lead["datacenter_projects"],
             ", ".join(lead["counties"]),
             "/".join(lead["states"]),
             lead["latest_activity"],
@@ -105,16 +118,24 @@ def write_leads_xlsx(leads: list, permits: list, path: Path):
         ]
         for col, value in enumerate(row, 1):
             cell = ws.cell(row=i, column=col, value=value)
-            cell.alignment = Alignment(vertical="top", wrap_text=(col == 9))
-        if lead["swd_permits"]:
+            cell.alignment = Alignment(
+                vertical="top", wrap_text=(col == pitch_col)
+            )
+        fill = None
+        if lead["category"] == "datacenter":
+            fill = dc_fill
+        elif lead["swd_permits"]:
+            fill = swd_fill
+        if fill:
             for col in range(1, len(row) + 1):
-                ws.cell(row=i, column=col).fill = swd_fill
+                ws.cell(row=i, column=col).fill = fill
     ws.freeze_panes = "A2"
     ws.auto_filter.ref = f"A1:{get_column_letter(len(LEAD_COLUMNS))}{len(leads) + 1}"
 
     raw = wb.create_sheet("Raw permits")
     raw_cols = ["signal", "state", "operator", "county", "district",
-                "date", "purpose", "lease", "permit_no"]
+                "date", "purpose", "lease", "permit_no",
+                "contractor", "design_firm", "cost"]
     for col, title in enumerate(raw_cols, 1):
         cell = raw.cell(row=1, column=col, value=title.replace("_", " ").title())
         cell.font = header_font
@@ -141,23 +162,58 @@ def write_call_sheet(leads: list, path: Path, top_n: int = 25,
             "> `--demo` to pull live permit data.",
             "",
         ]
+    oilgas = [l for l in leads if l["category"] == "oilgas"]
+    datacenter = [l for l in leads if l["category"] == "datacenter"]
+
     lines += [
-        f"Top {min(top_n, len(leads))} of {len(leads)} companies with "
-        "recent Permian Basin permit activity, ranked by how much "
-        "facility-construction work their permits imply.",
+        f"{len(leads)} companies with recent activity, ranked by how "
+        "much facility-construction work their filings imply.",
+        "",
+        "# Part 1 -- Oil & gas operators (Permian Basin)",
         "",
     ]
-    for i, lead in enumerate(leads[:top_n], 1):
+    lines += _lead_entries(oilgas[:top_n])
+
+    if datacenter:
+        lines += [
+            "# Part 2 -- Data center / large commercial builds "
+            "(West Texas)",
+            "",
+            "These are construction projects, not operators: call the "
+            "owner's development team AND the general contractor / "
+            "design firm about subcontract packages (site work, "
+            "trenching, utility infrastructure, concrete).",
+            "",
+        ]
+        lines += _lead_entries(datacenter[:top_n])
+
+    lines += [CONTACT_HELP]
+    path.write_text("\n".join(lines), encoding="utf-8")
+
+
+def _lead_entries(leads: list) -> list:
+    lines = []
+    for i, lead in enumerate(leads, 1):
+        activity = []
+        if lead["drilling_permits"]:
+            activity.append(f"{lead['drilling_permits']} drilling permit(s)")
+        if lead["swd_permits"]:
+            activity.append(f"{lead['swd_permits']} SWD permit(s)")
+        if lead["pipeline_permits"]:
+            activity.append(f"{lead['pipeline_permits']} pipeline permit(s)")
+        if lead["datacenter_projects"]:
+            activity.append(
+                f"{lead['datacenter_projects']} registered construction "
+                "project(s)"
+            )
         lines += [
             f"## {i}. {lead['operator']}  (score {lead['score']})",
             "",
-            f"- **Activity:** {lead['drilling_permits']} drilling "
-            f"permit(s), {lead['swd_permits']} SWD permit(s)",
+            f"- **Activity:** {', '.join(activity) or 'n/a'}",
             f"- **Where:** {', '.join(lead['counties'])} "
             f"({'/'.join(lead['states'])})",
             f"- **Most recent:** {lead['latest_activity'] or 'n/a'}",
             f"- **Talking point:** {lead['pitch']}",
             "",
         ]
-    lines += [CONTACT_HELP]
-    path.write_text("\n".join(lines), encoding="utf-8")
+    return lines

@@ -62,7 +62,8 @@ def main() -> int:
     )
     parser.add_argument(
         "--skip", nargs="*", default=[],
-        choices=["rrc-drilling", "rrc-swd", "nm-ocd"],
+        choices=["rrc-drilling", "rrc-swd", "nm-ocd", "rrc-pipeline",
+                 "tdlr-datacenters"],
         help="skip a data source",
     )
     parser.add_argument(
@@ -89,12 +90,20 @@ def main() -> int:
         permits = load_demo()
     else:
         # Imported lazily so --demo works without network access.
-        from lobos_leads.sources import nm_ocd, rrc_drilling, rrc_swd
+        from lobos_leads.sources import (
+            nm_ocd,
+            rrc_drilling,
+            rrc_pipeline,
+            rrc_swd,
+            tdlr_datacenters,
+        )
 
         sources = [
             ("rrc-drilling", lambda: rrc_drilling.fetch(
                 days_back=args.days, counties=args.counties)),
             ("rrc-swd", lambda: rrc_swd.fetch(
+                days_back=args.swd_days, counties=args.counties)),
+            ("rrc-pipeline", lambda: rrc_pipeline.fetch(
                 days_back=args.swd_days, counties=args.counties)),
             ("nm-ocd", lambda: nm_ocd.fetch(
                 days_back=args.days,
@@ -102,6 +111,7 @@ def main() -> int:
                     c for c in args.counties
                     if c.upper() in PERMIAN_NM_COUNTIES
                 ] or None)),
+            ("tdlr-datacenters", lambda: tdlr_datacenters.fetch()),
         ]
         for name, fetcher in sources:
             if name in args.skip:
@@ -147,9 +157,12 @@ def main() -> int:
     print(f"\n{len(permits)} permit records -> {len(leads)} companies\n")
     print("Top 10 leads:")
     for i, lead in enumerate(leads[:10], 1):
+        tag = "DC " if lead["category"] == "datacenter" else "O&G"
         print(
-            f"  {i:2}. {lead['operator']:<38} score {lead['score']:>3}  "
-            f"({lead['drilling_permits']} drill / {lead['swd_permits']} SWD)  "
+            f"  {i:2}. [{tag}] {lead['operator']:<36} score {lead['score']:>3}  "
+            f"({lead['drilling_permits']} drill / {lead['swd_permits']} SWD / "
+            f"{lead['pipeline_permits']} pipe / "
+            f"{lead['datacenter_projects']} DC)  "
             f"{', '.join(lead['counties'][:3])}"
         )
     print("\nWrote:")

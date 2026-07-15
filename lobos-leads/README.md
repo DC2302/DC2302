@@ -1,9 +1,10 @@
 # Lobos Permian Basin Lead Finder
 
 A small tool that finds companies who are **about to need facility
-construction work** in the Permian Basin — tank batteries, compressor
-stations, saltwater disposal facilities, pipeline trenching and
-tie-ins — and turns them into a ranked call list.
+construction work** in the Permian Basin and West Texas — tank
+batteries, compressor stations, saltwater disposal facilities,
+pipeline trenching/connecting/rehab, and data-center site work — and
+turns them into a ranked call list.
 
 ## The idea
 
@@ -16,6 +17,14 @@ permits** with the state. So instead of cold-calling blindly:
 - A company that filed a **saltwater-disposal permit application**
   (Form W-14) is literally about to build an SWD facility — pad,
   tanks, pumps, and water-gathering pipeline. That's a whole project.
+- A company with a **new or amended pipeline permit** (Form T-4) is
+  putting pipe in the ground or reworking a system — trenching,
+  connecting, rehab, and the maintenance work that follows.
+- A **registered commercial construction project** (data centers,
+  substations): Texas law requires every commercial project over $50k
+  to be registered with TDLR *before* construction, and the public
+  registration names the owner, design firm, and general contractor —
+  the exact people to call about subcontract packages.
 
 This tool pulls those permits from the public state systems, groups
 them by company, scores them (SWD applications count 4x a drilling
@@ -86,7 +95,9 @@ just edit the `recipients` list.
 |---|---|---|
 | Texas RRC drilling permit (W-1) query | New wells coming in RRC districts 08 / 8A / 7C | <https://webapps.rrc.texas.gov/DP/initializePublicQueryAction.do> |
 | Texas RRC injection/disposal (UIC) query | SWD facilities about to be built | <https://webapps2.rrc.texas.gov/EWA/uicQueryAction.do> |
+| Texas RRC pipeline (T-4) permits via public GIS | Pipeline construction / rehab coming | <https://www.rrc.texas.gov/pipeline-safety/permitting-and-mapping/permitting/new-permits/> |
 | New Mexico OCD permitting data | Delaware Basin (Lea & Eddy County) drilling permits | <https://wwwapps.emnrd.nm.gov/OCD/OCDPermitting/Data/Permits.aspx> |
+| TDLR TABS project registry | Data-center & big commercial builds in West Texas, with owner / design firm / general contractor | <https://www.tdlr.texas.gov/tabs/search> |
 
 All of it is public record. The tool waits ~3 seconds between page
 requests and retries gently — the RRC explicitly warns that aggressive
@@ -105,6 +116,28 @@ a day or once a week is plenty; permits don't move faster than that.
    group — not drilling. On LinkedIn, search the company name plus
    "facilities engineer", "construction superintendent", or
    "production superintendent".
+
+## Working the data-center angle (West Texas)
+
+Data-center campuses are the biggest construction story in West Texas
+right now (Abilene's Stargate campus being the headline example), and
+they need enormous amounts of the work Lobos already does: site
+preparation, trenching for power/fiber/water, utility infrastructure,
+and concrete. Three ways in, in order of directness:
+
+1. **The general contractor.** The TDLR registration (this tool's
+   `datacenter_project` leads) often names the GC. Big data-center GCs
+   pre-qualify subcontractors through their websites — get registered
+   with every GC that shows up in your results.
+2. **The owner/developer.** Ask for their construction or development
+   team; smaller developers hire local civil contractors directly.
+3. **The power projects around the campus.** Substations, switchyards,
+   and transmission work register with TDLR too (this tool searches
+   those keywords) and involve heavy trenching/civil scopes. ERCOT
+   also publishes which large loads have applied to connect to the
+   grid — a good early-warning list of who's building next:
+   search "ERCOT large load interconnection queue" for the current
+   report.
 
 ## Beyond the scraper — other ways to catch this work
 

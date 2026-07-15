@@ -47,6 +47,24 @@ PERMIAN_TX_COUNTIES = {
 # New Mexico (Delaware Basin) counties for the OCD source.
 PERMIAN_NM_COUNTIES = ["LEA", "EDDY"]
 
+# West Texas counties where data-center / large-load construction is
+# concentrated (cheap land + power). County -> metro label.
+DATACENTER_TX_COUNTIES = {
+    "TAYLOR":    "Abilene",
+    "JONES":     "Abilene",
+    "CALLAHAN":  "Abilene area",
+    "LUBBOCK":   "Lubbock",
+    "MIDLAND":   "Midland",
+    "ECTOR":     "Odessa",
+    "TOM GREEN": "San Angelo",
+    "HOWARD":    "Big Spring",
+    "WARD":      "Monahans",
+    "PECOS":     "Fort Stockton",
+    "POTTER":    "Amarillo",
+    "RANDALL":   "Amarillo",
+    "EL PASO":   "El Paso",
+}
+
 
 def tx_county_names():
     return sorted(PERMIAN_TX_COUNTIES)
