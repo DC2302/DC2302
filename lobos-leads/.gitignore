@@ -1,3 +1,5 @@
 output/
 __pycache__/
 *.pyc
+# holds your Gmail app password + recipient list -- never commit it
+email_config.json

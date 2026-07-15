@@ -73,6 +73,11 @@ def main() -> int:
         "--top", type=int, default=25,
         help="how many leads on the call sheet (default 25)",
     )
+    parser.add_argument(
+        "--email", action="store_true",
+        help="after the run, email leads.xlsx + the call sheet to everyone "
+        "listed in email_config.json (see README 'Email setup')",
+    )
     args = parser.parse_args()
 
     out_dir = Path(args.out)
@@ -155,6 +160,21 @@ def main() -> int:
         f"  {call_sheet}   (who to call + talking points)\n"
         f"  {permits_csv}   (every raw permit record)"
     )
+
+    if args.email:
+        from lobos_leads.emailer import email_results
+
+        try:
+            recipients = email_results(HERE, out_dir, leads, demo=args.demo)
+            print(f"\nEmailed results to: {', '.join(recipients)}")
+        except Exception as err:  # noqa: BLE001
+            print(
+                f"\nEMAIL FAILED: {err}\n"
+                "The lead files above were still written -- only the "
+                "emailing step failed. See README 'Email setup'.",
+                file=sys.stderr,
+            )
+            return 1
     return 0
 
 

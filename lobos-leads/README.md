@@ -58,6 +58,28 @@ python run.py --skip nm-ocd                  # Texas only
 python run.py --top 50                       # longer call sheet
 ```
 
+## Email setup (send results to your team automatically)
+
+`python run.py --email` sends `leads.xlsx` + the call sheet to a list
+of addresses after every run. One-time setup:
+
+1. Copy `email_config.example.json` to `email_config.json` (same folder).
+2. Put your Gmail address in `username` and list everyone who should
+   get the leads under `recipients` (as many addresses as you want).
+3. Get a Gmail **app password** (your normal password won't work):
+   - Google Account → Security → turn on **2-Step Verification** if
+     it isn't already
+   - then Security → **App passwords** (or go to
+     <https://myaccount.google.com/apppasswords>)
+   - create one named "lobos leads", and paste the 16-character code
+     into `app_password`.
+4. Run `python run.py --demo --email` once to test — everyone on the
+   list should get the sample spreadsheet.
+
+`email_config.json` stays on your computer and is ignored by git, so
+the password never ends up on GitHub. To change who gets the leads,
+just edit the `recipients` list.
+
 ## Where the data comes from
 
 | Source | What it gives us | Link |
