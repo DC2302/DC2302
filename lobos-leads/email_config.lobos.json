@@ -1,0 +1,15 @@
+{
+  "smtp_host": "smtp.gmail.com",
+  "smtp_port": 587,
+  "username": "dc23hotshots@gmail.com",
+  "app_password": "PASTE-YOUR-16-CHARACTER-APP-PASSWORD-HERE",
+  "from_name": "Lobos Lead Finder",
+  "recipients": [
+    "oso@lobos-services.com",
+    "rene@lobos-services.com",
+    "matthew@lobos-services.com",
+    "andrae@lobos-services.com",
+    "james@lobos-services.com"
+  ],
+  "subject": "Permian Basin facility-construction leads"
+}

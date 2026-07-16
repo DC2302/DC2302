@@ -72,7 +72,10 @@ python run.py --top 50                       # longer call sheet
 `python run.py --email` sends `leads.xlsx` + the call sheet to a list
 of addresses after every run. One-time setup:
 
-1. Copy `email_config.example.json` to `email_config.json` (same folder).
+1. Copy `email_config.example.json` to `email_config.json` (same
+   folder). **Lobos shortcut:** `email_config.lobos.json` already has
+   the team's five addresses filled in — just rename it to
+   `email_config.json` and add your app password.
 2. Put your Gmail address in `username` and list everyone who should
    get the leads under `recipients` (as many addresses as you want).
 3. Get a Gmail **app password** (your normal password won't work):
