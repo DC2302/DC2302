@@ -39,57 +39,65 @@ def fetch(days_back: int = 90, counties=None, verbose=True) -> list:
     action, fields = parse_form(resp.text, form_hint="uic")
 
     county_field = find_field(fields, "county")
-    date_from = find_field(fields, "date", "from") or find_field(
-        fields, "submitted", "from"
-    )
-    date_to = find_field(fields, "date", "to") or find_field(
-        fields, "submitted", "to"
-    )
+    # The UIC form filters on Original Authority date:
+    # searchArgs.oaStartDateArg / searchArgs.oaEndDateArg.
+    date_from = find_field(fields, "start", "date")
+    date_to = find_field(fields, "end", "date")
     if not county_field:
         raise RuntimeError(
             "Could not locate the county field on the RRC UIC query form. "
             "See the Troubleshooting section of the README."
         )
     if date_from and date_to:
+        # End at yesterday: the RRC server runs on Central time, so
+        # "today" here (UTC) can be rejected as a future date.
         fields[date_from] = since.strftime("%m/%d/%Y")
-        fields[date_to] = date.today().strftime("%m/%d/%Y")
-
-    fields[county_field] = [
-        PERMIAN_TX_COUNTIES[c.upper()]["code"]
-        for c in counties
-        if c.upper() in PERMIAN_TX_COUNTIES
-    ]
+        fields[date_to] = (date.today() - timedelta(days=1)).strftime(
+            "%m/%d/%Y"
+        )
 
     submit_url = urljoin(resp.url, action) if action else resp.url
     if verbose:
-        print(f"[rrc-swd] searching disposal permit applications since {since:%m/%d/%Y}")
+        print(
+            f"[rrc-swd] searching disposal permits authorized since "
+            f"{since:%m/%d/%Y} ({len(counties)} counties, one query each)"
+        )
 
     permits = []
-    page = session.post(submit_url, data=fields)
-    for _ in range(MAX_PAGES):
-        rows = extract_rows(page.text, required_headers=["operator", "county"])
-        for row in rows:
-            operator = pick(row, "operator")
-            county = pick(row, "county")
-            if not operator or not county:
-                continue
-            permits.append(
-                {
-                    "signal": "swd_permit",
-                    "state": "TX",
-                    "operator": operator,
-                    "county": county.upper(),
-                    "district": pick(row, "dist"),
-                    "date": pick(row, "date") or pick(row, "submitted"),
-                    "purpose": pick(row, "type") or "injection/disposal",
-                    "lease": pick(row, "lease") or pick(row, "well"),
-                    "permit_no": pick(row, "permit") or pick(row, "uic"),
-                }
+    # The county selector is a single select, so query per county.
+    for county_name in counties:
+        info = PERMIAN_TX_COUNTIES.get(county_name.upper())
+        if not info:
+            continue
+        fields[county_field] = info["code"]
+        page = session.post(submit_url, data=fields)
+        for _ in range(MAX_PAGES):
+            rows = extract_rows(
+                page.text, required_headers=["operator", "county"]
             )
-        next_url = _next_page_link(page.text, page.url)
-        if not next_url:
-            break
-        page = session.get(next_url)
+            for row in rows:
+                operator = pick(row, "operator")
+                county = pick(row, "county")
+                if not operator or not county:
+                    continue
+                permits.append(
+                    {
+                        "signal": "swd_permit",
+                        "state": "TX",
+                        "operator": operator,
+                        "county": county.upper(),
+                        "district": pick(row, "dist"),
+                        "date": pick(row, "date") or pick(row, "submitted"),
+                        "purpose": pick(row, "type") or "injection/disposal",
+                        "lease": pick(row, "lease", "name")
+                        or pick(row, "well"),
+                        "permit_no": pick(row, "uic") or pick(row, "permit"),
+                    }
+                )
+            next_url = _next_page_link(page.text, page.url)
+            if not next_url:
+                break
+            page = session.get(next_url)
 
     if verbose:
         print(f"[rrc-swd] found {len(permits)} disposal permits/applications")
@@ -97,11 +105,12 @@ def fetch(days_back: int = 90, counties=None, verbose=True) -> list:
 
 
 def _next_page_link(html: str, base_url: str):
-    from bs4 import BeautifulSoup
+    from ..http import make_soup
 
-    soup = BeautifulSoup(html, "html.parser")
+    soup = make_soup(html)
     for a in soup.find_all("a"):
-        text = a.get_text(strip=True).lower()
-        if text in ("next", "next >", "[next]", ">") and a.get("href"):
+        # The RRC pager renders the link as "[ Next > ]".
+        text = a.get_text(strip=True).lower().strip("[] >")
+        if text == "next" and a.get("href"):
             return urljoin(base_url, a["href"])
     return None

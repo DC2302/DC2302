@@ -5,43 +5,65 @@ Why this matters for Lobos: Lea and Eddy are two of the busiest
 oil-and-gas counties in the country. An approved C-101 (Application
 for Permit to Drill) means surface facilities are coming.
 
-Data source: OCD e-permitting public data pages,
-    https://wwwapps.emnrd.nm.gov/OCD/OCDPermitting/Data/Permits.aspx
+Data source: the OCD's Weekly Activity Reports,
+    https://wwwapps.emnrd.nm.gov/OCD/OCDPermitting/Reporting/Activity/WeeklyActivity.aspx
 
-This is an ASP.NET page (__VIEWSTATE postbacks), which is fussier to
-automate than the Texas pages. This module does a best-effort
-postback; if the page layout defeats it, the tool prints the URL so
-the county permit list can be pulled manually (it exports to Excel
-in the browser), and the rest of the pipeline still runs on the
+(The old Data/Permits.aspx query page was removed in an EMNRD site
+reorganization.) Each weekly "Well Activity" report opens with an
+INTENTIONS TO DRILL section -- operator, well name, county, and APD
+date -- which is exactly the C-101 signal we want. The report itself
+is plain HTML at WeeklyActivityReport.aspx?StartDate=<week-ending>,
+and the listing page carries the available week-ending dates. If the
+pages defeat automation, the tool prints the URL so the reports can
+be read manually, and the rest of the pipeline still runs on the
 Texas data.
 """
 
-from urllib.parse import urljoin
+import math
+import re
 
 from ..counties import PERMIAN_NM_COUNTIES
-from ..http import PoliteSession, find_field, parse_form
+from ..http import PoliteSession, make_soup
 from ..tables import extract_rows, pick
 
-PERMITS_URL = "https://wwwapps.emnrd.nm.gov/OCD/OCDPermitting/Data/Permits.aspx"
+WEEKLY_URL = (
+    "https://wwwapps.emnrd.nm.gov/OCD/OCDPermitting/"
+    "Reporting/Activity/WeeklyActivity.aspx"
+)
+REPORT_URL = (
+    "https://wwwapps.emnrd.nm.gov/OCD/OCDPermitting/"
+    "Reporting/Activity/WeeklyActivityReport.aspx"
+)
+MAX_WEEKS = 12
 
 
 def fetch(days_back: int = 30, counties=None, verbose=True) -> list:
     counties = [c.upper() for c in (counties or PERMIAN_NM_COUNTIES)]
     session = PoliteSession()
-    permits = []
+    weeks = min(max(1, math.ceil(days_back / 7)), MAX_WEEKS)
 
-    for county in counties:
+    if verbose:
+        print(f"[nm-ocd] listing weekly activity reports: {WEEKLY_URL}")
+    listing = session.get(WEEKLY_URL)
+    dates = _report_dates(listing.text)[:weeks]
+    if not dates:
+        print(
+            "[nm-ocd] WARNING: no weekly reports found on the listing "
+            f"page. Read them manually in a browser: {WEEKLY_URL}"
+        )
+        return []
+
+    permits = []
+    for when in dates:
         if verbose:
-            print(f"[nm-ocd] loading OCD permits page for {county} county")
+            print(f"[nm-ocd] reading week ending {when}")
         try:
-            permits.extend(_fetch_county(session, county))
+            permits.extend(_fetch_week(session, when, counties))
         except Exception as err:  # noqa: BLE001 - keep pipeline alive
             print(
-                f"[nm-ocd] WARNING: automated pull for {county} failed "
-                f"({err}).\n"
-                f"         Pull it manually in a browser instead: "
-                f"{PERMITS_URL} (filter county = {county}, approved "
-                f"C-101s, export to Excel)."
+                f"[nm-ocd] WARNING: week {when} failed ({err}). Read it "
+                f"manually: {REPORT_URL}?StartDate={when} (INTENTIONS TO "
+                f"DRILL section, counties {', '.join(counties)})."
             )
 
     if verbose:
@@ -49,28 +71,31 @@ def fetch(days_back: int = 30, counties=None, verbose=True) -> list:
     return permits
 
 
-def _fetch_county(session: PoliteSession, county: str) -> list:
-    resp = session.get(PERMITS_URL)
-    action, fields = parse_form(resp.text, form_hint="aspnetForm")
+def _report_dates(html: str) -> list:
+    """Week-ending dates of the available Well Activity reports,
+    newest first, as they appear in the listing page's link
+    attributes (e.g. '7/12/2026')."""
+    soup = make_soup(html)
+    dates = []
+    for a in soup.find_all("a"):
+        if "hplWellActivity" in (a.get("id") or "") and a.get("date"):
+            if re.match(r"\d{1,2}/\d{1,2}/\d{4}$", a["date"]):
+                dates.append(a["date"])
+    return dates
 
-    county_field = find_field(fields, "county")
-    if not county_field:
-        raise RuntimeError("county selector not found on page")
-    fields[county_field] = county.title()
 
-    # ASP.NET pages fire a postback; the search button name usually
-    # contains 'search' or 'go'.
-    search_btn = find_field(fields, "search") or find_field(fields, "btn", "go")
-    if search_btn:
-        fields[search_btn] = "Search"
-
-    submit_url = urljoin(resp.url, action) if action else resp.url
-    page = session.post(submit_url, data=fields)
+def _fetch_week(session: PoliteSession, week_ending: str, counties) -> list:
+    page = session.get(REPORT_URL, params={"StartDate": week_ending})
 
     results = []
-    for row in extract_rows(page.text, required_headers=["operator"]):
-        operator = pick(row, "operator") or pick(row, "ogrid")
-        if not operator:
+    # The first operator/county table on the report is the
+    # INTENTIONS TO DRILL section (APDs); later sections (deepenings,
+    # cancelled APDs, plugged wells) are separate tables.
+    for row in extract_rows(page.text, required_headers=["operator", "county"]):
+        operator = pick(row, "operator")
+        county = pick(row, "county").upper()
+        api = pick(row, "api")
+        if not operator or county not in counties or not api:
             continue
         results.append(
             {
@@ -79,10 +104,10 @@ def _fetch_county(session: PoliteSession, county: str) -> list:
                 "operator": operator,
                 "county": county,
                 "district": "NM-OCD",
-                "date": pick(row, "approved") or pick(row, "date"),
-                "purpose": pick(row, "type") or "APD (C-101)",
-                "lease": pick(row, "well") or pick(row, "name"),
-                "permit_no": pick(row, "api") or pick(row, "permit"),
+                "date": pick(row, "apd", "date") or pick(row, "date"),
+                "purpose": "APD / intention to drill (C-101)",
+                "lease": pick(row, "well", "name") or pick(row, "name"),
+                "permit_no": api,
             }
         )
     return results

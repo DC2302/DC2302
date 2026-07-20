@@ -17,6 +17,8 @@ import time
 
 import requests
 from bs4 import BeautifulSoup
+from requests.adapters import HTTPAdapter
+from urllib3.util.ssl_ import create_urllib3_context
 
 USER_AGENT = (
     "Mozilla/5.0 (X11; Linux x86_64) LobosLeadsBot/0.1 "
@@ -27,10 +29,43 @@ USER_AGENT = (
 # public systems and getting blocked helps nobody.
 REQUEST_DELAY = 3.0
 
+# BeautifulSoup parser preference. The state sites serve malformed
+# HTML that the strict built-in parser truncates (e.g. it drops most
+# of the RRC drilling-permit form's fields); lxml recovers it.
+try:
+    import lxml  # noqa: F401
+    SOUP_PARSER = "lxml"
+except ImportError:
+    SOUP_PARSER = "html.parser"
+
+
+def make_soup(html: str) -> BeautifulSoup:
+    return BeautifulSoup(html, SOUP_PARSER)
+
+
+class _LegacyCipherAdapter(HTTPAdapter):
+    """Some RRC servers (webapps2.rrc.texas.gov) only negotiate
+    ciphers below urllib3's default security level. Allow them while
+    keeping certificate verification fully enabled."""
+
+    def _ctx(self):
+        ctx = create_urllib3_context()
+        ctx.set_ciphers("DEFAULT:@SECLEVEL=1")
+        return ctx
+
+    def init_poolmanager(self, *args, **kwargs):
+        kwargs["ssl_context"] = self._ctx()
+        return super().init_poolmanager(*args, **kwargs)
+
+    def proxy_manager_for(self, *args, **kwargs):
+        kwargs["ssl_context"] = self._ctx()
+        return super().proxy_manager_for(*args, **kwargs)
+
 
 class PoliteSession:
     def __init__(self, delay: float = REQUEST_DELAY):
         self.session = requests.Session()
+        self.session.mount("https://", _LegacyCipherAdapter())
         self.session.headers.update({"User-Agent": USER_AGENT})
         self.delay = delay
         self._last_request = 0.0
@@ -72,7 +107,7 @@ def parse_form(html: str, form_hint: str = ""):
     default values (including ASP.NET __VIEWSTATE machinery) are captured
     so the form can be re-submitted the way a browser would.
     """
-    soup = BeautifulSoup(html, "html.parser")
+    soup = make_soup(html)
     forms = soup.find_all("form")
     if not forms:
         raise ValueError("No <form> found on page")
@@ -102,8 +137,15 @@ def parse_form(html: str, form_hint: str = ""):
         name = sel.get("name")
         if not name:
             continue
-        chosen = sel.find("option", selected=True) or sel.find("option")
-        fields[name] = chosen.get("value", "") if chosen else ""
+        if sel.has_attr("multiple"):
+            # A browser submits nothing for an untouched multi-select;
+            # defaulting to the first option would silently narrow the
+            # query (e.g. RRC district '01').
+            chosen = sel.find_all("option", selected=True)
+            fields[name] = [o.get("value", "") for o in chosen]
+        else:
+            chosen = sel.find("option", selected=True) or sel.find("option")
+            fields[name] = chosen.get("value", "") if chosen else ""
     for ta in form.find_all("textarea"):
         name = ta.get("name")
         if name:

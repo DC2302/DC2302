@@ -16,6 +16,7 @@ working from a downloaded CSV instead, and see the README's
 troubleshooting section.
 """
 
+import re
 from datetime import date, timedelta
 from urllib.parse import urljoin
 
@@ -39,13 +40,23 @@ def fetch(days_back: int = 30, counties=None, verbose=True) -> list:
     resp = session.get(QUERY_URL)
     action, fields = parse_form(resp.text, form_hint="Query")
 
-    date_from = find_field(fields, "approved", "from") or find_field(
-        fields, "submitted", "from"
+    date_from = (
+        find_field(fields, "approved", "from")
+        or find_field(fields, "approved", "start")
+        or find_field(fields, "submitted", "from")
+        or find_field(fields, "submit", "start")
     )
-    date_to = find_field(fields, "approved", "to") or find_field(
-        fields, "submitted", "to"
+    date_to = (
+        find_field(fields, "approved", "to")
+        or find_field(fields, "approved", "end")
+        or find_field(fields, "submitted", "to")
+        or find_field(fields, "submit", "end")
     )
-    county_field = find_field(fields, "county")
+    # Prefer the county multi-select (countyNames) over the free-text
+    # single-code box (countyCode) the form also carries.
+    county_field = find_field(fields, "county", "names") or find_field(
+        fields, "county"
+    )
     if not (date_from and date_to and county_field):
         raise RuntimeError(
             "Could not locate the date/county fields on the RRC drilling "
@@ -53,8 +64,10 @@ def fetch(days_back: int = 30, counties=None, verbose=True) -> list:
             "the Troubleshooting section of the README."
         )
 
+    # End the range at yesterday: the RRC server runs on Central time,
+    # so "today" here (UTC) can be rejected as a future date.
     fields[date_from] = since.strftime("%m/%d/%Y")
-    fields[date_to] = date.today().strftime("%m/%d/%Y")
+    fields[date_to] = (date.today() - timedelta(days=1)).strftime("%m/%d/%Y")
 
     county_codes = [
         PERMIAN_TX_COUNTIES[c.upper()]["code"]
@@ -81,6 +94,12 @@ def fetch(days_back: int = 30, counties=None, verbose=True) -> list:
             county = pick(row, "county")
             if not operator or not county:
                 continue
+            # The "Status Date" column holds e.g.
+            # "Approved 06/22/2026 Submitted 05/12/2026".
+            status_date = pick(row, "status", "date")
+            m = re.search(
+                r"(?:Approved|Submitted)\s+(\d{2}/\d{2}/\d{4})", status_date
+            )
             permits.append(
                 {
                     "signal": "drilling_permit",
@@ -88,10 +107,13 @@ def fetch(days_back: int = 30, counties=None, verbose=True) -> list:
                     "operator": operator,
                     "county": county.upper(),
                     "district": pick(row, "dist"),
-                    "date": pick(row, "approved") or pick(row, "submitted"),
+                    "date": m.group(1) if m else (
+                        pick(row, "approved") or pick(row, "submitted")
+                    ),
                     "purpose": pick(row, "purpose") or pick(row, "filing"),
                     "lease": pick(row, "lease"),
-                    "permit_no": pick(row, "status") or pick(row, "permit"),
+                    "permit_no": pick(row, "status", "#")
+                    or pick(row, "permit"),
                 }
             )
         next_url = _next_page_link(page.text, page.url)
@@ -107,11 +129,12 @@ def fetch(days_back: int = 30, counties=None, verbose=True) -> list:
 
 
 def _next_page_link(html: str, base_url: str):
-    from bs4 import BeautifulSoup
+    from ..http import make_soup
 
-    soup = BeautifulSoup(html, "html.parser")
+    soup = make_soup(html)
     for a in soup.find_all("a"):
-        text = a.get_text(strip=True).lower()
-        if text in ("next", "next >", "[next]", ">") and a.get("href"):
+        # The RRC pager renders the link as "[ Next > ]".
+        text = a.get_text(strip=True).lower().strip("[] >")
+        if text == "next" and a.get("href"):
             return urljoin(base_url, a["href"])
     return None
