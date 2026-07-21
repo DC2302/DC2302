@@ -6,3 +6,9 @@ Drop-in assets (all optional, appear automatically once the file exists):
 - breezey-about.png     -> sitting studio illustration, About page
 - breezey-ai-avatar.png -> Breezey chat avatar (standing illustration; circles auto-zoom to the face)
 - logo.png              -> brand logo mark (nav, hero medallion, footer)
+- merch-lifestyle.png   -> wide banner at the top of the merch page (couple wearing tees)
+- merch-tee.png         -> Permian Classic Tee product photo
+- merch-cap.png         -> Rig Light Cap product photo
+- merch-mug.png         -> Basin Mug product photo
+- merch-tumbler.png     -> Gold Line Tumbler product photo
+- merch-hoodie.png      -> hoodie product photo (optional; emoji placeholder until then)

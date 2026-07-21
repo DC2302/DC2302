@@ -468,7 +468,17 @@
   .merch-note{ background:var(--ember); color:var(--ivory); padding:10px 18px; border-radius:2px; font-size:0.8rem; margin-bottom:30px; display:inline-block; }
   .merch-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:24px; }
   .merch-card{ background:var(--black-card); border:1px solid var(--line); border-radius:4px; overflow:hidden; display:flex; flex-direction:column; transition:border-color .3s, transform .3s; }
-  .merch-img{ height:190px; background:linear-gradient(135deg,#26211a,#141210); display:flex; align-items:center; justify-content:center; font-size:3rem; position:relative; }
+  .merch-img{ height:230px; background:linear-gradient(135deg,#26211a,#141210); display:flex; align-items:center; justify-content:center; font-size:3rem; position:relative; overflow:hidden; }
+  .merch-img > img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 22%;
+    transition:transform .5s ease;
+  }
+  .merch-card:hover .merch-img > img{ transform:scale(1.05); }
+  .merch-lifestyle{
+    margin-bottom:34px; border-radius:6px; overflow:hidden; display:none;
+  }
+  .merch-lifestyle.ready{ display:block; }
+  .merch-lifestyle img{ width:100%; display:block; max-height:420px; object-fit:cover; object-position:center 30%; }
   .merch-img .badge{ position:absolute; top:12px; left:12px; font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-bright); background:rgba(0,0,0,0.6); padding:4px 10px; border-radius:2px; }
   .merch-body{ padding:20px; display:flex; flex-direction:column; gap:12px; flex:1; }
   .merch-body h4{ font-size:1.02rem; font-family:'Manrope',sans-serif; font-weight:700; }
@@ -856,6 +866,9 @@
     <h2>Power of the Permian Swag</h2>
     <p>A small, well-made lineup. Pick your size, color, and quantity — orders route to Shopify fulfillment once live.</p>
   </div>
+  <div class="merch-lifestyle gold-card tilt" id="merch-lifestyle">
+    <img src="assets/merch-lifestyle.png" alt="Power of the Permian tees">
+  </div>
   <div class="merch-grid" id="merch-grid"></div>
 </section>
 
@@ -1141,15 +1154,15 @@
      Cart persists in localStorage; checkout stubs to Shopify later.
   ============================================================= */
   const products = [
-    { id:'tee',     name:'Permian Classic Tee',        price:28, emoji:'👕', badge:'Best Seller',
+    { id:'tee',     name:'Permian Classic Tee',        price:28, emoji:'👕', badge:'Best Seller', img:'assets/merch-tee.png',
       options:{ Size:['S','M','L','XL','2XL'], Color:[['Black','#171412'],['Gold','#c9a227'],['Sand','#cbb992']] } },
-    { id:'hoodie',  name:'Basin Heavyweight Hoodie',   price:48, emoji:'🧥', badge:'New',
+    { id:'hoodie',  name:'Basin Heavyweight Hoodie',   price:48, emoji:'🧥', badge:'New', img:'assets/merch-hoodie.png',
       options:{ Size:['S','M','L','XL','2XL'], Color:[['Black','#171412'],['Charcoal','#3a3733']] } },
-    { id:'cap',     name:'Rig Light Cap',              price:24, emoji:'🧢', badge:null,
+    { id:'cap',     name:'Rig Light Cap',              price:24, emoji:'🧢', badge:null, img:'assets/merch-cap.png',
       options:{ Size:['One Size'], Color:[['Black / Gold','#171412'],['Tan','#b49a6c']] } },
-    { id:'mug',     name:'Basin Mug',                  price:16, emoji:'☕', badge:null,
+    { id:'mug',     name:'Basin Mug',                  price:16, emoji:'☕', badge:null, img:'assets/merch-mug.png',
       options:{ Size:['11oz','15oz'], Color:[['Black','#171412'],['Ivory','#e9e2d2']] } },
-    { id:'tumbler', name:'Gold Line Tumbler',          price:32, emoji:'🥤', badge:null,
+    { id:'tumbler', name:'Gold Line Tumbler',          price:32, emoji:'🥤', badge:null, img:'assets/merch-tumbler.png',
       options:{ Size:['20oz','30oz'], Color:[['Matte Black','#171412'],['Stainless','#b9b6b0']] } },
   ];
 
@@ -1172,7 +1185,7 @@
       }).join('');
       return `
         <div class="merch-card gold-card tilt reveal">
-          <div class="merch-img">${p.emoji}${p.badge ? `<span class="badge">${p.badge}</span>` : ''}</div>
+          <div class="merch-img">${p.emoji}<img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.remove()">${p.badge ? `<span class="badge">${p.badge}</span>` : ''}</div>
           <div class="merch-body">
             <h4>${p.name}</h4>
             <div class="merch-price">$${p.price}</div>
@@ -1332,6 +1345,17 @@
   }
   wireSlot('scene-backdrop');
   wireSlot('hero-cutout');
+  // Merch lifestyle banner (assets/merch-lifestyle.png)
+  (function wireLifestyle(){
+    const wrap = document.getElementById('merch-lifestyle');
+    const img = wrap.querySelector('img');
+    const show = () => wrap.classList.add('ready');
+    if (img.complete && img.naturalWidth > 0) show();
+    else {
+      img.addEventListener('load', show);
+      img.addEventListener('error', () => wrap.remove());
+    }
+  })();
 
   // Parallax: hero content drifts up and fades as you scroll
   const heroInner = document.getElementById('hero-inner');
