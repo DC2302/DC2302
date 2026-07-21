@@ -547,6 +547,19 @@
   .cart-foot .btn-gold{ width:100%; text-align:center; }
   .cart-foot .shopify-note{ margin-top:10px; font-size:0.72rem; color:var(--ivory-dim); text-align:center; }
 
+  /* ---------- CTA STRIP + LEAD FORM ---------- */
+  .cta-strip{
+    margin-top:48px; padding:34px 38px; border-radius:6px; text-align:center;
+    display:flex; flex-direction:column; align-items:center; gap:18px;
+    background:
+      linear-gradient(var(--black-card), var(--black-card)) padding-box,
+      linear-gradient(150deg, rgba(240,205,110,0.55), rgba(201,162,39,0.12) 40%, rgba(201,162,39,0.45)) border-box;
+    border:1px solid transparent;
+  }
+  .cta-strip h3{ font-size:1.3rem; }
+  .form-wrap{ border-radius:6px; overflow:hidden; padding:6px; }
+  .form-wrap iframe{ width:100%; height:660px; border:0; display:block; border-radius:4px; background:#fff; }
+
   /* ---------- ABOUT ---------- */
   .about-grid{ display:grid; grid-template-columns:minmax(280px, 460px) 1fr; gap:44px; align-items:start; }
   .about-photo{ border-radius:6px; overflow:hidden; position:relative; }
@@ -744,6 +757,7 @@
 
       <div class="hero-ctas">
         <a class="btn-gold" data-page="episodes">Watch Episodes</a>
+        <a class="btn-gold" href="https://form.jotform.com/262014225883050" target="_blank" rel="noopener">Partner With Us</a>
         <a class="btn-outline" data-page="resources">Explore Resources</a>
       </div>
       <div class="stat-bar">
@@ -820,6 +834,10 @@
     <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Guide</div><h4>Starting an Oilfield Services Company</h4><p>Lessons from three founders featured on the show.</p><div class="res-type">📖 Web Page</div></div>
     <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Spotlight</div><h4>Partner Directory</h4><p>Vetted service providers across the basin, organized by specialty.</p><div class="res-type">🔗 Directory</div></div>
   </div>
+  <div class="cta-strip">
+    <h3>Want your business featured here?</h3>
+    <a class="btn-gold" href="https://form.jotform.com/262014225883050" target="_blank" rel="noopener">Partner With Us</a>
+  </div>
 </section>
 
 <!-- SPONSORSHIPS -->
@@ -833,6 +851,10 @@
     <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Placement</div><h4>Homepage Banner</h4><p>Premium visibility on the highest-traffic page.</p></div>
     <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Placement</div><h4>Episode Sponsor Read</h4><p>Featured mention and link in episode description and page.</p></div>
     <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Placement</div><h4>Newsletter Feature</h4><p>Direct placement in the Power of the Permian newsletter.</p></div>
+  </div>
+  <div class="cta-strip">
+    <h3>Ready to put your brand in front of the basin?</h3>
+    <a class="btn-gold" href="https://form.jotform.com/262014225883050" target="_blank" rel="noopener">Start a Sponsorship</a>
   </div>
 </section>
 
@@ -864,7 +886,10 @@
   <div class="section-head">
     <div class="eyebrow">Get In Touch</div>
     <h2>Let's Connect</h2>
-    <p>Guest inquiries, sponsorships, or just want to say hello — reach out below.</p>
+    <p>Guest inquiries, sponsorships, or just want to say hello — fill out the form and Breezey will be in touch shortly.</p>
+  </div>
+  <div class="form-wrap gold-card panel-tone">
+    <iframe src="https://form.jotform.com/262014225883050" title="Partner with Power of the Permian" loading="lazy"></iframe>
   </div>
 </section>
 
@@ -922,6 +947,7 @@
       <a data-page="resources">Resources</a>
       <a data-page="sponsorships">Sponsorships</a>
       <a data-page="merch">Merch (Preview)</a>
+      <a href="https://form.jotform.com/262014225883050" target="_blank" rel="noopener">Partner With Us</a>
     </div>
     <div class="footer-col">
       <h5>Connect</h5>
