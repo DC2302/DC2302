@@ -127,7 +127,9 @@
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     opacity:0; filter:brightness(0.5) saturate(0.9); transition:opacity 1s;
   }
-  .scene-backdrop.ready{ opacity:0.26; object-position:50% 68%; }
+  /* Backdrop kept off for a clean black starfield behind the cutout;
+     restore by raising this opacity if the echo look is ever wanted */
+  .scene-backdrop.ready{ opacity:0; object-position:50% 68%; }
   .scene-glow{
     position:absolute; inset:-20%; pointer-events:none;
     background:radial-gradient(circle at 32% 38%, rgba(240,205,110,0.16), transparent 55%);
