@@ -44,8 +44,16 @@
     background:rgba(10,9,8,0.96);
     box-shadow:0 1px 0 var(--line);
   }
-  .logo{ font-size:1.3rem; font-weight:700; letter-spacing:0.03em; color:var(--ivory); white-space:nowrap; cursor:pointer; }
-  .logo span{ color:var(--gold-bright); }
+  .logo{ display:flex; align-items:center; gap:12px; font-size:1.3rem; font-weight:700; letter-spacing:0.03em; color:var(--ivory); white-space:nowrap; cursor:pointer; }
+  .logo em{ color:var(--gold-bright); font-style:normal; }
+  .logo-mark{
+    width:42px; height:42px; border-radius:50%; flex-shrink:0; overflow:hidden;
+    border:1px solid var(--gold); display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 35% 30%, #221c12, #0d0b08);
+    box-shadow:0 0 14px rgba(240,205,110,0.22), inset 0 0 8px rgba(201,162,39,0.15);
+  }
+  .logo-mark img{ width:100%; height:100%; object-fit:cover; }
+  .logo-mark svg{ width:26px; height:26px; }
   .nav-links{ display:flex; gap:30px; list-style:none; align-items:center; }
   .nav-links a{
     color:var(--ivory-dim); text-decoration:none; font-size:0.85rem;
@@ -123,6 +131,20 @@
   }
   #ember-canvas{ position:absolute; inset:0; pointer-events:none; opacity:0.7; }
   .hero-inner{ position:relative; z-index:2; max-width:860px; padding:0 24px; will-change:transform, opacity; }
+  .hero-medallion{
+    width:74px; height:74px; margin:0 auto 26px; border-radius:50%; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--gold);
+    background:radial-gradient(circle at 35% 30%, #241d12, #0d0b08);
+    box-shadow:0 0 30px rgba(240,205,110,0.28), inset 0 0 12px rgba(201,162,39,0.2);
+    position:relative;
+  }
+  .hero-medallion::before{
+    content:''; position:absolute; inset:4px; border-radius:50%;
+    border:1px solid rgba(240,205,110,0.28);
+  }
+  .hero-medallion svg{ width:40px; height:40px; }
+  .hero-medallion img{ width:100%; height:100%; object-fit:cover; }
   .eyebrow{
     color:var(--gold); font-size:0.82rem; letter-spacing:0.22em; text-transform:uppercase;
     margin-bottom:22px; font-weight:600;
@@ -172,6 +194,69 @@
   }
   .scroll-cue .line{ width:1px; height:34px; background:linear-gradient(to bottom, var(--gold-bright), transparent); }
   @keyframes cueFloat{ 0%,100%{ transform:translate(-50%,0); opacity:.85;} 50%{ transform:translate(-50%,8px); opacity:.45;} }
+
+  /* ---------- BLACK GOLD CARD SYSTEM ---------- */
+  /* Gold gradient borders: dark panel padding-box over a gold sweep border-box */
+  .gold-card{
+    position:relative;
+    border:1px solid transparent !important;
+    background:
+      linear-gradient(var(--black-card), var(--black-card)) padding-box,
+      linear-gradient(150deg, rgba(240,205,110,0.55), rgba(201,162,39,0.14) 32%, rgba(240,205,110,0.05) 55%, rgba(201,162,39,0.45)) border-box !important;
+  }
+  .gold-card.panel-tone{
+    background:
+      linear-gradient(var(--black-panel), var(--black-panel)) padding-box,
+      linear-gradient(150deg, rgba(240,205,110,0.5), rgba(201,162,39,0.12) 32%, rgba(240,205,110,0.05) 55%, rgba(201,162,39,0.4)) border-box !important;
+  }
+  .gold-card::after{
+    content:''; position:absolute; top:0; left:14px; right:14px; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(240,205,110,0.5), transparent);
+    opacity:.6; pointer-events:none;
+  }
+
+  /* 3D tilt (cursor-tracked) + gold glare */
+  .tilt{
+    transform-style:preserve-3d;
+    transition:transform .4s cubic-bezier(.19,1,.22,1), box-shadow .4s;
+    will-change:transform;
+  }
+  .tilt.tilting{ transition:transform .08s linear; }
+  .tilt:hover{
+    box-shadow:
+      0 18px 40px -18px rgba(0,0,0,0.85),
+      0 0 30px -6px rgba(201,162,39,0.28);
+  }
+  .tilt-glare{
+    position:absolute; inset:0; z-index:3; opacity:0; pointer-events:none;
+    border-radius:inherit; transition:opacity .3s;
+  }
+  .tilt-lift{ transform:translateZ(26px); }
+
+  /* Art-deco gold flourishes */
+  .eyebrow{ display:inline-flex; align-items:center; gap:12px; }
+  .eyebrow::before, .eyebrow::after{
+    content:''; width:26px; height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold));
+  }
+  .eyebrow::after{ background:linear-gradient(90deg, var(--gold), transparent); }
+  .section-head h2{ position:relative; padding-bottom:18px; }
+  .section-head h2::after{
+    content:''; position:absolute; left:0; bottom:0; width:88px; height:1px;
+    background:linear-gradient(90deg, var(--gold-bright), rgba(201,162,39,0.1));
+  }
+  .section-head h2::before{
+    content:''; position:absolute; left:96px; bottom:-3px; width:7px; height:7px;
+    background:var(--gold); transform:rotate(45deg); opacity:.85;
+  }
+  #home .section-head h2::after, .hero h1 + p{ }
+
+  /* Gold-active tabs & pills */
+  .season-tab.active, .filter-pill.active{
+    background:linear-gradient(135deg, rgba(201,162,39,0.18), rgba(140,109,31,0.1)) !important;
+    border-color:var(--gold) !important; color:var(--gold-bright) !important;
+    box-shadow:0 0 14px -4px rgba(201,162,39,0.4);
+  }
 
   /* ---------- SCROLL REVEAL ---------- */
   .reveal{ opacity:0; transform:translateY(34px); transition:opacity .8s ease, transform .8s cubic-bezier(.19,1,.22,1); }
@@ -236,7 +321,6 @@
     position:relative; transition:transform .3s, border-color .3s;
     text-decoration:none; color:inherit; display:block;
   }
-  .ep-card:hover{ transform:translateY(-5px); border-color:var(--gold); }
   .ep-thumb{
     height:170px; background:linear-gradient(135deg,#2a2418,#141210);
     display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
@@ -285,7 +369,6 @@
   .merch-note{ background:var(--ember); color:var(--ivory); padding:10px 18px; border-radius:2px; font-size:0.8rem; margin-bottom:30px; display:inline-block; }
   .merch-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:24px; }
   .merch-card{ background:var(--black-card); border:1px solid var(--line); border-radius:4px; overflow:hidden; display:flex; flex-direction:column; transition:border-color .3s, transform .3s; }
-  .merch-card:hover{ border-color:var(--gold); transform:translateY(-4px); }
   .merch-img{ height:190px; background:linear-gradient(135deg,#26211a,#141210); display:flex; align-items:center; justify-content:center; font-size:3rem; position:relative; }
   .merch-img .badge{ position:absolute; top:12px; left:12px; font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-bright); background:rgba(0,0,0,0.6); padding:4px 10px; border-radius:2px; }
   .merch-body{ padding:20px; display:flex; flex-direction:column; gap:12px; flex:1; }
@@ -434,7 +517,17 @@
 <body>
 
 <nav id="main-nav">
-  <div class="logo" data-page="home">Power of the <span>Permian</span></div>
+  <div class="logo" data-page="home">
+    <span class="logo-mark js-brand-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f0cd6e" stroke-width="1.2" stroke-linecap="round">
+        <path d="M9 21 L12 3.5 L15 21"/>
+        <path d="M11.3 8h1.4M10.8 11.5h2.4M10.3 15h3.4M9.7 18.2h4.6"/>
+        <path d="M8 21h8"/>
+        <path d="M12 3.5 l1.8 2.6"/>
+      </svg>
+    </span>
+    <span class="logo-text">Power of the <em>Permian</em></span>
+  </div>
   <ul class="nav-links">
     <li><a data-page="home" class="active">Home</a></li>
     <li><a data-page="episodes">Episodes</a></li>
@@ -480,6 +573,14 @@
     <div class="sweep"></div>
     <div class="hero-vignette"></div>
     <div class="hero-inner" id="hero-inner">
+      <div class="hero-medallion js-brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f0cd6e" stroke-width="1.1" stroke-linecap="round">
+          <path d="M9 21 L12 3.5 L15 21"/>
+          <path d="M11.3 8h1.4M10.8 11.5h2.4M10.3 15h3.4M9.7 18.2h4.6"/>
+          <path d="M8 21h8"/>
+          <path d="M12 3.5 l1.8 2.6"/>
+        </svg>
+      </div>
       <div class="eyebrow">Season 4 · Coming Soon</div>
       <h1 class="display">Power of the Permian</h1>
       <p>The grit, innovation, and people driving the energy industry forward — from the oilfield floor to the frontier of AI. Hosted by Breezey Clark.</p>
@@ -511,7 +612,7 @@
 
   <!-- Agent showcase strip -->
   <div class="agent-strip reveal">
-    <div class="agent-card-wide">
+    <div class="agent-card-wide gold-card tilt">
       <div class="agent-avatar-lg js-agent-avatar"><span class="monogram">B</span></div>
       <div class="agent-copy">
         <h3>Meet Breezey AI</h3>
@@ -554,12 +655,12 @@
     <button class="filter-pill">Partner Spotlights</button>
   </div>
   <div class="resource-grid">
-    <div class="res-card"><div class="res-tag">Guide</div><h4>Breaking Into the Permian: A Field Entry Guide</h4><p>What newcomers need to know before their first day on a location.</p><div class="res-type">📄 PDF Download</div></div>
-    <div class="res-card"><div class="res-tag">Glossary</div><h4>Oilfield Terms, Plain English</h4><p>A living glossary built from a hundred episodes of real conversation.</p><div class="res-type">📖 Web Page</div></div>
-    <div class="res-card"><div class="res-tag">Spotlight</div><h4>Partner Deep Dive: Data Centers Meet the Permian</h4><p>How AI infrastructure is reshaping demand on the basin.</p><div class="res-type">🎥 Video</div></div>
-    <div class="res-card"><div class="res-tag">Tool</div><h4>Safety Checklist Template</h4><p>A downloadable pre-shift safety checklist used by featured operators.</p><div class="res-type">📄 PDF Download</div></div>
-    <div class="res-card"><div class="res-tag">Guide</div><h4>Starting an Oilfield Services Company</h4><p>Lessons from three founders featured on the show.</p><div class="res-type">📖 Web Page</div></div>
-    <div class="res-card"><div class="res-tag">Spotlight</div><h4>Partner Directory</h4><p>Vetted service providers across the basin, organized by specialty.</p><div class="res-type">🔗 Directory</div></div>
+    <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Guide</div><h4>Breaking Into the Permian: A Field Entry Guide</h4><p>What newcomers need to know before their first day on a location.</p><div class="res-type">📄 PDF Download</div></div>
+    <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Glossary</div><h4>Oilfield Terms, Plain English</h4><p>A living glossary built from a hundred episodes of real conversation.</p><div class="res-type">📖 Web Page</div></div>
+    <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Spotlight</div><h4>Partner Deep Dive: Data Centers Meet the Permian</h4><p>How AI infrastructure is reshaping demand on the basin.</p><div class="res-type">🎥 Video</div></div>
+    <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Tool</div><h4>Safety Checklist Template</h4><p>A downloadable pre-shift safety checklist used by featured operators.</p><div class="res-type">📄 PDF Download</div></div>
+    <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Guide</div><h4>Starting an Oilfield Services Company</h4><p>Lessons from three founders featured on the show.</p><div class="res-type">📖 Web Page</div></div>
+    <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Spotlight</div><h4>Partner Directory</h4><p>Vetted service providers across the basin, organized by specialty.</p><div class="res-type">🔗 Directory</div></div>
   </div>
 </section>
 
@@ -571,9 +672,9 @@
     <p>20,000+ followers across YouTube, LinkedIn, and TikTok. Placements available across the homepage, episode pages, and newsletter.</p>
   </div>
   <div class="resource-grid">
-    <div class="res-card"><div class="res-tag">Placement</div><h4>Homepage Banner</h4><p>Premium visibility on the highest-traffic page.</p></div>
-    <div class="res-card"><div class="res-tag">Placement</div><h4>Episode Sponsor Read</h4><p>Featured mention and link in episode description and page.</p></div>
-    <div class="res-card"><div class="res-tag">Placement</div><h4>Newsletter Feature</h4><p>Direct placement in the Power of the Permian newsletter.</p></div>
+    <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Placement</div><h4>Homepage Banner</h4><p>Premium visibility on the highest-traffic page.</p></div>
+    <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Placement</div><h4>Episode Sponsor Read</h4><p>Featured mention and link in episode description and page.</p></div>
+    <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Placement</div><h4>Newsletter Feature</h4><p>Direct placement in the Power of the Permian newsletter.</p></div>
   </div>
 </section>
 
@@ -609,7 +710,17 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-col">
-      <h5>Power of the Permian</h5>
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+        <span class="logo-mark js-brand-logo" style="width:34px; height:34px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f0cd6e" stroke-width="1.2" stroke-linecap="round" style="width:20px;height:20px;">
+            <path d="M9 21 L12 3.5 L15 21"/>
+            <path d="M11.3 8h1.4M10.8 11.5h2.4M10.3 15h3.4M9.7 18.2h4.6"/>
+            <path d="M8 21h8"/>
+            <path d="M12 3.5 l1.8 2.6"/>
+          </svg>
+        </span>
+        <h5 style="margin-bottom:0;">Power of the Permian</h5>
+      </div>
       <p style="max-width:260px;">An oilfield podcast and media platform celebrating the people driving energy forward.</p>
       <div class="footer-social">
         <a href="https://www.youtube.com/@powerofthepermian" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">
@@ -709,12 +820,57 @@
     };
   })();
 
+  /* Same pattern for the brand logo: drop assets/logo.png in and it
+     replaces the derrick mark in the nav, hero medallion, and footer. */
+  (function loadBrandLogo(){
+    const img = new Image();
+    img.src = 'assets/logo.png';
+    img.onload = () => {
+      document.querySelectorAll('.js-brand-logo').forEach(el => {
+        el.querySelector('svg')?.remove();
+        el.prepend(img.cloneNode());
+      });
+    };
+  })();
+
   /* ---------- Scroll reveal (all pages) ---------- */
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => { if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
   }, { threshold: 0.12 });
   function observeReveals(){
     document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el));
+    attachTilt();
+  }
+
+  /* ---------- 3D tilt cards (cursor-tracked, gold glare) ---------- */
+  function attachTilt(){
+    document.querySelectorAll('.tilt:not([data-tilt])').forEach(card => {
+      card.dataset.tilt = '1';
+      const glare = document.createElement('div');
+      glare.className = 'tilt-glare';
+      card.appendChild(glare);
+      let raf = null;
+      card.addEventListener('mousemove', e => {
+        if (raf) return;
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        raf = requestAnimationFrame(() => {
+          raf = null;
+          card.classList.add('tilting');
+          card.style.transform =
+            `perspective(950px) rotateX(${((0.5 - py) * 9).toFixed(2)}deg) rotateY(${((px - 0.5) * 11).toFixed(2)}deg) translateY(-4px) scale(1.012)`;
+          glare.style.background =
+            `radial-gradient(circle at ${(px * 100).toFixed(1)}% ${(py * 100).toFixed(1)}%, rgba(240,205,110,0.16), rgba(240,205,110,0.04) 42%, transparent 68%)`;
+          glare.style.opacity = '1';
+        });
+      });
+      card.addEventListener('mouseleave', () => {
+        card.classList.remove('tilting');
+        card.style.transform = '';
+        glare.style.opacity = '0';
+      });
+    });
   }
 
   /* ---------- SPA page switching ---------- */
@@ -781,7 +937,7 @@
 
   function epCard(ep){
     return `
-      <a class="ep-card reveal" href="${YT(ep.yt)}" target="_blank" rel="noopener">
+      <a class="ep-card gold-card tilt reveal" href="${YT(ep.yt)}" target="_blank" rel="noopener">
         <div class="ep-thumb">
           <img src="${THUMB(ep.yt)}" alt="Episode ${ep.n} — ${ep.guest}" loading="lazy">
           <span class="ep-num mono">EP ${ep.n}</span>
@@ -800,7 +956,7 @@
     grid.innerHTML = episodes[season].map(epCard).join('');
     if (season === '1' || season === 1){
       grid.innerHTML += `
-        <a class="ep-card res-card archive-card reveal" href="https://www.youtube.com/@powerofthepermian/videos" target="_blank" rel="noopener">
+        <a class="ep-card res-card archive-card gold-card tilt reveal" href="https://www.youtube.com/@powerofthepermian/videos" target="_blank" rel="noopener">
           <div class="big">▶</div>
           <h4>Full Archive on YouTube</h4>
           <p style="color:var(--ivory-dim); font-size:0.85rem;">Every episode from day one lives on the channel.</p>
@@ -863,7 +1019,7 @@
         return `<div class="opt-row"><span class="opt-label">${label}</span><div class="opt-pills">${pills}</div></div>`;
       }).join('');
       return `
-        <div class="merch-card reveal">
+        <div class="merch-card gold-card tilt reveal">
           <div class="merch-img">${p.emoji}${p.badge ? `<span class="badge">${p.badge}</span>` : ''}</div>
           <div class="merch-body">
             <h4>${p.name}</h4>

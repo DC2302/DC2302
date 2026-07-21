@@ -10,6 +10,7 @@ Two files are wired up and appear automatically once added to `assets/`:
 |---|---|
 | `assets/hero-loop.mp4` | Fullscreen hero background video (fades in over the ember animation) |
 | `assets/breezey-ai-avatar.png` | Breezey AI avatar — chat bubble, chat panel header, and the "Meet Breezey AI" card on the home page |
+| `assets/logo.png` | Brand logo — replaces the gold derrick mark in the nav, hero medallion, and footer |
 
 Until those files exist, the hero shows the animated ember/sweep treatment and the
 avatar shows a gold "B" monogram.
