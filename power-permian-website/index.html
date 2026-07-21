@@ -44,8 +44,13 @@
     background:rgba(10,9,8,0.96);
     box-shadow:0 1px 0 var(--line);
   }
-  .logo{ display:flex; align-items:center; gap:12px; font-size:1.3rem; font-weight:700; letter-spacing:0.03em; color:var(--ivory); white-space:nowrap; cursor:pointer; }
-  .logo em{ color:var(--gold-bright); font-style:normal; }
+  .logo{ display:flex; align-items:center; gap:12px; white-space:nowrap; cursor:pointer; }
+  .logo-text{
+    font-family:'Playfair Display', serif; font-size:1.35rem; font-weight:700; letter-spacing:0.04em;
+    background:linear-gradient(120deg, #e9c76a 10%, #f6e3a1 45%, #c9a227 90%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .logo em{ font-style:normal; }
   .logo-mark{
     width:42px; height:42px; border-radius:50%; flex-shrink:0; overflow:hidden;
     border:1px solid var(--gold); display:flex; align-items:center; justify-content:center;
@@ -608,6 +613,11 @@
   .chat-head h5{ color:var(--ivory); font-size:0.92rem; }
   .chat-head .sub{ color:#5fbf5a; font-size:0.7rem; display:flex; align-items:center; gap:5px; margin-top:2px; }
   .chat-head .sub::before{ content:''; width:7px; height:7px; border-radius:50%; background:#5fbf5a; display:inline-block; }
+  .chat-close{
+    background:none; border:none; color:var(--ivory-dim); font-size:1.1rem; cursor:pointer;
+    padding:6px 8px; line-height:1; border-radius:4px; transition:color .2s;
+  }
+  .chat-close:hover{ color:var(--gold-bright); }
   .chat-msgs{ padding:16px; display:flex; flex-direction:column; gap:10px; max-height:260px; overflow-y:auto; }
   .msg{ max-width:85%; padding:10px 13px; border-radius:10px; font-size:0.83rem; line-height:1.5; }
   .msg.bot{ background:var(--black-card); border:1px solid var(--line); color:var(--ivory); align-self:flex-start; border-bottom-left-radius:3px; }
@@ -948,10 +958,11 @@
 <div class="chat-panel" id="chat-panel">
   <div class="chat-head">
     <div class="avatar js-agent-avatar"><span class="monogram">B</span></div>
-    <div>
+    <div style="flex:1;">
       <h5>Breezey</h5>
       <div class="sub">Online · answers in seconds</div>
     </div>
+    <button class="chat-close" id="chat-close" aria-label="Close chat">✕</button>
   </div>
   <div class="chat-msgs" id="chat-msgs">
     <div class="msg bot">Hey there! 👋 I'm Breezey — your guide to the show, the guests, and the Permian Basin. What can I help you with?</div>
@@ -1423,6 +1434,7 @@
   const chatMsgs = document.getElementById('chat-msgs');
   const chatInput = document.getElementById('chat-input');
   chatToggle.addEventListener('click', () => chatPanel.classList.toggle('open'));
+  document.getElementById('chat-close').addEventListener('click', () => chatPanel.classList.remove('open'));
 
   function pushMsg(text, who){
     const d = document.createElement('div');
