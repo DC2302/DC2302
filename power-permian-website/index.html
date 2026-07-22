@@ -858,7 +858,7 @@
     <div class="hero-vignette"></div>
     <div class="hero-inner" id="hero-inner">
       <h1 class="sr-only">Power of the Permian — an oilfield podcast hosted by Breezey Clark</h1>
-      <div class="eyebrow">Season 4 · Coming Soon</div>
+      <div class="eyebrow">Season 4 · Premieres This Fall in Austin, TX</div>
 
       <!-- 3D rotating cube with scrolling show copy; backdrop + cutout are drop-in assets -->
       <div class="scene3d" id="scene3d">
@@ -982,8 +982,8 @@
     <p>Browse by season to hear from the operators, entrepreneurs, and innovators shaping the future of energy. Every card links straight to the episode on YouTube.</p>
   </div>
   <div class="season-tabs">
-    <button class="season-tab active" data-season="4">Season 4</button>
-    <button class="season-tab" data-season="3">Season 3</button>
+    <button class="season-tab" data-season="4">Season 4 · Coming Fall '26</button>
+    <button class="season-tab active" data-season="3">Season 3</button>
     <button class="season-tab" data-season="2">Season 2</button>
     <button class="season-tab" data-season="1">Season 1</button>
   </div>
@@ -1282,46 +1282,54 @@
   const YT = id => `https://www.youtube.com/watch?v=${id}`;
   const THUMB = id => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 
-  const episodes = {
-    4: [
-      {n:88, yt:'qjs0wca_-Fs', guest:'Suzie Boyd', org:'Caballo Loco Midstream'},
-      {n:87, yt:'9rlHFqW9-Tk', guest:'Jason Burger', org:'Rolfson Oil'},
-      {n:86, yt:'nzn_ZZbkS-Q', guest:'Matt Gray', org:'Klein AE'},
-      {n:85, yt:'23cGnEyMUSk', guest:'Beth Hutson', org:'Elevated Content'},
-      {n:84, yt:'mIvhyHnNE18', guest:'Jeff Vaughan', org:'Hill College'},
-      {n:83, yt:'sgx3sLoxgAM', guest:'Tyler Moreau', org:'Knowledge Pharmaceuticals'},
-      {n:82, yt:'-HCn7tDQacQ', guest:'Jorge Carli', org:'Content Creator'},
-      {n:81, yt:'IWr_jK3KM0k', guest:'Tiffany Legg', org:'Graduate Student'},
-    ],
-    3: [
-      {n:80, yt:'7XM3k7X2L5c', guest:'JP Warren', org:'Crue Club'},
-      {n:79, yt:'nmNjMw983Lg', guest:'Mary Carmen Luna', org:'Skillpoint Alliance'},
-      {n:78, yt:'BMiZwZRBJ1E', guest:'Juan Hernandez', org:'Tetra Technologies'},
-      {n:77, yt:'CRH3yQMyb6g', guest:'Stephanie Hajducek', org:'This One’s for the Gals'},
-      {n:76, yt:'07odhxVzP-o', guest:'Tom Poteet', org:'Mesa Power Solutions'},
-      {n:75, yt:'xXSDUNiEyhk', guest:'Chuck Smith', org:'Guardian Infrastructure'},
-      {n:74, yt:'0seSi_Cfx_s', guest:'Rey Trevino', org:'Pecos Country Operating'},
-      {n:73, yt:'640Ic_jS3sc', guest:'Patrick Polomsky', org:'Prod Logic'},
-      {n:72, yt:'5_dfLs7jQ6k', guest:'Chad Simmons', org:'Local 798'},
-      {n:71, yt:'2pOQCn7-K_I', guest:'Jeff Krimmel', org:'Krimmel Strategy Group'},
-    ],
-    2: [
-      {n:70, yt:'O35PNmyuEnM', guest:'J.D. Leach', org:'Enercorp'},
-      {n:69, yt:'Dboeo39lahM', guest:'Paloma Prieto', org:'Znergen Operating'},
-      {n:68, yt:'_1J3ZjYnVFc', guest:'Whitney Robinson', org:'TX FR Supply'},
-      {n:67, yt:'GtgjS3R68NI', guest:'Maxim Kabanov', org:'Alteriver'},
-      {n:66, yt:'Hl2CPrBPtUY', guest:'Derek Cook', org:'DDC Law'},
-      {n:65, yt:'WFJqI3vqRPQ', guest:'Ryan Sampey', org:'BH Energy Services'},
-      {n:64, yt:'MNMWrmRaUmw', guest:'Rich Rendon', org:'R3OG'},
-      {n:63, yt:'OoIQcfMT7yo', guest:'Trey Lawson', org:'Mesa Natural Gas Solutions'},
-      {n:62, yt:'T88nB8mADoM', guest:'Corey Thompson', org:'Real Estate Entrepreneur'},
-      {n:61, yt:'fSROhoqxAFQ', guest:'Jasen Gast', org:'OSP'},
-    ],
-    1: [
-      {n:60, yt:'LR95c7HwvqM', guest:'Charles Hamm', org:'Published Author'},
-      {n:59, yt:'BxAJ6SbgDZs', guest:'Joe Brown', org:'Patterson UTI'},
-    ]
+  // Real season boundaries by episode number.
+  // Season 4 premieres this Fall in Austin, TX.
+  const seasonRanges = { 1:[1,29], 2:[30,60], 3:[61,88], 4:[89, Infinity] };
+
+  // Every episode we have a YouTube link for. The season each one belongs to
+  // is derived from its number via seasonRanges below, so adding a new episode
+  // is a single line here — it lands in the correct season tab and the home
+  // "latest" strip automatically.
+  const allEpisodes = [
+    {n:88, yt:'qjs0wca_-Fs', guest:'Suzie Boyd', org:'Caballo Loco Midstream'},
+    {n:87, yt:'9rlHFqW9-Tk', guest:'Jason Burger', org:'Rolfson Oil'},
+    {n:86, yt:'nzn_ZZbkS-Q', guest:'Matt Gray', org:'Klein AE'},
+    {n:85, yt:'23cGnEyMUSk', guest:'Beth Hutson', org:'Elevated Content'},
+    {n:84, yt:'mIvhyHnNE18', guest:'Jeff Vaughan', org:'Hill College'},
+    {n:83, yt:'sgx3sLoxgAM', guest:'Tyler Moreau', org:'Knowledge Pharmaceuticals'},
+    {n:82, yt:'-HCn7tDQacQ', guest:'Jorge Carli', org:'Content Creator'},
+    {n:81, yt:'IWr_jK3KM0k', guest:'Tiffany Legg', org:'Graduate Student'},
+    {n:80, yt:'7XM3k7X2L5c', guest:'JP Warren', org:'Crue Club'},
+    {n:79, yt:'nmNjMw983Lg', guest:'Mary Carmen Luna', org:'Skillpoint Alliance'},
+    {n:78, yt:'BMiZwZRBJ1E', guest:'Juan Hernandez', org:'Tetra Technologies'},
+    {n:77, yt:'CRH3yQMyb6g', guest:'Stephanie Hajducek', org:'This One’s for the Gals'},
+    {n:76, yt:'07odhxVzP-o', guest:'Tom Poteet', org:'Mesa Power Solutions'},
+    {n:75, yt:'xXSDUNiEyhk', guest:'Chuck Smith', org:'Guardian Infrastructure'},
+    {n:74, yt:'0seSi_Cfx_s', guest:'Rey Trevino', org:'Pecos Country Operating'},
+    {n:73, yt:'640Ic_jS3sc', guest:'Patrick Polomsky', org:'Prod Logic'},
+    {n:72, yt:'5_dfLs7jQ6k', guest:'Chad Simmons', org:'Local 798'},
+    {n:71, yt:'2pOQCn7-K_I', guest:'Jeff Krimmel', org:'Krimmel Strategy Group'},
+    {n:70, yt:'O35PNmyuEnM', guest:'J.D. Leach', org:'Enercorp'},
+    {n:69, yt:'Dboeo39lahM', guest:'Paloma Prieto', org:'Znergen Operating'},
+    {n:68, yt:'_1J3ZjYnVFc', guest:'Whitney Robinson', org:'TX FR Supply'},
+    {n:67, yt:'GtgjS3R68NI', guest:'Maxim Kabanov', org:'Alteriver'},
+    {n:66, yt:'Hl2CPrBPtUY', guest:'Derek Cook', org:'DDC Law'},
+    {n:65, yt:'WFJqI3vqRPQ', guest:'Ryan Sampey', org:'BH Energy Services'},
+    {n:64, yt:'MNMWrmRaUmw', guest:'Rich Rendon', org:'R3OG'},
+    {n:63, yt:'OoIQcfMT7yo', guest:'Trey Lawson', org:'Mesa Natural Gas Solutions'},
+    {n:62, yt:'T88nB8mADoM', guest:'Corey Thompson', org:'Real Estate Entrepreneur'},
+    {n:61, yt:'fSROhoqxAFQ', guest:'Jasen Gast', org:'OSP'},
+    {n:60, yt:'LR95c7HwvqM', guest:'Charles Hamm', org:'Published Author'},
+    {n:59, yt:'BxAJ6SbgDZs', guest:'Joe Brown', org:'Patterson UTI'},
+  ];
+
+  const seasonOf = n => {
+    for (const s of [4,3,2,1]){ const [lo,hi] = seasonRanges[s]; if (n >= lo && n <= hi) return s; }
+    return 1;
   };
+  const episodes = {1:[], 2:[], 3:[], 4:[]};
+  allEpisodes.forEach(ep => episodes[seasonOf(ep.n)].push(ep));
+  Object.keys(episodes).forEach(s => episodes[s].sort((a,b) => b.n - a.n));
 
   function epCard(ep){
     return `
@@ -1339,20 +1347,44 @@
       </a>`;
   }
 
+  function comingSoonCard(){
+    return `
+      <div class="ep-card res-card gold-card tilt reveal" style="text-align:center; align-items:center;">
+        <div class="big">✦</div>
+        <h4>Season 4 Premieres This Fall</h4>
+        <p style="color:var(--ivory-dim); font-size:0.9rem;">Live from Austin, TX. Subscribe on YouTube so you don't miss the premiere.</p>
+        <a class="guest" href="https://www.youtube.com/@powerofthepermian" target="_blank" rel="noopener" style="margin-top:12px; display:inline-block;">Subscribe on YouTube →</a>
+      </div>`;
+  }
+  function archiveCard(season){
+    return `
+      <a class="ep-card res-card archive-card gold-card tilt reveal" href="https://www.youtube.com/@powerofthepermian/videos" target="_blank" rel="noopener">
+        <div class="big">▶</div>
+        <h4>More of Season ${season} on YouTube</h4>
+        <p style="color:var(--ivory-dim); font-size:0.85rem;">Every episode from the early seasons lives on the channel.</p>
+      </a>`;
+  }
+
   function renderEpisodes(season){
     const grid = document.getElementById('episode-grid');
-    grid.innerHTML = episodes[season].map(epCard).join('');
-    if (season === '1' || season === 1){
-      grid.innerHTML += `
-        <a class="ep-card res-card archive-card gold-card tilt reveal" href="https://www.youtube.com/@powerofthepermian/videos" target="_blank" rel="noopener">
-          <div class="big">▶</div>
-          <h4>Full Archive on YouTube</h4>
-          <p style="color:var(--ivory-dim); font-size:0.85rem;">Every episode from day one lives on the channel.</p>
-        </a>`;
+    const list = episodes[season] || [];
+    const [lo, hi] = seasonRanges[season] || [0, 0];
+    if (String(season) === '4' && list.length === 0){
+      grid.innerHTML = comingSoonCard();
+      observeReveals();
+      return;
     }
+    let html = list.map(epCard).join('');
+    // If we don't yet have a card for every episode in this season's range,
+    // point visitors to the full catalog on YouTube.
+    const fullCount = hi === Infinity ? list.length : (hi - lo + 1);
+    if (list.length < fullCount){
+      html += archiveCard(season);
+    }
+    grid.innerHTML = html;
     observeReveals();
   }
-  renderEpisodes(4);
+  renderEpisodes(3);
   document.querySelectorAll('.season-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.season-tab').forEach(t => t.classList.remove('active'));
@@ -1361,8 +1393,9 @@
     });
   });
 
-  // Latest episodes strip on home
-  document.getElementById('latest-grid').innerHTML = episodes[4].slice(0,3).map(epCard).join('');
+  // Latest episodes strip on home — the three newest released episodes
+  const latest = allEpisodes.slice().sort((a,b) => b.n - a.n).slice(0,3);
+  document.getElementById('latest-grid').innerHTML = latest.map(epCard).join('');
 
   /* ---------- Resource filter pills (visual only for prototype) ---------- */
   document.querySelectorAll('.filter-pill').forEach(p => {
@@ -1545,7 +1578,7 @@
       'Operators \u00b7 Founders \u00b7 Innovators',
       'From derrick lights to data centers.',
       'The basin never sleeps.',
-      'Season 4 \u00b7 Coming Soon',
+      'Season 4 \u00b7 Premieres This Fall in Austin, TX',
       'Hosted by Breezey Clark.'
     ];
     const block = phrases.map(t => '<span>' + t + '</span><span class="sep">\u25c6</span>').join('');
