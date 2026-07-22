@@ -1582,6 +1582,98 @@
     window.addEventListener('resize', layoutRoom);
   })();
 
+  /* Sponsor ad rolling gallery — vanilla port of the framer-motion
+     RollingGallery: 3D cylinder, infinite spin, pause on hover, drag. */
+  (function rollingAds(){
+    const MAX_ADS = 12, SPIN_SECONDS = 20, DRAG_FACTOR = 0.05;
+    const probes = [];
+    for (let i = 1; i <= MAX_ADS; i++){
+      probes.push(new Promise(res => {
+        const im = new Image();
+        im.onload = () => res('assets/ads/ad-' + i + '.png');
+        im.onerror = () => res(null);
+        im.src = 'assets/ads/ad-' + i + '.png';
+      }));
+    }
+    Promise.all(probes).then(urls => {
+      const ads = urls.filter(Boolean);
+      if (ads.length < 2) return;             // stays hidden until at least 2 ads exist
+      const section = document.getElementById('ads-section');
+      const ring = document.getElementById('ads-ring');
+      section.classList.add('ready');
+
+      const small = window.innerWidth <= 640;
+      const cardW = small ? 230 : 340;          // matches .ad-face img width
+      const faceCount = ads.length;
+      const faceWidth = cardW + 28;             // card + breathing room: edges touch, never overlap
+      const cylinderWidth = faceWidth * faceCount;
+      const radius = cylinderWidth / (2 * Math.PI);
+      ring.style.width = cylinderWidth + 'px';
+
+      ads.forEach((url, i) => {
+        const face = document.createElement('div');
+        face.className = 'ad-face';
+        face.style.width = faceWidth + 'px';
+        face.style.transform = 'rotateY(' + (360 / faceCount) * i + 'deg) translateZ(' + radius + 'px)';
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = 'Sponsor ad ' + (i + 1);
+        face.appendChild(img);
+        ring.appendChild(face);
+      });
+
+      let rotation = 0, hovered = false, dragging = false, lastX = 0, velocity = 0, lastT = performance.now();
+      function frame(t){
+        const dt = (t - lastT) / 1000; lastT = t;
+        if (!dragging){
+          if (Math.abs(velocity) > 1){        // glide after a throw, then decay
+            rotation += velocity * dt;
+            velocity *= Math.pow(0.1, dt);
+          } else if (!hovered){
+            rotation -= (360 / SPIN_SECONDS) * dt;
+          }
+        }
+        ring.style.transform = 'rotate3d(0,1,0,' + rotation + 'deg)';
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+
+      ring.addEventListener('mouseenter', () => hovered = true);
+      ring.addEventListener('mouseleave', () => hovered = false);
+      let downX = 0, downY = 0, downSrc = null, moved = false;
+      ring.addEventListener('pointerdown', e => {
+        dragging = true; velocity = 0; lastX = e.clientX;
+        downX = e.clientX; downY = e.clientY; moved = false;
+        const face = e.target.closest('.ad-face');
+        downSrc = face ? face.querySelector('img').src : null;
+        ring.classList.add('dragging');
+        ring.setPointerCapture(e.pointerId);
+      });
+      ring.addEventListener('pointermove', e => {
+        if (!dragging) return;
+        if (Math.abs(e.clientX - downX) + Math.abs(e.clientY - downY) > 8) moved = true;
+        const dx = e.clientX - lastX; lastX = e.clientX;
+        rotation += dx * DRAG_FACTOR;
+        velocity = dx * DRAG_FACTOR * 30;
+      });
+      const endDrag = () => { dragging = false; ring.classList.remove('dragging'); };
+      ring.addEventListener('pointerup', e => {
+        endDrag();
+        if (!moved && downSrc){                    // a tap, not a drag: expand the ad
+          document.getElementById('ad-lightbox-img').src = downSrc;
+          document.getElementById('ad-lightbox').classList.add('open');
+        }
+      });
+      ring.addEventListener('pointercancel', endDrag);
+
+      const lightbox = document.getElementById('ad-lightbox');
+      const closeLb = () => lightbox.classList.remove('open');
+      document.getElementById('ad-lightbox-close').addEventListener('click', closeLb);
+      lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLb(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+    });
+  })();
+
   // Drop-in loaders for the scene backdrop (assets/hero.jpg) and the
   // transparent foreground cutout (assets/hero-cutout.png)
   function wireSlot(id){
