@@ -158,60 +158,47 @@
     0%,100%{ transform:translate(-4%, -3%) scale(1); }
     50%{ transform:translate(5%, 4%) scale(1.18); }
   }
-  .cube-wrap{
-    position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:flex-start;
-    padding:0 0 30px 120px; perspective:1150px; pointer-events:none;
+  /* Ticker room: three semi-transparent walls around the host, show copy
+     travels along them like a ticker (camera-inside-the-box effect) */
+  .room-wrap{ position:absolute; inset:0; perspective:1000px; overflow:hidden; pointer-events:none; }
+  .room{ position:absolute; inset:0; transform-style:preserve-3d; animation:roomSway 22s ease-in-out infinite; }
+  @keyframes roomSway{
+    0%,100%{ transform:rotateY(-3.5deg); }
+    50%{ transform:rotateY(3.5deg); }
   }
-  .cube3d{
-    position:relative; width:260px; height:260px; transform-style:preserve-3d;
-    animation:cubeSpin 32s linear infinite;
+  .wall{
+    position:absolute; overflow:hidden; display:flex; align-items:center;
+    background:linear-gradient(to bottom, rgba(201,162,39,0.03), rgba(201,162,39,0.09) 50%, rgba(201,162,39,0.03));
+    border-top:1px solid rgba(201,162,39,0.28);
+    border-bottom:1px solid rgba(201,162,39,0.28);
+    backdrop-filter:blur(1.5px);
   }
-  @keyframes cubeSpin{
-    0%{ transform:rotateX(-6deg) rotateY(0deg); }
-    100%{ transform:rotateX(-6deg) rotateY(360deg); }
+  .wall.back{
+    left:16%; right:16%; top:4%; height:72px; transform:translateZ(-200px);
+    -webkit-mask-image:linear-gradient(90deg, #000 0%, #000 36%, transparent 44%, transparent 56%, #000 64%, #000 100%);
+    mask-image:linear-gradient(90deg, #000 0%, #000 36%, transparent 44%, transparent 56%, #000 64%, #000 100%);
   }
-  .cube3d .face{
-    position:absolute; inset:0; border:1px solid rgba(201,162,39,0.4);
-    background:rgba(12,10,8,0.42);
+  .wall.left{ left:-30px; top:5%; height:76px; width:400px; transform-origin:left center; transform:rotateY(58deg); }
+  .wall.right{ right:-30px; top:5%; height:76px; width:400px; transform-origin:right center; transform:rotateY(-58deg); }
+  .ticker{ white-space:nowrap; display:flex; align-items:baseline; animation:tickerMove 36s linear infinite; will-change:transform; }
+  .wall.back .ticker{ animation-duration:44s; }
+  .ticker span{
+    font-family:'Playfair Display', serif; font-weight:700; font-size:44px; line-height:76px;
+    color:rgba(240,205,110,0.5); letter-spacing:0.04em; padding-right:64px;
+    text-shadow:0 0 22px rgba(201,162,39,0.35);
   }
-  .cube3d .face.front { transform:rotateY(0deg)   translateZ(130px); background:rgba(16,13,9,0.18); }
-  .cube3d .face.back  { transform:rotateY(180deg) translateZ(130px); }
-  .cube3d .face.left  { transform:rotateY(-90deg) translateZ(130px); }
-  .cube3d .face.right { transform:rotateY(90deg)  translateZ(130px); }
-  .cube3d .face.top   { transform:rotateX(90deg)  translateZ(130px); background:rgba(201,162,39,0.09); }
-  .cube3d .face.bottom{ transform:rotateX(-90deg) translateZ(130px); background:rgba(201,162,39,0.05); }
-  .cube3d .face.text{ background:rgba(12,10,8,0.68); backface-visibility:hidden; }
-  .scrolltext{ position:absolute; inset:20px 22px; overflow:hidden; }
-  .scrolltext .lines{
-    display:flex; flex-direction:column; gap:16px; text-align:center;
-    animation:textScroll 26s linear infinite;
+  .ticker span.sep{ color:rgba(240,205,110,0.35); font-size:30px; }
+  @keyframes tickerMove{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-50%); }
   }
-  @keyframes textScroll{
-    0%{ transform:translateY(0); }
-    100%{ transform:translateY(-50%); }
+  @media(max-width:640px){
+    .scene3d{ height:360px; }
+    .wall.back{ height:52px; }
+    .wall.left, .wall.right{ height:52px; width:220px; }
+    .ticker span{ font-size:26px; line-height:52px; padding-right:40px; }
+    .ticker span.sep{ font-size:18px; }
   }
-  .scrolltext .l-big{
-    font-family:'Playfair Display', serif; font-weight:700; font-size:1.42rem; line-height:1.25;
-    background:linear-gradient(120deg, var(--ivory) 30%, var(--gold-bright) 55%, var(--ivory) 80%);
-    -webkit-background-clip:text; background-clip:text; color:transparent;
-  }
-  .scrolltext .l-small{
-    font-size:0.68rem; letter-spacing:0.22em; text-transform:uppercase;
-    color:var(--gold); font-weight:700;
-  }
-  .ads-hint{
-    text-align:center; margin-top:6px; color:var(--ivory-dim);
-    font-size:0.78rem; letter-spacing:0.08em; display:flex; justify-content:center;
-    align-items:center; gap:14px; flex-wrap:wrap;
-  }
-  .ads-hint .hint-sep{ color:var(--gold); }
-  .cube-wrap.reflect{
-    transform:translateY(292px) scaleY(-1); opacity:0.1;
-    -webkit-mask-image:linear-gradient(to bottom, transparent 34%, #000 85%);
-    mask-image:linear-gradient(to bottom, transparent 34%, #000 85%);
-  }
-  /* The cutout is a full-width composition (title art + Breezey), so it
-     spans the whole stage; transparent regions reveal the cube behind it */
   .hero-cutout{
     position:absolute; inset:0; width:100%; height:100%;
     object-fit:contain; object-position:center bottom; z-index:6; display:none;
@@ -220,16 +207,6 @@
   .hero-cutout.ready{ display:block; }
   @media(max-width:640px){
     .scene3d{ height:360px; }
-    .cube3d{ width:240px; height:240px; }
-    .cube3d .face.front, .cube3d .face.back{ transform-origin:center; }
-    .cube3d .face.front { transform:rotateY(0deg)   translateZ(120px); }
-    .cube3d .face.back  { transform:rotateY(180deg) translateZ(120px); }
-    .cube3d .face.left  { transform:rotateY(-90deg) translateZ(120px); }
-    .cube3d .face.right { transform:rotateY(90deg)  translateZ(120px); }
-    .cube3d .face.top   { transform:rotateX(90deg)  translateZ(120px); }
-    .cube3d .face.bottom{ transform:rotateX(-90deg) translateZ(120px); }
-    .cube-wrap.reflect{ transform:translateY(262px) scaleY(-1); }
-    .scrolltext .l-big{ font-size:1.1rem; }
   }
   .hero-vignette{
     position:absolute; inset:0; pointer-events:none;
@@ -836,24 +813,11 @@
         <div class="scene-stage">
           <img class="scene-backdrop" id="scene-backdrop" src="assets/hero.jpg" alt="">
           <div class="scene-glow"></div>
-          <div class="cube-wrap">
-            <div class="cube3d">
-              <div class="face top"></div>
-              <div class="face bottom"></div>
-              <div class="face left text"></div>
-              <div class="face right text"></div>
-              <div class="face front"></div>
-              <div class="face back text"></div>
-            </div>
-          </div>
-          <div class="cube-wrap reflect">
-            <div class="cube3d">
-              <div class="face top"></div>
-              <div class="face bottom"></div>
-              <div class="face left text"></div>
-              <div class="face right text"></div>
-              <div class="face front"></div>
-              <div class="face back text"></div>
+          <div class="room-wrap">
+            <div class="room">
+              <div class="wall left"><div class="ticker"></div></div>
+              <div class="wall back"><div class="ticker"></div></div>
+              <div class="wall right"><div class="ticker"></div></div>
             </div>
           </div>
         </div>
@@ -1485,114 +1449,22 @@
   heroVideo.addEventListener('canplay', () => heroVideo.classList.add('ready'));
   heroVideo.querySelector('source').addEventListener('error', () => heroVideo.remove());
 
-  // 3D cube: scrolling show copy on the text faces (duplicated for a seamless loop)
-  (function buildCubeText(){
-    const lines = [
-      ['big',   'Power of the Permian'],
-      ['small', 'An Oilfield Podcast'],
-      ['big',   'The grit. The iron. The dawn shifts.'],
-      ['big',   'Stories pulled from two miles of rock.'],
-      ['small', 'Operators · Founders · Innovators'],
-      ['big',   'From derrick lights to data centers.'],
-      ['big',   'The basin never sleeps.'],
-      ['small', 'Season 4 · Coming Soon'],
-      ['big',   'Hosted by Breezey Clark.'],
-      ['small', 'YouTube · Spotify · TikTok'],
+  // Ticker walls: show copy circulating around the host (duplicated for a seamless loop)
+  (function buildWallTickers(){
+    const phrases = [
+      'Power of the Permian', 'An Oilfield Podcast',
+      'The grit. The iron. The dawn shifts.',
+      'Stories pulled from two miles of rock.',
+      'Operators \u00b7 Founders \u00b7 Innovators',
+      'From derrick lights to data centers.',
+      'The basin never sleeps.',
+      'Season 4 \u00b7 Coming Soon',
+      'Hosted by Breezey Clark.'
     ];
-    const block = lines.map(([k, t]) => `<div class="l-${k}">${t}</div>`).join('');
-    const html = `<div class="scrolltext"><div class="lines">${block}${block}</div></div>`;
-    document.querySelectorAll('.cube3d .face.text').forEach(f => f.innerHTML = html);
-  })();
-
-  /* Sponsor ad rolling gallery — vanilla port of the framer-motion
-     RollingGallery: 3D cylinder, infinite spin, pause on hover, drag. */
-  (function rollingAds(){
-    const MAX_ADS = 12, SPIN_SECONDS = 20, DRAG_FACTOR = 0.05;
-    const probes = [];
-    for (let i = 1; i <= MAX_ADS; i++){
-      probes.push(new Promise(res => {
-        const im = new Image();
-        im.onload = () => res('assets/ads/ad-' + i + '.png');
-        im.onerror = () => res(null);
-        im.src = 'assets/ads/ad-' + i + '.png';
-      }));
-    }
-    Promise.all(probes).then(urls => {
-      const ads = urls.filter(Boolean);
-      if (ads.length < 2) return;             // stays hidden until at least 2 ads exist
-      const section = document.getElementById('ads-section');
-      const ring = document.getElementById('ads-ring');
-      section.classList.add('ready');
-
-      const small = window.innerWidth <= 640;
-      const cardW = small ? 230 : 340;          // matches .ad-face img width
-      const faceCount = ads.length;
-      const faceWidth = cardW + 28;             // card + breathing room: edges touch, never overlap
-      const cylinderWidth = faceWidth * faceCount;
-      const radius = cylinderWidth / (2 * Math.PI);
-      ring.style.width = cylinderWidth + 'px';
-
-      ads.forEach((url, i) => {
-        const face = document.createElement('div');
-        face.className = 'ad-face';
-        face.style.width = faceWidth + 'px';
-        face.style.transform = 'rotateY(' + (360 / faceCount) * i + 'deg) translateZ(' + radius + 'px)';
-        const img = document.createElement('img');
-        img.src = url;
-        img.alt = 'Sponsor ad ' + (i + 1);
-        face.appendChild(img);
-        ring.appendChild(face);
-      });
-
-      let rotation = 0, hovered = false, dragging = false, lastX = 0, velocity = 0, lastT = performance.now();
-      function frame(t){
-        const dt = (t - lastT) / 1000; lastT = t;
-        if (!dragging){
-          if (Math.abs(velocity) > 1){        // glide after a throw, then decay
-            rotation += velocity * dt;
-            velocity *= Math.pow(0.1, dt);
-          } else if (!hovered){
-            rotation -= (360 / SPIN_SECONDS) * dt;
-          }
-        }
-        ring.style.transform = 'rotate3d(0,1,0,' + rotation + 'deg)';
-        requestAnimationFrame(frame);
-      }
-      requestAnimationFrame(frame);
-
-      ring.addEventListener('mouseenter', () => hovered = true);
-      ring.addEventListener('mouseleave', () => hovered = false);
-      let downX = 0, downY = 0, downSrc = null, moved = false;
-      ring.addEventListener('pointerdown', e => {
-        dragging = true; velocity = 0; lastX = e.clientX;
-        downX = e.clientX; downY = e.clientY; moved = false;
-        const face = e.target.closest('.ad-face');
-        downSrc = face ? face.querySelector('img').src : null;
-        ring.classList.add('dragging');
-        ring.setPointerCapture(e.pointerId);
-      });
-      ring.addEventListener('pointermove', e => {
-        if (!dragging) return;
-        if (Math.abs(e.clientX - downX) + Math.abs(e.clientY - downY) > 8) moved = true;
-        const dx = e.clientX - lastX; lastX = e.clientX;
-        rotation += dx * DRAG_FACTOR;
-        velocity = dx * DRAG_FACTOR * 30;
-      });
-      const endDrag = () => { dragging = false; ring.classList.remove('dragging'); };
-      ring.addEventListener('pointerup', e => {
-        endDrag();
-        if (!moved && downSrc){                    // a tap, not a drag: expand the ad
-          document.getElementById('ad-lightbox-img').src = downSrc;
-          document.getElementById('ad-lightbox').classList.add('open');
-        }
-      });
-      ring.addEventListener('pointercancel', endDrag);
-
-      const lightbox = document.getElementById('ad-lightbox');
-      const closeLb = () => lightbox.classList.remove('open');
-      document.getElementById('ad-lightbox-close').addEventListener('click', closeLb);
-      lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLb(); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+    const block = phrases.map(t => '<span>' + t + '</span><span class="sep">\u25c6</span>').join('');
+    document.querySelectorAll('.wall .ticker').forEach((t, i) => {
+      t.innerHTML = block + block;                    // two copies: -50% translate loops seamlessly
+      t.style.animationDelay = (-i * 12) + 's';       // stagger so walls show different phrases
     });
   })();
 
