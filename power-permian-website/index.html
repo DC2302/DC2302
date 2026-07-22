@@ -3,8 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Power of the Permian</title>
-<meta name="description" content="The grit, innovation, and people driving the energy industry forward. An oilfield podcast hosted by Breezey Clark.">
+<title>Power of the Permian Podcast | Oilfield Stories with Breezey Clark</title>
+<meta name="description" content="Power of the Permian is the oilfield podcast hosted by Breezey Clark — 100+ episodes with the operators, founders, and innovators of the Permian Basin. Watch episodes, become a sponsor, join the newsletter, or apply to be a guest.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0a0908">
+<link rel="canonical" href="https://dc-2302-w1ri.vercel.app/"><!-- TODO: switch to https://www.powerofthepermian.com/ when the domain is attached -->
+<link rel="icon" type="image/png" href="assets/logo.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Power of the Permian">
+<meta property="og:title" content="Power of the Permian Podcast | Oilfield Stories with Breezey Clark">
+<meta property="og:description" content="100+ episodes with the operators, founders, and innovators of the Permian Basin. Hosted by Breezey Clark.">
+<meta property="og:url" content="https://dc-2302-w1ri.vercel.app/">
+<meta property="og:image" content="https://dc-2302-w1ri.vercel.app/assets/hero.jpg">
+<meta property="og:image:width" content="1376">
+<meta property="og:image:height" content="768">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Power of the Permian Podcast | Oilfield Stories with Breezey Clark">
+<meta name="twitter:description" content="100+ episodes with the operators, founders, and innovators of the Permian Basin. Hosted by Breezey Clark.">
+<meta name="twitter:image" content="https://dc-2302-w1ri.vercel.app/assets/hero.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -580,6 +596,25 @@
     .ad-face img{ height:120px; width:230px; }
   }
 
+  /* ---------- AD LIGHTBOX ---------- */
+  .ad-lightbox{
+    position:fixed; inset:0; z-index:400; background:rgba(6,5,4,0.88);
+    display:none; align-items:center; justify-content:center; padding:40px;
+    backdrop-filter:blur(6px);
+  }
+  .ad-lightbox.open{ display:flex; }
+  .ad-lightbox img{
+    max-width:min(92vw, 900px); max-height:88vh; border-radius:10px;
+    border:2px solid rgba(201,162,39,0.6);
+    box-shadow:0 30px 90px rgba(0,0,0,0.9), 0 0 60px -16px rgba(201,162,39,0.4);
+  }
+  .ad-lightbox .lb-close{
+    position:absolute; top:24px; right:28px; width:44px; height:44px; border-radius:50%;
+    background:rgba(20,18,16,0.8); border:1px solid var(--line); color:var(--ivory);
+    font-size:1.2rem; cursor:pointer; transition:all .2s;
+  }
+  .ad-lightbox .lb-close:hover{ border-color:var(--gold); color:var(--gold-bright); }
+
   /* ---------- CTA STRIP + LEAD FORM ---------- */
   .cta-strip{
     margin-top:48px; padding:34px 38px; border-radius:6px; text-align:center;
@@ -696,6 +731,39 @@
     .agent-card-wide{ padding:28px 24px; }
   }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "PodcastSeries",
+      "name": "Power of the Permian",
+      "description": "An oilfield podcast celebrating the grit, innovation, and people driving the energy industry forward in the Permian Basin.",
+      "url": "https://dc-2302-w1ri.vercel.app/",
+      "image": "https://dc-2302-w1ri.vercel.app/assets/hero.jpg",
+      "author": { "@type": "Person", "name": "Breezey Clark", "jobTitle": "Host & Consultant" },
+      "sameAs": [
+        "https://www.youtube.com/@powerofthepermian",
+        "https://open.spotify.com/show/3J2WgY6IIBoY60XNUhugAM",
+        "https://www.tiktok.com/@breezeyclark",
+        "https://www.linkedin.com/in/breezey-clark-96646a236/"
+      ]
+    },
+    {
+      "@type": "Organization",
+      "name": "Power of the Permian",
+      "url": "https://dc-2302-w1ri.vercel.app/",
+      "logo": "https://dc-2302-w1ri.vercel.app/assets/logo.png",
+      "contactPoint": { "@type": "ContactPoint", "contactType": "sponsorships", "url": "https://form.jotform.com/262014225883050" }
+    },
+    {
+      "@type": "WebSite",
+      "name": "Power of the Permian",
+      "url": "https://dc-2302-w1ri.vercel.app/"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -1011,6 +1079,12 @@
   </div>
   <div class="oso-signature">Website built &amp; powered by <span>OSO Optimization</span> · D.A.N.I. Framework</div>
 </footer>
+
+<!-- AD LIGHTBOX -->
+<div class="ad-lightbox" id="ad-lightbox">
+  <button class="lb-close" id="ad-lightbox-close" aria-label="Close ad">✕</button>
+  <img id="ad-lightbox-img" src="" alt="Sponsor ad, expanded">
+</div>
 
 <!-- CART DRAWER -->
 <div class="cart-overlay" id="cart-overlay"></div>
@@ -1477,20 +1551,37 @@
 
       ring.addEventListener('mouseenter', () => hovered = true);
       ring.addEventListener('mouseleave', () => hovered = false);
+      let downX = 0, downY = 0, downSrc = null, moved = false;
       ring.addEventListener('pointerdown', e => {
         dragging = true; velocity = 0; lastX = e.clientX;
+        downX = e.clientX; downY = e.clientY; moved = false;
+        const face = e.target.closest('.ad-face');
+        downSrc = face ? face.querySelector('img').src : null;
         ring.classList.add('dragging');
         ring.setPointerCapture(e.pointerId);
       });
       ring.addEventListener('pointermove', e => {
         if (!dragging) return;
+        if (Math.abs(e.clientX - downX) + Math.abs(e.clientY - downY) > 8) moved = true;
         const dx = e.clientX - lastX; lastX = e.clientX;
         rotation += dx * DRAG_FACTOR;
         velocity = dx * DRAG_FACTOR * 30;
       });
       const endDrag = () => { dragging = false; ring.classList.remove('dragging'); };
-      ring.addEventListener('pointerup', endDrag);
+      ring.addEventListener('pointerup', e => {
+        endDrag();
+        if (!moved && downSrc){                    // a tap, not a drag: expand the ad
+          document.getElementById('ad-lightbox-img').src = downSrc;
+          document.getElementById('ad-lightbox').classList.add('open');
+        }
+      });
       ring.addEventListener('pointercancel', endDrag);
+
+      const lightbox = document.getElementById('ad-lightbox');
+      const closeLb = () => lightbox.classList.remove('open');
+      document.getElementById('ad-lightbox-close').addEventListener('click', closeLb);
+      lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLb(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
     });
   })();
 
