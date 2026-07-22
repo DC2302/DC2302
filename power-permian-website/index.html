@@ -547,6 +547,39 @@
   .cart-foot .btn-gold{ width:100%; text-align:center; }
   .cart-foot .shopify-note{ margin-top:10px; font-size:0.72rem; color:var(--ivory-dim); text-align:center; }
 
+  /* ---------- SPONSOR AD CAROUSEL (3D rolling gallery) ---------- */
+  .ads-section{ max-width:1280px; margin:0 auto; padding:80px 24px 0; display:none; }
+  .ads-section.ready{ display:block; }
+  .ads-section .strip-head{ max-width:1180px; margin:0 auto 6px; padding:0 24px; }
+  .ads-stage{ position:relative; height:340px; width:100%; overflow:hidden; }
+  .ads-fade{ position:absolute; top:0; height:100%; width:70px; z-index:10; pointer-events:none; }
+  .ads-fade.left{ left:0; background:linear-gradient(to left, rgba(10,9,8,0) 0%, var(--black-deep) 100%); }
+  .ads-fade.right{ right:0; background:linear-gradient(to right, rgba(10,9,8,0) 0%, var(--black-deep) 100%); }
+  .ads-persp{
+    display:flex; height:100%; align-items:center; justify-content:center;
+    perspective:1100px; transform-style:preserve-3d;
+  }
+  .ads-ring{
+    display:flex; min-height:200px; align-items:center; justify-content:center;
+    transform-style:preserve-3d; cursor:grab; position:relative;
+  }
+  .ads-ring.dragging{ cursor:grabbing; }
+  .ad-face{
+    position:absolute; display:flex; align-items:center; justify-content:center;
+    backface-visibility:hidden;
+  }
+  .ad-face img{
+    pointer-events:none; height:180px; width:340px; object-fit:cover; border-radius:12px;
+    border:2px solid rgba(201,162,39,0.55);
+    box-shadow:0 14px 34px -14px rgba(0,0,0,0.85), 0 0 24px -8px rgba(201,162,39,0.3);
+    transition:transform .3s ease;
+  }
+  .ad-face:hover img{ transform:scale(1.05); }
+  @media(max-width:640px){
+    .ads-stage{ height:260px; }
+    .ad-face img{ height:120px; width:230px; }
+  }
+
   /* ---------- CTA STRIP + LEAD FORM ---------- */
   .cta-strip{
     margin-top:48px; padding:34px 38px; border-radius:6px; text-align:center;
@@ -768,6 +801,24 @@
     </div>
     <div class="rig-silhouette"></div>
     <div class="scroll-cue"><span>Scroll</span><div class="line"></div></div>
+  </div>
+
+  <!-- Sponsor ad carousel (drop ads at assets/ads/ad-1.png ... ad-12.png) -->
+  <div class="ads-section" id="ads-section">
+    <div class="strip-head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:8px;">Our Partners</div>
+        <h2>Trusted Across the Basin</h2>
+      </div>
+      <a data-page="sponsorships">Advertise with us →</a>
+    </div>
+    <div class="ads-stage">
+      <div class="ads-fade left"></div>
+      <div class="ads-fade right"></div>
+      <div class="ads-persp">
+        <div class="ads-ring" id="ads-ring"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Latest episodes strip -->
@@ -1367,6 +1418,80 @@
     const block = lines.map(([k, t]) => `<div class="l-${k}">${t}</div>`).join('');
     const html = `<div class="scrolltext"><div class="lines">${block}${block}</div></div>`;
     document.querySelectorAll('.cube3d .face.text').forEach(f => f.innerHTML = html);
+  })();
+
+  /* Sponsor ad rolling gallery — vanilla port of the framer-motion
+     RollingGallery: 3D cylinder, infinite spin, pause on hover, drag. */
+  (function rollingAds(){
+    const MAX_ADS = 12, SPIN_SECONDS = 20, DRAG_FACTOR = 0.05;
+    const probes = [];
+    for (let i = 1; i <= MAX_ADS; i++){
+      probes.push(new Promise(res => {
+        const im = new Image();
+        im.onload = () => res('assets/ads/ad-' + i + '.png');
+        im.onerror = () => res(null);
+        im.src = 'assets/ads/ad-' + i + '.png';
+      }));
+    }
+    Promise.all(probes).then(urls => {
+      const ads = urls.filter(Boolean);
+      if (ads.length < 2) return;             // stays hidden until at least 2 ads exist
+      const section = document.getElementById('ads-section');
+      const ring = document.getElementById('ads-ring');
+      section.classList.add('ready');
+
+      const small = window.innerWidth <= 640;
+      const cylinderWidth = small ? 1100 : 1800;
+      const faceCount = ads.length;
+      const faceWidth = (cylinderWidth / faceCount) * 1.5;
+      const radius = cylinderWidth / (2 * Math.PI);
+      ring.style.width = cylinderWidth + 'px';
+
+      ads.forEach((url, i) => {
+        const face = document.createElement('div');
+        face.className = 'ad-face';
+        face.style.width = faceWidth + 'px';
+        face.style.transform = 'rotateY(' + (360 / faceCount) * i + 'deg) translateZ(' + radius + 'px)';
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = 'Sponsor ad ' + (i + 1);
+        face.appendChild(img);
+        ring.appendChild(face);
+      });
+
+      let rotation = 0, hovered = false, dragging = false, lastX = 0, velocity = 0, lastT = performance.now();
+      function frame(t){
+        const dt = (t - lastT) / 1000; lastT = t;
+        if (!dragging){
+          if (Math.abs(velocity) > 1){        // glide after a throw, then decay
+            rotation += velocity * dt;
+            velocity *= Math.pow(0.1, dt);
+          } else if (!hovered){
+            rotation -= (360 / SPIN_SECONDS) * dt;
+          }
+        }
+        ring.style.transform = 'rotate3d(0,1,0,' + rotation + 'deg)';
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+
+      ring.addEventListener('mouseenter', () => hovered = true);
+      ring.addEventListener('mouseleave', () => hovered = false);
+      ring.addEventListener('pointerdown', e => {
+        dragging = true; velocity = 0; lastX = e.clientX;
+        ring.classList.add('dragging');
+        ring.setPointerCapture(e.pointerId);
+      });
+      ring.addEventListener('pointermove', e => {
+        if (!dragging) return;
+        const dx = e.clientX - lastX; lastX = e.clientX;
+        rotation += dx * DRAG_FACTOR;
+        velocity = dx * DRAG_FACTOR * 30;
+      });
+      const endDrag = () => { dragging = false; ring.classList.remove('dragging'); };
+      ring.addEventListener('pointerup', endDrag);
+      ring.addEventListener('pointercancel', endDrag);
+    });
   })();
 
   // Drop-in loaders for the scene backdrop (assets/hero.jpg) and the
