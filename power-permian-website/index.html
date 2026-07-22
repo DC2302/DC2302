@@ -174,16 +174,24 @@
     backdrop-filter:blur(1.5px);
   }
   .wall.back{
-    left:16%; right:16%; top:4%; height:72px; transform:translateZ(-200px);
-    -webkit-mask-image:linear-gradient(90deg, #000 0%, #000 36%, transparent 44%, transparent 56%, #000 64%, #000 100%);
-    mask-image:linear-gradient(90deg, #000 0%, #000 36%, transparent 44%, transparent 56%, #000 64%, #000 100%);
+    top:4%; height:72px;   /* left/width/transform set by layoutRoom() */
+    -webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 7%, #000 36%, transparent 44%, transparent 56%, #000 64%, #000 93%, transparent 100%);
+    mask-image:linear-gradient(90deg, transparent 0%, #000 7%, #000 36%, transparent 44%, transparent 56%, #000 64%, #000 93%, transparent 100%);
   }
-  .wall.left{ left:-30px; top:5%; height:76px; width:400px; transform-origin:left center; transform:rotateY(58deg); }
-  .wall.right{ right:-30px; top:5%; height:76px; width:400px; transform-origin:right center; transform:rotateY(-58deg); }
+  .wall.left{
+    top:4%; height:72px; transform-origin:left center;
+    -webkit-mask-image:linear-gradient(90deg, #000 0%, #000 78%, transparent 99%);
+    mask-image:linear-gradient(90deg, #000 0%, #000 78%, transparent 99%);
+  }
+  .wall.right{
+    top:4%; height:72px; transform-origin:right center;
+    -webkit-mask-image:linear-gradient(90deg, transparent 1%, #000 22%, #000 100%);
+    mask-image:linear-gradient(90deg, transparent 1%, #000 22%, #000 100%);
+  }
   .ticker{ white-space:nowrap; display:flex; align-items:baseline; animation:tickerMove 36s linear infinite; will-change:transform; }
   .wall.back .ticker{ animation-duration:44s; }
   .ticker span{
-    font-family:'Playfair Display', serif; font-weight:700; font-size:44px; line-height:76px;
+    font-family:'Playfair Display', serif; font-weight:700; font-size:44px; line-height:72px;
     color:rgba(240,205,110,0.5); letter-spacing:0.04em; padding-right:64px;
     text-shadow:0 0 22px rgba(201,162,39,0.35);
   }
@@ -1545,6 +1553,33 @@
       t.innerHTML = block + block;                    // two copies: -50% translate loops seamlessly
       t.style.animationDelay = (-i * 12) + 's';       // stagger so walls show different phrases
     });
+
+    // Corner-accurate room: each side wall's far end lands exactly on the
+    // back wall's corner point in 3D, so the bands join seamlessly.
+    const stage = document.querySelector('.scene-stage');
+    function layoutRoom(){
+      const W = stage.clientWidth;
+      const D = Math.round(W * 0.2);        // room depth
+      const A = Math.round(W * 0.16);       // back wall inset from each side
+      const C = 30;                         // side walls start just off-stage
+      const back = document.querySelector('.wall.back');
+      back.style.left = A + 'px';
+      back.style.width = (W - 2 * A) + 'px';
+      back.style.transform = 'translateZ(' + (-D) + 'px)';
+      const runX = A + C;
+      const len = Math.hypot(runX, D);
+      const deg = Math.atan2(D, runX) * 180 / Math.PI;
+      const left = document.querySelector('.wall.left');
+      left.style.left = (-C) + 'px';
+      left.style.width = Math.round(len) + 'px';
+      left.style.transform = 'rotateY(' + deg.toFixed(2) + 'deg)';
+      const right = document.querySelector('.wall.right');
+      right.style.right = (-C) + 'px';
+      right.style.width = Math.round(len) + 'px';
+      right.style.transform = 'rotateY(' + (-deg).toFixed(2) + 'deg)';
+    }
+    layoutRoom();
+    window.addEventListener('resize', layoutRoom);
   })();
 
   // Drop-in loaders for the scene backdrop (assets/hero.jpg) and the
