@@ -661,6 +661,58 @@
   .form-wrap{ border-radius:6px; overflow:hidden; padding:6px; }
   .form-wrap iframe{ width:100%; height:660px; border:0; display:block; border-radius:4px; background:#fff; }
 
+  /* ---------- SERVICES / MARKETING PACKAGES ---------- */
+  .svc-lead{ max-width:760px; margin:-6px auto 46px; text-align:center; }
+  .svc-lead p{ color:var(--ivory-dim); line-height:1.72; font-size:1.02rem; }
+  .svc-lead .accent{ color:var(--gold-bright); font-weight:600; }
+  .svc-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:22px; }
+  .svc-card{ padding:26px 24px; border-radius:6px; display:flex; gap:18px; align-items:flex-start; }
+  .svc-ic{
+    flex:none; width:52px; height:52px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(circle at 32% 26%, rgba(240,205,110,0.24), rgba(201,162,39,0.04));
+    border:1px solid rgba(240,205,110,0.35);
+  }
+  .svc-ic svg{ width:24px; height:24px; stroke:var(--gold-bright); fill:none; stroke-width:1.55; stroke-linecap:round; stroke-linejoin:round; }
+  .svc-card h4{ font-family:'Manrope',sans-serif; font-weight:700; font-size:1.06rem; letter-spacing:0.01em; }
+  .svc-card p{ color:var(--ivory-dim); font-size:0.86rem; line-height:1.56; margin-top:7px; }
+
+  /* ---------- ADVERTISE / PARTNER ---------- */
+  .ad-tagline{
+    text-align:center; color:var(--gold-bright); letter-spacing:0.3em; text-transform:uppercase;
+    font-size:0.86rem; font-weight:700; margin:-8px 0 42px;
+  }
+  .feat-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; }
+  .feat-card{ padding:30px 22px; border-radius:6px; text-align:center; }
+  .feat-ic{ width:56px; height:56px; margin:0 auto 16px; display:flex; align-items:center; justify-content:center; }
+  .feat-ic svg{ width:36px; height:36px; stroke:var(--gold-bright); fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+  .feat-card h4{ font-family:'Manrope',sans-serif; font-weight:700; font-size:0.98rem; text-transform:uppercase; letter-spacing:0.05em; line-height:1.3; }
+  .feat-card p{ color:var(--ivory-dim); font-size:0.85rem; line-height:1.55; margin-top:11px; }
+  .duo-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:26px; }
+  .duo-panel{ padding:32px 32px; border-radius:6px; }
+  .duo-panel h3{ color:var(--gold-bright); font-size:1.18rem; letter-spacing:0.03em; margin-bottom:16px; font-family:'Manrope',sans-serif; }
+  .duo-panel > p{ color:var(--ivory-dim); line-height:1.72; font-size:0.94rem; }
+  .why-list{ list-style:none; display:flex; flex-direction:column; gap:16px; }
+  .why-list li{ display:flex; gap:13px; align-items:flex-start; color:var(--ivory-dim); font-size:0.93rem; line-height:1.5; }
+  .why-list .chk{
+    flex:none; width:22px; height:22px; border-radius:50%; margin-top:1px;
+    border:1px solid var(--gold); display:flex; align-items:center; justify-content:center;
+    color:var(--gold-bright); font-size:0.66rem; font-weight:700;
+  }
+  @media(max-width:760px){ .duo-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- CONTACT CHIPS ---------- */
+  .contact-bar{ display:flex; flex-wrap:wrap; gap:16px; margin-bottom:26px; }
+  .contact-chip{
+    display:flex; align-items:center; gap:14px; padding:16px 22px; border-radius:6px;
+    text-decoration:none; flex:1 1 300px; min-width:0;
+  }
+  .contact-chip .svc-ic{ width:44px; height:44px; }
+  .contact-chip .svc-ic svg{ width:20px; height:20px; }
+  .cc-label{ display:block; font-size:0.68rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); font-weight:700; }
+  .cc-value{ display:block; color:var(--ivory); font-size:0.95rem; margin-top:3px; word-break:break-word; }
+  .contact-chip:hover .cc-value{ color:var(--gold-bright); }
+
   /* ---------- ABOUT ---------- */
   .about-grid{ display:grid; grid-template-columns:minmax(280px, 460px) 1fr; gap:44px; align-items:start; }
   .about-photo{ border-radius:6px; overflow:hidden; position:relative; }
@@ -815,8 +867,9 @@
   <ul class="nav-links">
     <li><a data-page="home" class="active">Home</a></li>
     <li><a data-page="episodes">Episodes</a></li>
+    <li><a data-page="services">Services</a></li>
     <li><a data-page="resources">Resources</a></li>
-    <li><a data-page="sponsorships">Sponsorships</a></li>
+    <li><a data-page="sponsorships">Advertise</a></li>
     <li><a data-page="about">About</a></li>
     <li><a data-page="contact">Contact</a></li>
   </ul>
@@ -927,6 +980,31 @@
     <div class="episode-grid" id="latest-grid"></div>
   </div>
 
+  <!-- Services teaser strip -->
+  <div class="home-strip">
+    <div class="strip-head reveal">
+      <div>
+        <div class="eyebrow" style="margin-bottom:8px;">Work With Breezey</div>
+        <h2>Customized Marketing Packages</h2>
+      </div>
+      <a data-page="services">See all services →</a>
+    </div>
+    <div class="svc-grid reveal">
+      <div class="svc-card gold-card tilt">
+        <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M3 11l14-6v14L3 13v-2z"/><path d="M7 12v5a2 2 0 0 0 4 0"/><path d="M18 9a3 3 0 0 1 0 6"/></svg></span>
+        <div><h4>Advertising</h4><p>Put your brand in front of the basin across the podcast, socials, and newsletter.</p></div>
+      </div>
+      <div class="svc-card gold-card tilt">
+        <span class="svc-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 9v12"/></svg></span>
+        <div><h4>LinkedIn &amp; Content</h4><p>A polished, consistent presence that turns your channels into a lead engine.</p></div>
+      </div>
+      <div class="svc-card gold-card tilt">
+        <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <div><h4>Business Development</h4><p>Warm introductions and strategy across the Permian network to open new doors.</p></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Agent showcase strip -->
   <div class="agent-strip reveal">
     <div class="agent-card-wide gold-card tilt">
@@ -991,6 +1069,51 @@
 </section>
 
 <!-- RESOURCES -->
+<!-- SERVICES / MARKETING PACKAGES -->
+<section id="services" class="page">
+  <div class="section-head">
+    <div class="eyebrow">Customized Marketing Packages</div>
+    <h2>Marketing Built for the Oilfield</h2>
+  </div>
+  <div class="svc-lead">
+    <p>Strategic marketing solutions designed to help oilfield businesses grow, stand out, and stay ahead in a competitive industry. <span class="accent">Each package is tailored to your needs, budget, and business stage.</span></p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card gold-card tilt">
+      <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M3 11l14-6v14L3 13v-2z"/><path d="M7 12v5a2 2 0 0 0 4 0"/><path d="M18 9a3 3 0 0 1 0 6"/></svg></span>
+      <div><h4>Advertising</h4><p>High-impact placements across the podcast, socials, and newsletter that put your brand in front of the basin.</p></div>
+    </div>
+    <div class="svc-card gold-card tilt">
+      <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></span>
+      <div><h4>Content Marketing</h4><p>Story-driven content that builds authority and keeps your name in the conversation across the industry.</p></div>
+    </div>
+    <div class="svc-card gold-card tilt">
+      <span class="svc-ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+      <div><h4>Newsletter Ads</h4><p>Direct access to an engaged subscriber base of oilfield operators, founders, and decision-makers.</p></div>
+    </div>
+    <div class="svc-card gold-card tilt">
+      <span class="svc-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3V9z"/></svg></span>
+      <div><h4>TikTok Channel Partner</h4><p>Ride the fastest-growing channel in energy with native, scroll-stopping content built for reach.</p></div>
+    </div>
+    <div class="svc-card gold-card tilt">
+      <span class="svc-ic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+      <div><h4>Business Development</h4><p>Warm introductions and strategic connections across the Permian network to open new doors.</p></div>
+    </div>
+    <div class="svc-card gold-card tilt">
+      <span class="svc-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 9v12"/></svg></span>
+      <div><h4>LinkedIn Page Management</h4><p>A polished, consistent presence that turns your company page into a steady lead engine.</p></div>
+    </div>
+    <div class="svc-card gold-card tilt">
+      <span class="svc-ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M8 13v-1M11 13v-3M14 13v-5"/></svg></span>
+      <div><h4>Market Research</h4><p>Know your audience and your competitors before you spend a dollar, with insight tailored to the basin.</p></div>
+    </div>
+  </div>
+  <div class="cta-strip">
+    <h3>Let's build the package that fits your business.</h3>
+    <a class="btn-gold" href="https://form.jotform.com/262014225883050" target="_blank" rel="noopener">Request a Custom Package</a>
+  </div>
+</section>
+
 <section id="resources" class="page">
   <div class="section-head">
     <div class="eyebrow">The Resource Library</div>
@@ -1022,18 +1145,54 @@
 <!-- SPONSORSHIPS -->
 <section id="sponsorships" class="page">
   <div class="section-head">
-    <div class="eyebrow">Partner With Us</div>
-    <h2>Reach an Engaged Energy Audience</h2>
-    <p>20,000+ followers across YouTube, LinkedIn, and TikTok. Placements available across the homepage, episode pages, and newsletter.</p>
+    <div class="eyebrow">Advertise Your Business</div>
+    <h2>Connect. Grow. Be Seen.</h2>
+    <p>The leading oilfield podcast and media platform, helping businesses grow through targeted visibility and genuine connection.</p>
   </div>
-  <div class="resource-grid">
-    <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Placement</div><h4>Homepage Banner</h4><p>Premium visibility on the highest-traffic page.</p></div>
-    <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Placement</div><h4>Episode Sponsor Read</h4><p>Featured mention and link in episode description and page.</p></div>
-    <div class="res-card gold-card panel-tone tilt"><div class="res-tag">Placement</div><h4>Newsletter Feature</h4><p>Direct placement in the Power of the Permian newsletter.</p></div>
+
+  <div class="feat-grid">
+    <div class="feat-card gold-card tilt">
+      <span class="feat-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="2.2"/><circle cx="12" cy="10" r="6.5"/><path d="M12 3.5v-1M12 21.5v-1M3.5 12h-1M21.5 12h-1"/></svg></span>
+      <h4>Targeted Audience</h4>
+      <p>Reach decision-makers across the oilfield industry.</p>
+    </div>
+    <div class="feat-card gold-card tilt">
+      <span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19V3"/><path d="M2 19h20"/></svg></span>
+      <h4>Build Brand Awareness</h4>
+      <p>Increase visibility and strengthen your brand presence.</p>
+    </div>
+    <div class="feat-card gold-card tilt">
+      <span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.4-3 8-7 10-4-2-7-5.6-7-10V6l7-3z"/><path d="m9 11 2 2 4-4"/></svg></span>
+      <h4>Trusted Platform</h4>
+      <p>Partner with a respected voice in the Permian Basin.</p>
+    </div>
+    <div class="feat-card gold-card tilt">
+      <span class="feat-ic"><svg viewBox="0 0 24 24"><path d="M3 11l14-6v14L3 13v-2z"/><path d="M7 12v5a2 2 0 0 0 4 0"/><path d="M18 9a3 3 0 0 1 0 6"/></svg></span>
+      <h4>Custom Campaigns</h4>
+      <p>Tailored advertising solutions designed to deliver results.</p>
+    </div>
   </div>
+
+  <div class="duo-grid">
+    <div class="duo-panel gold-card panel-tone tilt">
+      <h3>About the Platform</h3>
+      <p>Power of the Permian is an oilfield podcast and media platform designed to promote the industry, build business relationships, and give a voice to the people in this space.</p>
+    </div>
+    <div class="duo-panel gold-card panel-tone tilt">
+      <h3>Why Choose Us?</h3>
+      <ul class="why-list">
+        <li><span class="chk">✓</span>Customized advertising campaigns built around your goals.</li>
+        <li><span class="chk">✓</span>Consistent visibility across podcast, social media, and digital channels.</li>
+        <li><span class="chk">✓</span>Ongoing marketing efforts that drive engagement and results.</li>
+        <li><span class="chk">✓</span>Brand-exclusive commitment and dedicated support.</li>
+      </ul>
+    </div>
+  </div>
+
   <div class="cta-strip">
-    <h3>Ready to put your brand in front of the basin?</h3>
-    <a class="btn-gold" href="https://form.jotform.com/262014225883050" target="_blank" rel="noopener">Start a Sponsorship</a>
+    <h3>Let's Grow Together</h3>
+    <p style="color:var(--gold-bright); margin-top:-6px; letter-spacing:0.02em;">Partner with Power of the Permian today.</p>
+    <a class="btn-gold" href="https://form.jotform.com/262014225883050" target="_blank" rel="noopener">Start Advertising</a>
   </div>
 </section>
 
@@ -1065,7 +1224,17 @@
   <div class="section-head">
     <div class="eyebrow">Get In Touch</div>
     <h2>Let's Connect</h2>
-    <p>Guest inquiries, sponsorships, or just want to say hello — fill out the form and Breezey will be in touch shortly.</p>
+    <p>Guest inquiries, advertising, or just want to say hello — fill out the form and Breezey will be in touch shortly.</p>
+  </div>
+  <div class="contact-bar">
+    <a class="contact-chip gold-card tilt" href="mailto:breezey@powerofthepermian.com">
+      <span class="svc-ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+      <span><span class="cc-label">Email</span><span class="cc-value">breezey@powerofthepermian.com</span></span>
+    </a>
+    <a class="contact-chip gold-card tilt" href="https://www.powerofthepermian.com" target="_blank" rel="noopener">
+      <span class="svc-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.7 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.7-3.8-9S9.5 5.5 12 3z"/></svg></span>
+      <span><span class="cc-label">Website</span><span class="cc-value">www.powerofthepermian.com</span></span>
+    </a>
   </div>
   <div class="form-wrap gold-card panel-tone">
     <iframe src="https://form.jotform.com/262014225883050" title="Partner with Power of the Permian" loading="lazy"></iframe>
@@ -1123,10 +1292,11 @@
     <div class="footer-col">
       <h5>Explore</h5>
       <a data-page="episodes">Episodes</a>
+      <a data-page="services">Services</a>
       <a data-page="resources">Resources</a>
-      <a data-page="sponsorships">Sponsorships</a>
+      <a data-page="sponsorships">Advertise</a>
       <a data-page="merch">Merch (Preview)</a>
-      <a href="https://form.jotform.com/262014225883050" target="_blank" rel="noopener">Partner With Us</a>
+      <a href="mailto:breezey@powerofthepermian.com">breezey@powerofthepermian.com</a>
       <a href="https://form.jotform.com/262020598594059" target="_blank" rel="noopener">Newsletter</a>
     </div>
     <div class="footer-col">
