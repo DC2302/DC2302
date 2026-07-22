@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://dc-2302-w1ri.vercel.app/sitemap.xml
+Sitemap: https://power-of-the-permian.vercel.app/sitemap.xml
