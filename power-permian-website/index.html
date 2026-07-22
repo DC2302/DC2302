@@ -199,6 +199,12 @@
     font-size:0.68rem; letter-spacing:0.22em; text-transform:uppercase;
     color:var(--gold); font-weight:700;
   }
+  .ads-hint{
+    text-align:center; margin-top:6px; color:var(--ivory-dim);
+    font-size:0.78rem; letter-spacing:0.08em; display:flex; justify-content:center;
+    align-items:center; gap:14px; flex-wrap:wrap;
+  }
+  .ads-hint .hint-sep{ color:var(--gold); }
   .cube-wrap.reflect{
     transform:translateY(292px) scaleY(-1); opacity:0.1;
     -webkit-mask-image:linear-gradient(to bottom, transparent 34%, #000 85%);
@@ -883,6 +889,13 @@
       <div class="ads-persp">
         <div class="ads-ring" id="ads-ring"></div>
       </div>
+    </div>
+    <div class="ads-hint">
+      <span class="hint-item">🖱️ Hover to pause</span>
+      <span class="hint-sep">·</span>
+      <span class="hint-item">👆 Drag to spin</span>
+      <span class="hint-sep">·</span>
+      <span class="hint-item">🔍 Tap an ad to read it full-size</span>
     </div>
   </div>
 
