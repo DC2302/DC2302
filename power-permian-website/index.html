@@ -160,7 +160,10 @@
   }
   /* Ticker room: three semi-transparent walls around the host, show copy
      travels along them like a ticker (camera-inside-the-box effect) */
-  .room-wrap{ position:absolute; inset:0; perspective:1000px; overflow:hidden; pointer-events:none; }
+  /* Ticker walls are hidden while the finished studio banner (assets/hero.jpg,
+     which already carries the wordmark) is the hero. Remove this display:none
+     to bring the scrolling ticker-room effect back over a plain backdrop. */
+  .room-wrap{ position:absolute; inset:0; perspective:1000px; overflow:hidden; pointer-events:none; display:none; }
   .room{ position:absolute; inset:0; transform-style:preserve-3d; animation:roomSway 22s ease-in-out infinite; }
   @keyframes roomSway{
     0%,100%{ transform:rotateY(-3.5deg); }
