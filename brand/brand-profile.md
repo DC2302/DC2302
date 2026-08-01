@@ -52,12 +52,16 @@ the id is saved here and attached to every future scene featuring that character
 
 ## Platforms & handles
 
+Default target set for every video unless a brief narrows it. Specs, caption
+register and posting order live in `brand/platform-playbook.md`.
+
 | Platform | Handle | Priority |
 |---|---|---|
-| TikTok | TBD | TBD |
-| Instagram Reels | TBD | TBD |
-| YouTube Shorts | TBD | TBD |
-| LinkedIn | TBD | TBD |
+| TikTok | TBD | 1 — post first, fastest retention read |
+| Instagram Reels | TBD | 2 |
+| Facebook Reels | TBD | 3 — owner-operator audience over-indexes here |
+| LinkedIn | TBD | 4 — B2B buyer surface, own caption register |
+| YouTube Shorts | TBD | 5 — longest discovery tail |
 
 ## Special standing instructions
 

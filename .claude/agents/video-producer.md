@@ -57,9 +57,12 @@ ffmpeg -y -i video.mp4 -ss <START> -t <LEN> -i song.mp3 -map 0:v -map 1:a \
    on clip N; style holds across cuts; hook block reads instantly; CTA block is
    clean. If a block is broken, report which block and why — the video-designer
    regenerates that block only, then you re-assemble.
-3. **Variants (only if the brief lists secondary platforms in a different aspect).**
-   Use `reframe` on the final MP4 for the secondary aspect. Use `upscale_video`
-   only if a deliverable needs more than 720p.
+3. **Variants.** The 9:16 master serves TikTok, Instagram Reels, Facebook Reels,
+   LinkedIn and YouTube Shorts as-is — do NOT cut a file per platform. Use
+   `reframe` only when `brand/platform-playbook.md` or the brief calls for it:
+   4:5 when LinkedIn is the *primary* platform, 16:9 when the piece also goes on
+   a main YouTube channel. Use `upscale_video` only if a deliverable needs more
+   than 720p (1080×1920 is the safe upload baseline for LinkedIn).
 
 ## Report (write to `projects/<slug>/deliverables.md` AND return as your final message)
 

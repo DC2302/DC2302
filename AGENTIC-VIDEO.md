@@ -59,6 +59,11 @@ clips, so a 60-second cut is the budget-friendly default for social).
 | 5 | `video-producer` | One stitched MP4 (server-side assembly), QC, aspect variants |
 | 6 | `social-media-manager` | Captions, hashtags, titles, posting plan, virality pre-flight — you post |
 
+Phase 6 packages one master cut for **TikTok, Instagram Reels, Facebook Reels,
+LinkedIn and YouTube Shorts** by default. `brand/platform-playbook.md` holds the
+per-platform specs, caption register, link handling and posting order — edit that
+file to change how every future video gets packaged.
+
 Every artifact is saved to `projects/<slug>/` so a video is reviewable and
 repairable block-by-block (a bad clip gets regenerated alone, never the whole
 video).
