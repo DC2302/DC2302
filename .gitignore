@@ -1,0 +1,4 @@
+# QC scratch from the video pipeline — frame grabs and probe output the
+# video-producer writes while checking a cut. Regenerates trivially from the
+# hosted clips; the reviewable artifacts are the .md files and the final MP4.
+projects/*/work/qc/
