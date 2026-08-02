@@ -2,3 +2,9 @@
 # video-producer writes while checking a cut. Regenerates trivially from the
 # hosted clips; the reviewable artifacts are the .md files and the final MP4.
 projects/*/work/qc/
+
+# Intermediate cuts. Each project commits ONE final upload file; the
+# pre-end-card assembly and the native-resolution master before upscaling are
+# both recorded as hosted URLs in the project's deliverables.md.
+projects/*/*-noendcard-*.mp4
+projects/*/*-final-9x16.mp4

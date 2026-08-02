@@ -64,6 +64,22 @@ ffmpeg -y -i video.mp4 -ss <START> -t <LEN> -i song.mp3 -map 0:v -map 1:a \
    a main YouTube channel. Use `upscale_video` only if a deliverable needs more
    than 720p (1080×1920 is the safe upload baseline for LinkedIn).
 
+## Logo end-card
+
+Standing brand instruction: always end on the logo. Overlay it locally with
+ffmpeg (install via `apt-get` if missing) over the final ~3s, then re-upload.
+Check `brand/brand-profile.md` for WHICH mark — the parent-brand and sub-brand
+logos are different files and using the wrong one mis-signals the offer.
+
+Downloading the assembled MP4 from its CloudFront host has returned HTTP 403 on
+some runs and HTTP 200 on others — it is **intermittent and environment-specific,
+not a property of the host**. Always test; never assume it will fail. If it does
+403, `mcp__Higgsfield__sandbox_exec` is a clean fallback: a remote Linux sandbox
+with ffmpeg preinstalled and its own network access, so the overlay runs
+server-side with no local download. Only if both paths fail, deliver the
+no-end-card cut as primary and report the blocker with the ready-to-run ffmpeg
+command, rather than treating the run as failed.
+
 ## Report (write to `projects/<slug>/deliverables.md` AND return as your final message)
 
 ```
