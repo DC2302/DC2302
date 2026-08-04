@@ -1,0 +1,12 @@
+{
+  "smtp_host": "smtp.gmail.com",
+  "smtp_port": 587,
+  "username": "you@gmail.com",
+  "app_password": "PASTE-16-CHARACTER-APP-PASSWORD-HERE",
+  "from_name": "Lobos Lead Finder",
+  "recipients": [
+    "you@gmail.com",
+    "someone-else@example.com"
+  ],
+  "subject": "Permian Basin facility-construction leads"
+}
