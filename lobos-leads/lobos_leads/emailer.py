@@ -50,6 +50,27 @@ def load_config(project_dir: Path) -> dict:
         )
     if isinstance(config["recipients"], str):
         config["recipients"] = [config["recipients"]]
+
+    # Gmail shows the app password in four groups of four. Copying it from
+    # that dialog brings the separators along -- and they are non-breaking
+    # spaces, which smtplib cannot ASCII-encode when it sends credentials
+    # ("'ascii' codec can't encode character '\xa0'"). The spaces are
+    # display-only, so drop all whitespace rather than fail on a password
+    # that is, to the user, exactly what Google showed them.
+    config["app_password"] = "".join(config["app_password"].split())
+    config["username"] = config["username"].strip()
+    config["recipients"] = [r.strip() for r in config["recipients"] if r.strip()]
+
+    non_ascii = [
+        k for k in ("username", "app_password")
+        if not config[k].isascii()
+    ]
+    if non_ascii:
+        raise ValueError(
+            f"{CONFIG_NAME}: {', '.join(non_ascii)} contains non-ASCII "
+            "characters. Retype the value by hand -- a copy/paste from a "
+            "web page can carry invisible characters that SMTP rejects."
+        )
     return config
 
 
