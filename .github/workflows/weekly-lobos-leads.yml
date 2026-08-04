@@ -1,0 +1,62 @@
+# Weekly Lobos lead run: scrape the five public permit sources and
+# email leads.xlsx + the call sheet to clientservices@lobos-services.com.
+#
+# One-time setup (repo Settings -> Secrets and variables -> Actions):
+#   GMAIL_USERNAME      the sending Gmail address
+#   GMAIL_APP_PASSWORD  a Gmail app password for that account
+#                       (see lobos-leads/README.md "Email setup")
+#
+# GitHub only runs scheduled workflows from the default branch, so the
+# schedule goes live once this file is merged. "Run workflow" in the
+# Actions tab triggers it on demand.
+name: Weekly Lobos leads
+
+on:
+  schedule:
+    - cron: "0 12 * * 1" # Mondays 12:00 UTC = 6am Central
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  leads:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r lobos-leads/requirements.txt
+
+      - name: Write email config from secrets
+        run: |
+          cat > lobos-leads/email_config.json <<EOF
+          {
+            "smtp_host": "smtp.gmail.com",
+            "smtp_port": 587,
+            "username": "${{ secrets.GMAIL_USERNAME }}",
+            "app_password": "${{ secrets.GMAIL_APP_PASSWORD }}",
+            "from_name": "Lobos Lead Finder",
+            "recipients": ["clientservices@lobos-services.com"],
+            "subject": "Permian Basin facility-construction leads"
+          }
+          EOF
+
+      - name: Run scraper and email results
+        working-directory: lobos-leads
+        run: python run.py --email
+
+      # Keep the outputs on the run page too, in case the email is lost.
+      - name: Upload outputs as run artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lobos-leads-output
+          path: lobos-leads/output/
+          retention-days: 60
+          if-no-files-found: ignore
