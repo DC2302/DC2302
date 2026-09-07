@@ -471,7 +471,7 @@ function Race({ race, now, isNext, showMl }) {
   const status = race.results ? 'Official' : relTime(race.postUtc, now);
   const runners = race.entrants.filter((e) => !e.status).length;
   const withForm = race.entrants.filter((e) => e.hasForm).length;
-  const cols = 9 + (showMl ? 1 : 0);
+  const cols = 10 + (showMl ? 1 : 0);
 
   return (
     <section className={`race ${isNext ? 'next' : ''}`} id={`race-${race.number}`}>
@@ -492,9 +492,9 @@ function Race({ race, now, isNext, showMl }) {
 
       <div className="picks">
         <span className={`conf ${picks.confidence}`}>{confLabel}</span>
-        {picks.top.map((p) => (
+        {picks.top.map((p, i) => (
           <span key={p} className="pick">
-            <b>#{p}</b> {byProg[p]?.horse} <em>{pct(byProg[p]?.prob)}</em>
+            <span className="pickno">Pick {i + 1}</span> <b>#{p}</b> {byProg[p]?.horse} <em>{pct(byProg[p]?.prob)}</em>
           </span>
         ))}
         <span className="muted small">
@@ -507,7 +507,8 @@ function Race({ race, now, isNext, showMl }) {
           <thead>
             <tr>
               <th>Rank</th>
-              <th>PP</th>
+              <th>#</th>
+              <th className="num">Post</th>
               <th>Horse / sire</th>
               <th>Trainer / jockey</th>
               <th className="num">Speed</th>
@@ -533,6 +534,7 @@ function Race({ race, now, isNext, showMl }) {
                       {e.status ? <span className="badge">{e.status}</span> : <span className={`rank r${e.rank}`}>{e.rank}</span>}
                     </td>
                     <td>{e.program}</td>
+                    <td className="num">{e.post ?? '–'}</td>
                     <td>
                       {e.horse}
                       <span className="sire">{e.sire}</span>
@@ -574,8 +576,9 @@ function Race({ race, now, isNext, showMl }) {
         </table>
       </div>
       <p className="muted small" style={{ margin: '6px 0 0' }}>
-        Form shows finish and field size for the last three races on record; * marks a troubled trip last out. Tap a horse for
-        the full breakdown.
+        # is the program number on the saddle cloth (the number you bet); Post is the starting gate position. Form shows
+        finish and field size for the last three races on record; * marks a troubled trip last out. Tap a horse for the full
+        breakdown.
       </p>
 
       {race.results && <Results race={race} />}

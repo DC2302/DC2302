@@ -80,6 +80,7 @@ button:disabled { opacity: 0.6; cursor: default; }
 .picks { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; margin: 10px 0 8px; }
 .pick { background: var(--soft); border-radius: 8px; padding: 4px 8px; }
 .pick em { color: var(--muted); font-style: normal; margin-left: 4px; }
+.pickno { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-right: 4px; }
 .conf { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 8px; border-radius: 999px; }
 .conf.strong { background: var(--good); color: #fff; }
 .conf.lean { background: var(--accent); color: var(--accent-ink); }
