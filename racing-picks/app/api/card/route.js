@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { HRN_BASE, cardPath, fetchHtml, parseCard, todayEastern } from '../../../lib/hrn.js';
 import { getTrackHistory } from '../../../lib/history.js';
+import { getFormDb } from '../../../lib/formcache.js';
+import { formSummary } from '../../../lib/formdb.js';
 import { rateRace, scoreCard, summarizeStats } from '../../../lib/model.js';
 
 export const dynamic = 'force-dynamic';
@@ -34,11 +36,18 @@ export async function GET(request) {
       warnings.push(`History unavailable (${err?.message || err}); picks use the morning line only.`);
     }
   }
-  card.races.forEach((race) => rateRace(race, stats));
+  let form = null;
+  try {
+    form = await getFormDb(date);
+  } catch (err) {
+    warnings.push(`Form database unavailable (${err?.message || err}); picks use track stats only.`);
+  }
+  card.races.forEach((race) => rateRace(race, { stats, form, date, slug }));
   const scorecard = scoreCard(card.races);
   return NextResponse.json({
     ...card,
     stats: summarizeStats(stats, card),
+    form: form ? formSummary(form) : null,
     scorecard,
     warnings,
     source: HRN_BASE + cardPath(slug, date),

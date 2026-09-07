@@ -84,6 +84,8 @@ button:disabled { opacity: 0.6; cursor: default; }
 .conf.strong { background: var(--good); color: #fff; }
 .conf.lean { background: var(--accent); color: var(--accent-ink); }
 .conf.open { background: var(--soft); color: var(--muted); }
+.conf.thin { background: var(--soft); color: var(--warn); }
+tr.why td { white-space: normal; background: var(--soft); }
 .value { color: var(--good); font-weight: 600; }
 .tablewrap { overflow-x: auto; }
 table { border-collapse: collapse; width: 100%; font-size: 14px; }

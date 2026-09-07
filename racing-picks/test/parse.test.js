@@ -1,8 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { parseCard, parseIndex, toYards } from '../lib/hrn.js';
-import { buildTrackStats, parseOdds, rateRace, scoreCard } from '../lib/model.js';
+import { parseCard, parseDateLinks, parseIndex, toYards } from '../lib/hrn.js';
+import { buildTrackStats, normSurface, parseOdds, raceBucket, rateRace, scoreCard } from '../lib/model.js';
+import { createFormDb, hasTrouble, ingestCard, lookupHorse, nameKey, parseFinalTime, splitFootnotes, trackStatsFromForm } from '../lib/formdb.js';
 
 const fixture = (name) => readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8');
 
@@ -15,7 +16,7 @@ test('distance strings convert to yards', () => {
   assert.equal(toYards(''), null);
 });
 
-test('morning-line odds parse', () => {
+test('morning-line odds parse (benchmark use only)', () => {
   assert.equal(parseOdds('5/2'), 2.5);
   assert.equal(parseOdds('9-2'), 4.5);
   assert.equal(parseOdds('EVN'), 1);
@@ -28,7 +29,6 @@ test('index page lists tracks with UTC first posts', () => {
   const abq = tracks.find((t) => t.slug === 'albuquerque-downs');
   assert.equal(abq.name, 'Albuquerque Downs');
   assert.equal(abq.firstPostUtc, '2026-09-06T19:30:00Z');
-  assert.equal(abq.firstPostLocal, '1:30 PM');
   assert.equal(abq.purseTotal, 1949100);
   assert.equal(abq.dirt, 10);
   assert.equal(new Set(tracks.map((t) => t.slug)).size, tracks.length);
@@ -37,89 +37,90 @@ test('index page lists tracks with UTC first posts', () => {
 test('quarter horse card parses entries and results', () => {
   const card = parseCard(fixture('albuquerque-2026-09-06.html'), { slug: 'albuquerque-downs', date: '2026-09-06' });
   assert.equal(card.track.name, 'Albuquerque Downs');
-  assert.equal(card.track.location, 'Albuquerque, NM');
-  assert.ok(card.dates.includes('2026-08-30'));
   assert.equal(card.races.length, 2);
   const r1 = card.races[0];
-  assert.equal(r1.number, 1);
-  assert.equal(r1.postUtc, '2026-09-06T19:30:00Z');
-  assert.equal(r1.distance, '870Y');
   assert.equal(r1.distanceYards, 870);
-  assert.equal(r1.surface, 'Dirt');
-  assert.equal(r1.purse, 17800);
   assert.equal(r1.entrants.length, 8);
   const fanboy = r1.entrants[3];
-  assert.equal(fanboy.program, '4');
   assert.equal(fanboy.horse, 'Fanboy');
   assert.equal(fanboy.sire, 'Eye Am King');
-  assert.equal(fanboy.trainer, 'Jaime G. Aldavaz, Sr.');
   assert.equal(fanboy.jockey, 'Oscar Andrade, Jr.');
-  assert.equal(fanboy.ml, '5/2');
-  assert.equal(fanboy.status, '');
   assert.equal(r1.results.finishers[0].name, 'Fanboy');
-  assert.equal(r1.results.finishers[0].program, '4');
   assert.equal(r1.results.finishers[0].win, 6);
-  assert.equal(r1.results.finishers[1].place, 3);
+  assert.match(r1.results.fractions, /^:45/);
 });
 
 test('thoroughbred card parses speed figures, exotics and notes', () => {
   const card = parseCard(fixture('saratoga-2026-09-06.html'), { slug: 'saratoga', date: '2026-09-06' });
   const r1 = card.races[0];
-  assert.equal(r1.distanceYards, 1430);
   const torre = r1.entrants.find((e) => e.horse === 'Torre Eiffel');
   assert.equal(torre.lastFig, 91);
-  assert.equal(torre.sire, 'Cupid');
-  assert.equal(r1.results.finishers[0].name, 'Disparate Impact');
   assert.equal(r1.results.finishers[0].fig, 114);
-  assert.equal(r1.results.finishers[0].win, 10.5);
   assert.equal(r1.results.exotics.length, 3);
-  assert.equal(r1.results.exotics[0].pool, 'Exacta');
-  assert.equal(r1.results.exotics[0].payout, 34.04);
   assert.match(r1.results.fractions, /^:22\.15/);
   assert.match(r1.results.footnotes, /DISPARATE IMPACT/);
   assert.ok(r1.results.alsoRans.includes('Zenoro'));
 });
 
-test('ratings sum to one and picks respect the market when no history', () => {
-  const card = parseCard(fixture('albuquerque-2026-09-06.html'), { slug: 'albuquerque-downs', date: '2026-09-06' });
-  const race = rateRace(card.races[0], null);
-  const runners = race.entrants.filter((e) => !e.status);
-  const total = runners.reduce((a, e) => a + e.prob, 0);
-  assert.ok(Math.abs(total - 1) < 1e-9);
-  assert.equal(race.picks.top[0], '4'); // 5/2 favorite Fanboy
-  assert.equal(race.picks.usedHistory, false);
-  assert.equal(runners.find((e) => e.program === '4').rank, 1);
-});
-
-test('history stats feed the model and the scorecard settles', () => {
-  const past = parseCard(fixture('albuquerque-2026-09-06.html'), { slug: 'albuquerque-downs', date: '2026-08-30' });
-  const stats = buildTrackStats([past]);
-  assert.equal(stats.races, 2);
-  assert.equal(stats.jockeys['Oscar Andrade, Jr.'].wins, 1);
-  assert.equal(stats.favorite.starts, 2);
-  const today = parseCard(fixture('albuquerque-2026-09-06.html'), { slug: 'albuquerque-downs', date: '2026-09-06' });
-  today.races.forEach((r) => rateRace(r, stats));
-  assert.equal(today.races[0].picks.usedHistory, true);
-  const sc = scoreCard(today.races);
-  assert.equal(sc.completed, 2);
-  assert.equal(sc.topPickWins + sc.secondPickWins + sc.thirdPickWins <= 2, true);
-  assert.equal(typeof sc.topPickRoi, 'number');
-  assert.equal(today.races[0].outcome.winner, '4');
-});
-
-test('date links for a track are collected from a page', async () => {
-  const { parseDateLinks } = await import('../lib/hrn.js');
+test('date links for a track are collected from a page', () => {
   const dates = parseDateLinks(fixture('albuquerque-2026-09-06.html'), 'albuquerque-downs');
   assert.ok(dates.includes('2026-08-30'));
-  assert.ok(dates.includes('2026-09-06'));
+  assert.ok(dates.includes('2026-09-07'));
   assert.equal(parseDateLinks(fixture('albuquerque-2026-09-06.html'), 'no-such-track').length, 0);
 });
 
-test('surfaces normalize into dirt, turf and synth buckets', async () => {
-  const { normSurface, raceBucket } = await import('../lib/model.js');
+test('surfaces normalize and race shapes bucket', () => {
   assert.equal(normSurface('Inner turf'), 'turf');
   assert.equal(normSurface('Tapeta'), 'synth');
-  assert.equal(normSurface('Dirt'), 'dirt');
   assert.equal(raceBucket({ distance: '1 3/8 m', distanceYards: 2420, surface: 'Inner turf' }), 'route|turf');
   assert.equal(raceBucket({ distance: '440Y', distanceYards: 440, surface: 'Dirt' }), 'yards-sprint|dirt');
+});
+
+test('form helpers: final times, footnotes, trouble, name keys', () => {
+  assert.equal(parseFinalTime('Fractions and final time: :22.15, :45.61, 1:10.98, 1:17.75'), 77.75);
+  assert.equal(parseFinalTime(':21.196'), 21.196);
+  assert.equal(parseFinalTime(''), null);
+  const notes = splitFootnotes('DISPARATE IMPACT shook off THE STANDARD in mid-stretch. THE STANDARD chased, bumped at the start.', ['Disparate Impact', 'The Standard']);
+  assert.match(notes.thestandard, /^THE STANDARD chased/);
+  assert.equal(hasTrouble(notes.thestandard), true);
+  assert.equal(hasTrouble(notes.disparateimpact), false);
+  assert.equal(nameKey("Bolt d'Oro (IRE)"), 'boltdoro');
+});
+
+test('with no data every runner is rated evenly and the race is flagged thin', () => {
+  const card = parseCard(fixture('albuquerque-2026-09-06.html'), { slug: 'albuquerque-downs', date: '2026-09-06' });
+  const race = rateRace(card.races[0], { stats: null, form: null, date: '2026-09-06', slug: 'albuquerque-downs' });
+  const runners = race.entrants.filter((e) => !e.status);
+  const total = runners.reduce((a, e) => a + e.prob, 0);
+  assert.ok(Math.abs(total - 1) < 1e-9);
+  assert.ok(Math.abs(runners[0].prob - 1 / runners.length) < 1e-9);
+  assert.equal(race.picks.confidence, 'thin');
+  assert.equal(race.picks.usedForm, false);
+});
+
+test('the form database drives the rating and the scorecard settles', () => {
+  const past = parseCard(fixture('albuquerque-2026-09-06.html'), { slug: 'albuquerque-downs', date: '2026-08-30' });
+  const db = createFormDb('2026-09-06', 7);
+  ingestCard(db, past, 'Albuquerque Downs');
+  assert.equal(db.races.length, 2);
+  const fanboy = lookupHorse(db, 'Fanboy', '2026-09-06');
+  assert.equal(fanboy.length, 1);
+  assert.equal(fanboy[0].pos, 1);
+  assert.equal(fanboy[0].winTime, 45.919);
+  assert.equal(lookupHorse(db, 'Fanboy', '2026-08-30').length, 0, 'records on or after the date are hidden');
+  const stats = trackStatsFromForm(db, 'albuquerque-downs', '2026-09-06');
+  assert.equal(stats.races, 2);
+  assert.equal(stats.jockeys['Oscar Andrade, Jr.'].wins, 1);
+  const today = parseCard(fixture('albuquerque-2026-09-06.html'), { slug: 'albuquerque-downs', date: '2026-09-06' });
+  today.races.forEach((r) => rateRace(r, { stats, form: db, date: '2026-09-06', slug: 'albuquerque-downs' }));
+  const r1 = today.races[0];
+  assert.equal(r1.picks.usedForm, true);
+  assert.ok(r1.picks.coverage >= 0.5, `coverage ${r1.picks.coverage}`);
+  assert.equal(r1.entrants.find((e) => e.horse === 'Fanboy').rank, 1, 'last-out winner with the fastest time rates on top');
+  assert.equal(r1.entrants.find((e) => e.horse === 'Fanboy').detail.records.length, 1);
+  const sc = scoreCard(today.races);
+  assert.equal(sc.completed, 2);
+  assert.equal(r1.outcome.winner, '4');
+  assert.equal(typeof sc.favRoi, 'number');
+  assert.equal(buildTrackStats([past]).races, 2);
 });

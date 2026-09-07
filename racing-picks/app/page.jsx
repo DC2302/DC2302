@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -28,6 +28,7 @@ const money = (n) =>
   n == null ? '–' : `$${Number(n).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`;
 const oddsText = (o) => (o == null ? '–' : `${(o >= 10 ? o.toFixed(0) : o.toFixed(1)).replace(/\.0$/, '')}-1`);
 const signed = (n) => `${n >= 0 ? '+' : '−'}$${Math.abs(n).toFixed(2)}`;
+const signedNum = (n) => (n == null ? '–' : `${n >= 0 ? '+' : '−'}${Math.abs(n).toFixed(2)}`);
 const roiPct = (net, bets) => (bets ? `${net >= 0 ? '+' : '−'}${Math.abs((net / (bets * 2)) * 100).toFixed(0)}%` : '–');
 
 function relTime(iso, now) {
@@ -152,7 +153,7 @@ export default function Page() {
 
       <p className="foot">
         Entries, morning lines and results come from Horse Racing Nation's public pages and refresh every minute while
-        a track is open. Picks are a statistical rating, not a guarantee; favorites lose most races. Times show track
+        a track is open. Picks come from each horse's own record and the track's results, never from the odds; they are a rating, not a guarantee. Times show track
         local time and your local time.
       </p>
     </main>
@@ -256,9 +257,8 @@ function Summary({ rows, total }) {
               <th className="num">Done</th>
               <th className="num">Top pick won</th>
               <th className="num">$2 win ROI</th>
-              <th className="num">ML fav won</th>
+              <th className="num">Crowd fav won</th>
               <th className="num">Fav ROI</th>
-              <th className="num">Value plays</th>
             </tr>
           </thead>
           <tbody>
@@ -269,7 +269,7 @@ function Summary({ rows, total }) {
                 <tr key={r.slug}>
                   <td>{r.name}</td>
                   {r.error ? (
-                    <td colSpan={6} className="err small">{r.error}</td>
+                    <td colSpan={5} className="err small">{r.error}</td>
                   ) : (
                     <>
                       <td className="num">{r.completed}/{r.races}</td>
@@ -277,9 +277,6 @@ function Summary({ rows, total }) {
                       <td className={`num ${r.topPickRoi >= 0 ? 'pos' : 'neg'}`}>{roiPct(r.topPickRoi, r.completed)}</td>
                       <td className="num">{r.favWins}</td>
                       <td className={`num ${r.favRoi >= 0 ? 'pos' : 'neg'}`}>{roiPct(r.favRoi, r.completed)}</td>
-                      <td className="num">
-                        {r.valueWins}/{r.valueBets} {r.valueBets ? `(${roiPct(r.valueRoi, r.valueBets)})` : ''}
-                      </td>
                     </>
                   )}
                 </tr>
@@ -292,7 +289,6 @@ function Summary({ rows, total }) {
                 <td className={`num ${sum('topPickRoi') >= 0 ? 'pos' : 'neg'}`}><b>{roiPct(sum('topPickRoi'), completed)}</b></td>
                 <td className="num"><b>{sum('favWins')} ({completed ? Math.round((sum('favWins') / completed) * 100) : 0}%)</b></td>
                 <td className={`num ${sum('favRoi') >= 0 ? 'pos' : 'neg'}`}><b>{roiPct(sum('favRoi'), completed)}</b></td>
-                <td className="num"><b>{sum('valueWins')}/{sum('valueBets')} {sum('valueBets') ? `(${roiPct(sum('valueRoi'), sum('valueBets'))})` : ''}</b></td>
               </tr>
             )}
           </tbody>
@@ -303,6 +299,7 @@ function Summary({ rows, total }) {
 }
 
 function TrackView({ slug, date, card, error, loading, now, onBack, onRefresh, trackMeta }) {
+  const [showMl, setShowMl] = useState(false);
   const nextRace = useMemo(() => {
     if (!card) return null;
     const pending = card.races.filter((r) => !r.results);
@@ -324,6 +321,9 @@ function TrackView({ slug, date, card, error, loading, now, onBack, onRefresh, t
         {nextRace && (
           <a href={`#race-${nextRace}`} className="small">Jump to race {nextRace}</a>
         )}
+        <label className="small muted" style={{ marginLeft: 'auto' }}>
+          <input type="checkbox" checked={showMl} onChange={(e) => setShowMl(e.target.checked)} /> show morning line (reference only)
+        </label>
       </div>
       {error && <p className="card err">Could not load this card: {error}</p>}
       {!card && !error && <p className="card muted">Loading entries, results and the track's recent form…</p>}
@@ -333,10 +333,10 @@ function TrackView({ slug, date, card, error, loading, now, onBack, onRefresh, t
             <p key={w} className="card warn small">{w}</p>
           ))}
           <Scorecard sc={card.scorecard} stats={card.stats} />
-          <StatsPanel stats={card.stats} card={card} />
+          <StatsPanel stats={card.stats} card={card} form={card.form} />
           {card.races.length === 0 && <p className="card">No entries posted for this date.</p>}
           {card.races.map((race) => (
-            <Race key={race.number} race={race} now={now} isNext={race.number === nextRace} />
+            <Race key={race.number} race={race} now={now} isNext={race.number === nextRace} showMl={showMl} />
           ))}
           <p className="muted small">
             Source: <a href={card.source} target="_blank" rel="noreferrer">Horse Racing Nation</a>
@@ -380,8 +380,7 @@ function Scorecard({ sc }) {
           </thead>
           <tbody>
             {line('Model top pick', sc.completed, sc.topPickWins, sc.topPickRoi)}
-            {line('Morning-line favorite', sc.completed, sc.favWins, sc.favRoi)}
-            {sc.valueBets > 0 && line('Flagged value plays', sc.valueBets, sc.valueWins, sc.valueRoi)}
+            {line('Crowd favorite (benchmark only, not used by the model)', sc.completed, sc.favWins, sc.favRoi)}
           </tbody>
         </table>
       </div>
@@ -392,82 +391,87 @@ function Scorecard({ sc }) {
   );
 }
 
-function StatsPanel({ stats, card }) {
-  if (!stats) {
-    return (
-      <p className="card warn small">
-        No recent results were available for this track, so these picks are the morning line re-normalized. They will
-        sharpen as results accumulate.
-      </p>
-    );
-  }
-  const fav = stats.favorite;
+function StatsPanel({ stats, card, form }) {
+  const fav = stats?.favorite;
   return (
     <details className="card">
       <summary>
-        Track form behind the picks: {stats.races} races over {stats.dates.length} dates ({stats.dates[0]} to{' '}
-        {stats.dates[stats.dates.length - 1]}) · ML favorites won {pct(fav.rate)}
+        What the picks are built from
+        {form ? ` · ${form.races.toLocaleString()} charted races over ${form.days} days at ${form.tracks} tracks` : ''}
+        {stats ? ` · ${stats.races} races here` : ''}
       </summary>
       <div className="grid2" style={{ marginTop: 10 }}>
         <div>
-          <b>Jockeys (wins / starts at this track)</b>
-          <ul className="small">
-            {stats.topJockeys.map((j) => (
-              <li key={j.name}>{j.name}: {j.wins}/{j.starts} ({pct(j.rate)})</li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <b>Trainers</b>
-          <ul className="small">
-            {stats.topTrainers.map((t) => (
-              <li key={t.name}>{t.name}: {t.wins}/{t.starts} ({pct(t.rate)})</li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <b>Win rate by post group, for today's race shapes</b>
-          <ul className="small">
-            {Object.entries(stats.posts).map(([bucket, groups]) => (
-              <li key={bucket}>
-                {bucket.replace('|', ' · ')}:{' '}
-                {['rail', 'inside', 'middle', 'outside']
-                  .filter((g) => groups[g])
-                  .map((g) => `${g} ${pct(groups[g].rate)} (${groups[g].starts})`)
-                  .join(', ')}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
           <b>How the rating works</b>
           <p className="small" style={{ margin: '4px 0' }}>
-            Start from the morning line as a probability. Multiply by jockey, trainer and post-group win-rate factors
-            measured on this track's recent results, each shrunk toward neutral (prior of {stats.shrink.connections}{' '}
-            starts for people, {stats.shrink.post} for posts) and weighted {stats.weights.jockey}/{stats.weights.trainer}
-            /{stats.weights.post}. Thoroughbreds also get a factor from their last speed figure versus the field median.
-            Re-normalize so the field sums to 100%. A value flag means the model's number beats the morning line by 20%
-            or more at 2-1 or better.
-          </p>
-          <p className="small muted" style={{ margin: 0 }}>
-            Favorites' flat-bet result over the sample: {signed(fav.roi)} on {fav.starts} bets.
+            No odds and no favorites. Each runner is scored on seven things from its own record and this track's
+            results: speed (last and best speed figure, or final time against par for timed sprints), form (share of
+            the field beaten in recent races, recency weighted, troubled trips excused), class (purse of recent races
+            against today's), fitness (days since the last race), connections (trainer and jockey win rates, here when
+            known), post (post-group win rate for this race shape here) and pedigree (sire's win rate across the form
+            database, counted double for horses with no recent record). Speed and form are scaled within the race so a
+            one-standard-deviation edge counts the same in every field. Tap a horse to see its breakdown.
           </p>
         </div>
+        {stats ? (
+          <>
+            <div>
+              <b>Jockeys here (wins / starts)</b>
+              <ul className="small">
+                {stats.topJockeys.map((j) => (
+                  <li key={j.name}>{j.name}: {j.wins}/{j.starts} ({pct(j.rate)})</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <b>Trainers here</b>
+              <ul className="small">
+                {stats.topTrainers.map((t) => (
+                  <li key={t.name}>{t.name}: {t.wins}/{t.starts} ({pct(t.rate)})</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <b>Win rate by post group, today's race shapes</b>
+              <ul className="small">
+                {Object.entries(stats.posts).map(([bucket, groups]) => (
+                  <li key={bucket}>
+                    {bucket.replace('|', ' · ')}:{' '}
+                    {['rail', 'inside', 'middle', 'outside']
+                      .filter((g) => groups[g])
+                      .map((g) => `${g} ${pct(groups[g].rate)} (${groups[g].starts})`)
+                      .join(', ')}
+                  </li>
+                ))}
+              </ul>
+              {fav && fav.starts > 0 && (
+                <p className="small muted" style={{ margin: '4px 0 0' }}>
+                  For reference only: the crowd's favorite won {pct(fav.rate)} of these races.
+                </p>
+              )}
+            </div>
+          </>
+        ) : (
+          <p className="small warn">No recent results at this track were available, so connections and post factors are neutral.</p>
+        )}
       </div>
     </details>
   );
 }
 
-function Race({ race, now, isNext }) {
+function Race({ race, now, isNext, showMl }) {
+  const [open, setOpen] = useState(null);
   const byProg = useMemo(() => Object.fromEntries(race.entrants.map((e) => [e.program, e])), [race]);
   const sorted = useMemo(
     () => [...race.entrants].sort((a, b) => (a.rank ?? 99) - (b.rank ?? 99) || (a.post ?? 99) - (b.post ?? 99)),
     [race]
   );
-  const picks = race.picks || { top: [], value: [], confidence: 'open' };
-  const confLabel = { strong: 'Strong pick', lean: 'Lean', open: 'Wide open' }[picks.confidence];
+  const picks = race.picks || { top: [], confidence: 'open', coverage: 0 };
+  const confLabel = { strong: 'Strong pick', lean: 'Lean', open: 'Wide open', thin: 'Thin data' }[picks.confidence];
   const status = race.results ? 'Official' : relTime(race.postUtc, now);
-  const hasFig = race.entrants.some((e) => e.lastFig != null);
+  const runners = race.entrants.filter((e) => !e.status).length;
+  const withForm = race.entrants.filter((e) => e.hasForm).length;
+  const cols = 9 + (showMl ? 1 : 0);
 
   return (
     <section className={`race ${isNext ? 'next' : ''}`} id={`race-${race.number}`}>
@@ -493,9 +497,9 @@ function Race({ race, now, isNext }) {
             <b>#{p}</b> {byProg[p]?.horse} <em>{pct(byProg[p]?.prob)}</em>
           </span>
         ))}
-        {picks.value.length > 0 && (
-          <span className="value">Value: {picks.value.map((p) => `#${p} ${byProg[p]?.horse}`).join(', ')}</span>
-        )}
+        <span className="muted small">
+          recent form on {withForm} of {runners} runners · speed from {picks.basis}
+        </span>
       </div>
 
       <div className="tablewrap">
@@ -506,46 +510,73 @@ function Race({ race, now, isNext }) {
               <th>PP</th>
               <th>Horse / sire</th>
               <th>Trainer / jockey</th>
-              {hasFig && <th className="num">Last fig</th>}
-              <th className="num">ML</th>
-              <th className="num">Model</th>
-              <th className="num">Fair odds</th>
-              <th className="num">Edge</th>
+              <th className="num">Speed</th>
+              <th>Form</th>
+              <th className="num">Days</th>
+              <th className="num">Rating</th>
+              <th className="num">Win</th>
+              {showMl && <th className="num">ML</th>}
             </tr>
           </thead>
           <tbody>
             {sorted.map((e) => {
-              const f = e.factors;
-              const title = f
-                ? `market ${pct(f.market)} · jockey ×${f.jockey.toFixed(2)} · trainer ×${f.trainer.toFixed(2)} · post ×${f.post.toFixed(2)} · figure ×${f.figure.toFixed(2)}`
-                : e.status;
+              const key = `${e.program}-${e.horse}`;
+              const d = e.detail;
               return (
-                <tr key={`${e.program}-${e.horse}`} className={e.status === 'SCR' ? 'out' : e.status ? 'ae' : e.rank === 1 ? 'top1' : ''} title={title}>
-                  <td className="tag">
-                    {e.status ? <span className="badge">{e.status}</span> : <span className={`rank r${e.rank}`}>{e.rank}</span>}
-                  </td>
-                  <td>{e.program}</td>
-                  <td>
-                    {e.horse}
-                    <span className="sire">{e.sire}</span>
-                  </td>
-                  <td>
-                    {e.trainer}
-                    <span className="jockey">{e.jockey}</span>
-                  </td>
-                  {hasFig && <td className="num">{e.lastFig ?? '–'}</td>}
-                  <td className="num">{e.ml ?? '–'}</td>
-                  <td className="num">{pct(e.prob)}</td>
-                  <td className="num">{oddsText(e.fairOdds)}</td>
-                  <td className={`num ${e.edge > 0 ? 'pos' : e.edge < 0 ? 'neg' : ''}`}>
-                    {e.edge == null ? '–' : `${e.edge > 0 ? '+' : ''}${Math.round(e.edge * 100)}`}
-                  </td>
-                </tr>
+                <Fragment key={key}>
+                  <tr
+                    className={e.status === 'SCR' ? 'out' : e.status ? 'ae' : e.rank === 1 ? 'top1' : ''}
+                    onClick={() => d && setOpen(open === key ? null : key)}
+                    style={{ cursor: d ? 'pointer' : 'default' }}
+                  >
+                    <td className="tag">
+                      {e.status ? <span className="badge">{e.status}</span> : <span className={`rank r${e.rank}`}>{e.rank}</span>}
+                    </td>
+                    <td>{e.program}</td>
+                    <td>
+                      {e.horse}
+                      <span className="sire">{e.sire}</span>
+                    </td>
+                    <td>
+                      {e.trainer}
+                      <span className="jockey">{e.jockey}</span>
+                    </td>
+                    <td className="num">{e.speedText ?? '–'}</td>
+                    <td>{e.formText ?? '–'}{d && d.trouble ? ' *' : ''}</td>
+                    <td className="num">{e.days ?? '–'}</td>
+                    <td className={`num ${e.rating > 0 ? 'pos' : e.rating < 0 ? 'neg' : ''}`}>
+                      {e.rating == null ? '–' : `${e.rating > 0 ? '+' : ''}${e.rating.toFixed(2)}`}
+                    </td>
+                    <td className="num">{pct(e.prob)}</td>
+                    {showMl && <td className="num">{e.ml ?? '–'}</td>}
+                  </tr>
+                  {open === key && d && (
+                    <tr className="why">
+                      <td colSpan={cols}>
+                        <ul className="small" style={{ margin: 0, paddingLeft: 18 }}>
+                          <li><b>Speed</b> {d.speed}{e.parts ? ` (${signedNum(e.parts.speed)})` : ''}</li>
+                          <li><b>Form</b> {d.form}{e.parts ? ` (${signedNum(e.parts.form)})` : ''}</li>
+                          {d.klass && <li><b>Class</b> {d.klass} ({signedNum(e.parts.klass)})</li>}
+                          <li><b>Fitness</b> {d.fitness} ({signedNum(e.parts.fitness)})</li>
+                          {d.fit && <li><b>Distance and surface</b> {d.fit} ({signedNum(e.parts.fit)})</li>}
+                          <li><b>Connections</b> {d.connections} ({signedNum(e.parts.connections)})</li>
+                          <li><b>Post</b> {d.post} ({signedNum(e.parts.post)})</li>
+                          <li><b>Pedigree</b> {d.sire} ({signedNum(e.parts.sire)})</li>
+                          {d.lastNote && <li><b>Last chart note</b> {d.lastNote}</li>}
+                        </ul>
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
               );
             })}
           </tbody>
         </table>
       </div>
+      <p className="muted small" style={{ margin: '6px 0 0' }}>
+        Form shows finish and field size for the last three races on record; * marks a troubled trip last out. Tap a horse for
+        the full breakdown.
+      </p>
 
       {race.results && <Results race={race} />}
     </section>
