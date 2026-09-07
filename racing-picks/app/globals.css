@@ -92,6 +92,7 @@ th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: upp
 td.num, th.num { text-align: right; }
 tr.out td { color: var(--muted); text-decoration: line-through; }
 tr.out td.tag { text-decoration: none; }
+tr.ae td { color: var(--muted); }
 tr.top1 td:first-child { color: var(--good); font-weight: 700; }
 .rank { display: inline-block; min-width: 22px; text-align: center; border-radius: 6px; background: var(--soft); font-weight: 700; }
 .rank.r1 { background: var(--good); color: #fff; }

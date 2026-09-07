@@ -520,7 +520,7 @@ function Race({ race, now, isNext }) {
                 ? `market ${pct(f.market)} · jockey ×${f.jockey.toFixed(2)} · trainer ×${f.trainer.toFixed(2)} · post ×${f.post.toFixed(2)} · figure ×${f.figure.toFixed(2)}`
                 : e.status;
               return (
-                <tr key={`${e.program}-${e.horse}`} className={e.status ? 'out' : e.rank === 1 ? 'top1' : ''} title={title}>
+                <tr key={`${e.program}-${e.horse}`} className={e.status === 'SCR' ? 'out' : e.status ? 'ae' : e.rank === 1 ? 'top1' : ''} title={title}>
                   <td className="tag">
                     {e.status ? <span className="badge">{e.status}</span> : <span className={`rank r${e.rank}`}>{e.rank}</span>}
                   </td>
