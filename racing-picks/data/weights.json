@@ -1,0 +1,49 @@
+{
+ "weights": {
+  "speed": 0.253,
+  "noSpeed": -0.038,
+  "form": 0.201,
+  "noForm": -0.002,
+  "klass": 0.588,
+  "recent": -0.019,
+  "quick": -0.006,
+  "trainer": 0.475,
+  "jockey": 0.517,
+  "post": 0.171,
+  "sire": 0.127,
+  "fit": 0.2
+ },
+ "fittedAt": "2026-09-07T05:02:34.467Z",
+ "train": {
+  "from": "2026-06-23",
+  "to": "2026-08-30",
+  "current": {
+   "races": 8401,
+   "hitRate": 0.2676,
+   "llPerRace": -1.8189,
+   "llUniformPerRace": -1.9238
+  },
+  "fitted": {
+   "races": 8401,
+   "hitRate": 0.2683,
+   "llPerRace": -1.8178,
+   "llUniformPerRace": -1.9238
+  }
+ },
+ "test": {
+  "from": "2026-08-31",
+  "to": "2026-09-06",
+  "current": {
+   "races": 764,
+   "hitRate": 0.3338,
+   "llPerRace": -1.7329,
+   "llUniformPerRace": -1.8882
+  },
+  "fitted": {
+   "races": 764,
+   "hitRate": 0.3285,
+   "llPerRace": -1.7316,
+   "llUniformPerRace": -1.8882
+  }
+ }
+}

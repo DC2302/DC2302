@@ -144,7 +144,9 @@ export default function Page() {
           loading={loading}
           now={now}
           onBack={() => setSlug(null)}
+          onPick={setSlug}
           onRefresh={() => setTick((t) => t + 1)}
+          tracks={tracks}
           trackMeta={tracks?.find((t) => t.slug === slug)}
         />
       ) : (
@@ -206,6 +208,7 @@ function TrackList({ date, tracks, error, now, onPick }) {
 
   return (
     <>
+      <SeasonPanel />
       <div className="row" style={{ marginBottom: 10 }}>
         <span className="muted small">{tracks.length} tracks · tap one for entries, picks and results</span>
         <button className="ghost" onClick={scoreAll} disabled={scoring}>
@@ -237,6 +240,66 @@ function TrackList({ date, tracks, error, now, onPick }) {
         })}
       </ul>
     </>
+  );
+}
+
+function SeasonPanel() {
+  const [season, setSeason] = useState(null);
+  useEffect(() => {
+    let alive = true;
+    getJson('/api/scorecard')
+      .then((j) => alive && setSeason(j))
+      .catch(() => alive && setSeason(null));
+    return () => {
+      alive = false;
+    };
+  }, []);
+  if (!season || !season.totals || !season.totals.races) return null;
+  const T = season.totals;
+  const last = season.days.slice(-7).reverse();
+  return (
+    <details className="card">
+      <summary>
+        Season to date · {T.races.toLocaleString()} races scored from {T.from} to {T.to} · top pick won{' '}
+        {Math.round((T.hits / T.races) * 100)}% ({roiPct(T.roi, T.races)} on $2 win bets) · crowd favorite{' '}
+        {Math.round((T.favHits / (T.favRaces || 1)) * 100)}% ({roiPct(T.favRoi, T.favRaces)})
+      </summary>
+      <div className="tablewrap" style={{ marginTop: 8 }}>
+        <table>
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th className="num">Races</th>
+              <th className="num">Top pick won</th>
+              <th className="num">Net</th>
+              <th className="num">Fav won</th>
+              <th className="num">Fav net</th>
+            </tr>
+          </thead>
+          <tbody>
+            {last.map((d) => (
+              <tr key={d.date}>
+                <td>{d.date}</td>
+                <td className="num">{d.races}</td>
+                <td className="num">{d.hits} ({d.races ? Math.round((d.hits / d.races) * 100) : 0}%)</td>
+                <td className={`num ${d.roi >= 0 ? 'pos' : 'neg'}`}>{signed(d.roi)}</td>
+                <td className="num">{d.favHits}</td>
+                <td className={`num ${d.favRoi >= 0 ? 'pos' : 'neg'}`}>{signed(d.favRoi)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="muted small" style={{ margin: '6px 0 0' }}>
+        Every stored day is re-rated with only the data that existed before it, using the current weights
+        {season.weights?.fittedAt ? ` (fitted ${season.weights.fittedAt.slice(0, 10)})` : ''}. Store: {season.store?.days} days of charts
+        through {season.store?.last}. By confidence:{' '}
+        {Object.entries(season.tiers || {})
+          .map(([k, v]) => `${k} ${v.hits}/${v.races}`)
+          .join(', ')}
+        .
+      </p>
+    </details>
   );
 }
 
@@ -298,8 +361,12 @@ function Summary({ rows, total }) {
   );
 }
 
-function TrackView({ slug, date, card, error, loading, now, onBack, onRefresh, trackMeta }) {
+function TrackView({ slug, date, card, error, loading, now, onBack, onPick, onRefresh, tracks, trackMeta }) {
   const [showMl, setShowMl] = useState(false);
+  const [raceNo, setRaceNo] = useState(0); // 0 = all races
+  useEffect(() => {
+    setRaceNo(0);
+  }, [slug, date]);
   const nextRace = useMemo(() => {
     if (!card) return null;
     const pending = card.races.filter((r) => !r.results);
@@ -312,7 +379,23 @@ function TrackView({ slug, date, card, error, loading, now, onBack, onRefresh, t
     <>
       <div className="row sticky">
         <button className="ghost" onClick={onBack}>‹ All tracks</button>
-        <h2 style={{ margin: 0, fontSize: 20 }}>{name}</h2>
+        {tracks?.length ? (
+          <select value={slug} onChange={(e) => onPick(e.target.value)} aria-label="Track">
+            {tracks.map((t) => (
+              <option key={t.slug} value={t.slug}>{t.name}</option>
+            ))}
+          </select>
+        ) : (
+          <h2 style={{ margin: 0, fontSize: 20 }}>{name}</h2>
+        )}
+        {card?.races?.length ? (
+          <select value={raceNo} onChange={(e) => setRaceNo(parseInt(e.target.value, 10))} aria-label="Race">
+            <option value={0}>All races</option>
+            {card.races.map((r) => (
+              <option key={r.number} value={r.number}>Race {r.number} · {r.postLocal}{r.results ? ' · official' : ''}</option>
+            ))}
+          </select>
+        ) : null}
         {card?.track?.location && <span className="muted">{card.track.location}</span>}
         <span className="muted small">
           {loading ? 'refreshing…' : card ? `updated ${new Date(card.fetchedAt).toLocaleTimeString()}` : ''}
@@ -333,11 +416,13 @@ function TrackView({ slug, date, card, error, loading, now, onBack, onRefresh, t
             <p key={w} className="card warn small">{w}</p>
           ))}
           <Scorecard sc={card.scorecard} stats={card.stats} />
-          <StatsPanel stats={card.stats} card={card} form={card.form} />
+          <StatsPanel stats={card.stats} card={card} form={card.form} weights={card.weights} />
           {card.races.length === 0 && <p className="card">No entries posted for this date.</p>}
-          {card.races.map((race) => (
-            <Race key={race.number} race={race} now={now} isNext={race.number === nextRace} showMl={showMl} />
-          ))}
+          {card.races
+            .filter((race) => !raceNo || race.number === raceNo)
+            .map((race) => (
+              <Race key={race.number} race={race} now={now} isNext={race.number === nextRace} showMl={showMl} />
+            ))}
           <p className="muted small">
             Source: <a href={card.source} target="_blank" rel="noreferrer">Horse Racing Nation</a>
             {card.track?.website && (
@@ -391,14 +476,15 @@ function Scorecard({ sc }) {
   );
 }
 
-function StatsPanel({ stats, card, form }) {
+function StatsPanel({ stats, card, form, weights }) {
   const fav = stats?.favorite;
   return (
     <details className="card">
       <summary>
         What the picks are built from
-        {form ? ` · ${form.races.toLocaleString()} charted races over ${form.days} days at ${form.tracks} tracks` : ''}
+        {form ? ` · ${form.races.toLocaleString()} charted races over ${form.days} days at ${form.tracks} tracks${form.source === 'store' ? ' (stored)' : ' (live crawl)'}` : ''}
         {stats ? ` · ${stats.races} races here` : ''}
+        {weights?.fittedAt ? ` · weights fitted ${weights.fittedAt.slice(0, 10)}` : ''}
       </summary>
       <div className="grid2" style={{ marginTop: 10 }}>
         <div>

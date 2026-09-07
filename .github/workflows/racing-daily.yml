@@ -1,0 +1,52 @@
+name: Racing charts (daily)
+
+# Reads yesterday's charts at every track into racing-picks/data/charts,
+# re-scores the season, and commits the data. Scheduled workflows only run
+# from the default branch.
+on:
+  schedule:
+    - cron: '30 11 * * *' # 7:30 am US Eastern (6:30 during standard time)
+  workflow_dispatch:
+    inputs:
+      dates:
+        description: 'Dates to read, e.g. 2026-09-08 or 2026-09-01..2026-09-07 (default: yesterday and the day before)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: racing-data
+  cancel-in-progress: false
+
+jobs:
+  charts:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: racing-picks
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: racing-picks/package-lock.json
+      - run: npm ci
+      - name: Read charts into the store
+        run: node scripts/crawl-day.mjs ${{ github.event.inputs.dates }}
+      - name: Re-score the season
+        run: node scripts/score-history.mjs
+      - name: Commit data
+        run: |
+          git config user.name "racing-data-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "no data changes"
+          else
+            git commit -m "racing data: charts through $(date -u +%F) [skip ci]"
+            git pull --rebase origin ${{ github.ref_name }}
+            git push
+          fi

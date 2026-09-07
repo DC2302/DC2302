@@ -1,0 +1,912 @@
+{
+ "generatedAt": "2026-09-07T05:02:35.249Z",
+ "weights": {
+  "source": "fitted",
+  "fittedAt": "2026-09-07T05:02:34.467Z",
+  "train": {
+   "from": "2026-06-23",
+   "to": "2026-08-30",
+   "current": {
+    "races": 8401,
+    "hitRate": 0.2676,
+    "llPerRace": -1.8189,
+    "llUniformPerRace": -1.9238
+   },
+   "fitted": {
+    "races": 8401,
+    "hitRate": 0.2683,
+    "llPerRace": -1.8178,
+    "llUniformPerRace": -1.9238
+   }
+  },
+  "test": {
+   "from": "2026-08-31",
+   "to": "2026-09-06",
+   "current": {
+    "races": 764,
+    "hitRate": 0.3338,
+    "llPerRace": -1.7329,
+    "llUniformPerRace": -1.8882
+   },
+   "fitted": {
+    "races": 764,
+    "hitRate": 0.3285,
+    "llPerRace": -1.7316,
+    "llUniformPerRace": -1.8882
+   }
+  }
+ },
+ "warmupDays": 14,
+ "days": [
+  {
+   "date": "2026-06-23",
+   "races": 68,
+   "hits": 16,
+   "second": 7,
+   "third": 11,
+   "roi": -25.4,
+   "favRaces": 68,
+   "favHits": 12,
+   "favRoi": -69.48
+  },
+  {
+   "date": "2026-06-24",
+   "races": 90,
+   "hits": 22,
+   "second": 23,
+   "third": 11,
+   "roi": -32.78,
+   "favRaces": 90,
+   "favHits": 28,
+   "favRoi": -48.4
+  },
+  {
+   "date": "2026-06-25",
+   "races": 125,
+   "hits": 24,
+   "second": 25,
+   "third": 23,
+   "roi": -110.26,
+   "favRaces": 125,
+   "favHits": 41,
+   "favRoi": -35.12
+  },
+  {
+   "date": "2026-06-26",
+   "races": 178,
+   "hits": 38,
+   "second": 28,
+   "third": 31,
+   "roi": -32.36,
+   "favRaces": 178,
+   "favHits": 52,
+   "favRoi": -94.02
+  },
+  {
+   "date": "2026-06-27",
+   "races": 253,
+   "hits": 50,
+   "second": 40,
+   "third": 45,
+   "roi": -170.5,
+   "favRaces": 253,
+   "favHits": 86,
+   "favRoi": -99.88
+  },
+  {
+   "date": "2026-06-28",
+   "races": 193,
+   "hits": 51,
+   "second": 28,
+   "third": 32,
+   "roi": -11.08,
+   "favRaces": 193,
+   "favHits": 60,
+   "favRoi": -85.44
+  },
+  {
+   "date": "2026-06-29",
+   "races": 73,
+   "hits": 15,
+   "second": 18,
+   "third": 14,
+   "roi": -40.1,
+   "favRaces": 73,
+   "favHits": 22,
+   "favRoi": -71.56
+  },
+  {
+   "date": "2026-06-30",
+   "races": 72,
+   "hits": 13,
+   "second": 19,
+   "third": 12,
+   "roi": -73.9,
+   "favRaces": 72,
+   "favHits": 21,
+   "favRoi": -28.14
+  },
+  {
+   "date": "2026-07-01",
+   "races": 79,
+   "hits": 20,
+   "second": 17,
+   "third": 14,
+   "roi": -63.1,
+   "favRaces": 79,
+   "favHits": 30,
+   "favRoi": -42.06
+  },
+  {
+   "date": "2026-07-02",
+   "races": 81,
+   "hits": 24,
+   "second": 21,
+   "third": 11,
+   "roi": -25.7,
+   "favRaces": 81,
+   "favHits": 31,
+   "favRoi": -26.7
+  },
+  {
+   "date": "2026-07-03",
+   "races": 171,
+   "hits": 32,
+   "second": 38,
+   "third": 26,
+   "roi": -143.5,
+   "favRaces": 171,
+   "favHits": 57,
+   "favRoi": -53.66
+  },
+  {
+   "date": "2026-07-04",
+   "races": 182,
+   "hits": 45,
+   "second": 35,
+   "third": 26,
+   "roi": -65.06,
+   "favRaces": 182,
+   "favHits": 41,
+   "favRoi": -189.68
+  },
+  {
+   "date": "2026-07-05",
+   "races": 184,
+   "hits": 52,
+   "second": 20,
+   "third": 26,
+   "roi": -48.48,
+   "favRaces": 184,
+   "favHits": 62,
+   "favRoi": -77.64
+  },
+  {
+   "date": "2026-07-06",
+   "races": 94,
+   "hits": 21,
+   "second": 17,
+   "third": 18,
+   "roi": -64.1,
+   "favRaces": 94,
+   "favHits": 30,
+   "favRoi": -24.8
+  },
+  {
+   "date": "2026-07-07",
+   "races": 87,
+   "hits": 20,
+   "second": 7,
+   "third": 17,
+   "roi": -54.58,
+   "favRaces": 87,
+   "favHits": 29,
+   "favRoi": -29.9
+  },
+  {
+   "date": "2026-07-08",
+   "races": 102,
+   "hits": 27,
+   "second": 19,
+   "third": 21,
+   "roi": -37.56,
+   "favRaces": 102,
+   "favHits": 38,
+   "favRoi": -42.44
+  },
+  {
+   "date": "2026-07-09",
+   "races": 115,
+   "hits": 26,
+   "second": 22,
+   "third": 25,
+   "roi": -88.16,
+   "favRaces": 115,
+   "favHits": 35,
+   "favRoi": -74.62
+  },
+  {
+   "date": "2026-07-10",
+   "races": 171,
+   "hits": 41,
+   "second": 35,
+   "third": 15,
+   "roi": -37.16,
+   "favRaces": 171,
+   "favHits": 48,
+   "favRoi": -120.54
+  },
+  {
+   "date": "2026-07-11",
+   "races": 196,
+   "hits": 59,
+   "second": 42,
+   "third": 26,
+   "roi": 32.8,
+   "favRaces": 196,
+   "favHits": 61,
+   "favRoi": -115.64
+  },
+  {
+   "date": "2026-07-12",
+   "races": 165,
+   "hits": 44,
+   "second": 39,
+   "third": 29,
+   "roi": -76.56,
+   "favRaces": 165,
+   "favHits": 56,
+   "favRoi": -61.4
+  },
+  {
+   "date": "2026-07-13",
+   "races": 85,
+   "hits": 8,
+   "second": 13,
+   "third": 20,
+   "roi": -131.02,
+   "favRaces": 85,
+   "favHits": 22,
+   "favRoi": -73.94
+  },
+  {
+   "date": "2026-07-14",
+   "races": 65,
+   "hits": 18,
+   "second": 11,
+   "third": 13,
+   "roi": -22.06,
+   "favRaces": 65,
+   "favHits": 16,
+   "favRoi": -63.92
+  },
+  {
+   "date": "2026-07-15",
+   "races": 60,
+   "hits": 13,
+   "second": 18,
+   "third": 8,
+   "roi": -63.12,
+   "favRaces": 60,
+   "favHits": 14,
+   "favRoi": -58.98
+  },
+  {
+   "date": "2026-07-16",
+   "races": 87,
+   "hits": 13,
+   "second": 14,
+   "third": 15,
+   "roi": -66,
+   "favRaces": 87,
+   "favHits": 21,
+   "favRoi": -62.58
+  },
+  {
+   "date": "2026-07-17",
+   "races": 135,
+   "hits": 38,
+   "second": 28,
+   "third": 19,
+   "roi": -7.16,
+   "favRaces": 135,
+   "favHits": 37,
+   "favRoi": -82.06
+  },
+  {
+   "date": "2026-07-18",
+   "races": 219,
+   "hits": 63,
+   "second": 40,
+   "third": 33,
+   "roi": -84.02,
+   "favRaces": 219,
+   "favHits": 72,
+   "favRoi": -114.04
+  },
+  {
+   "date": "2026-07-19",
+   "races": 178,
+   "hits": 50,
+   "second": 31,
+   "third": 27,
+   "roi": -48.84,
+   "favRaces": 178,
+   "favHits": 54,
+   "favRoi": -91.16
+  },
+  {
+   "date": "2026-07-20",
+   "races": 79,
+   "hits": 22,
+   "second": 17,
+   "third": 6,
+   "roi": 26.7,
+   "favRaces": 79,
+   "favHits": 24,
+   "favRoi": -38.46
+  },
+  {
+   "date": "2026-07-21",
+   "races": 76,
+   "hits": 18,
+   "second": 18,
+   "third": 13,
+   "roi": -66.3,
+   "favRaces": 76,
+   "favHits": 21,
+   "favRoi": -54.38
+  },
+  {
+   "date": "2026-07-22",
+   "races": 96,
+   "hits": 30,
+   "second": 19,
+   "third": 15,
+   "roi": -50.72,
+   "favRaces": 96,
+   "favHits": 37,
+   "favRoi": -22.78
+  },
+  {
+   "date": "2026-07-23",
+   "races": 116,
+   "hits": 37,
+   "second": 20,
+   "third": 15,
+   "roi": -57.6,
+   "favRaces": 116,
+   "favHits": 35,
+   "favRoi": -99.28
+  },
+  {
+   "date": "2026-07-24",
+   "races": 145,
+   "hits": 34,
+   "second": 30,
+   "third": 25,
+   "roi": -90.4,
+   "favRaces": 145,
+   "favHits": 37,
+   "favRoi": -103.1
+  },
+  {
+   "date": "2026-07-25",
+   "races": 192,
+   "hits": 52,
+   "second": 27,
+   "third": 27,
+   "roi": -72.7,
+   "favRaces": 192,
+   "favHits": 56,
+   "favRoi": -119.18
+  },
+  {
+   "date": "2026-07-26",
+   "races": 133,
+   "hits": 34,
+   "second": 19,
+   "third": 19,
+   "roi": -17.3,
+   "favRaces": 133,
+   "favHits": 33,
+   "favRoi": -80.96
+  },
+  {
+   "date": "2026-07-27",
+   "races": 68,
+   "hits": 16,
+   "second": 19,
+   "third": 10,
+   "roi": -42.22,
+   "favRaces": 68,
+   "favHits": 17,
+   "favRoi": -54.84
+  },
+  {
+   "date": "2026-07-28",
+   "races": 69,
+   "hits": 23,
+   "second": 13,
+   "third": 15,
+   "roi": 20.44,
+   "favRaces": 69,
+   "favHits": 18,
+   "favRoi": -53.74
+  },
+  {
+   "date": "2026-07-29",
+   "races": 79,
+   "hits": 26,
+   "second": 21,
+   "third": 11,
+   "roi": -27.78,
+   "favRaces": 79,
+   "favHits": 15,
+   "favRoi": -95.52
+  },
+  {
+   "date": "2026-07-30",
+   "races": 112,
+   "hits": 30,
+   "second": 27,
+   "third": 9,
+   "roi": -34.76,
+   "favRaces": 112,
+   "favHits": 37,
+   "favRoi": -22.34
+  },
+  {
+   "date": "2026-07-31",
+   "races": 143,
+   "hits": 31,
+   "second": 21,
+   "third": 30,
+   "roi": -121.5,
+   "favRaces": 143,
+   "favHits": 37,
+   "favRoi": -77.78
+  },
+  {
+   "date": "2026-08-01",
+   "races": 190,
+   "hits": 58,
+   "second": 29,
+   "third": 29,
+   "roi": -18,
+   "favRaces": 190,
+   "favHits": 59,
+   "favRoi": -105.92
+  },
+  {
+   "date": "2026-08-02",
+   "races": 140,
+   "hits": 40,
+   "second": 32,
+   "third": 17,
+   "roi": -49.84,
+   "favRaces": 140,
+   "favHits": 45,
+   "favRoi": -37.38
+  },
+  {
+   "date": "2026-08-03",
+   "races": 79,
+   "hits": 24,
+   "second": 17,
+   "third": 13,
+   "roi": 5.72,
+   "favRaces": 79,
+   "favHits": 26,
+   "favRoi": -28.16
+  },
+  {
+   "date": "2026-08-04",
+   "races": 64,
+   "hits": 20,
+   "second": 9,
+   "third": 9,
+   "roi": -24,
+   "favRaces": 64,
+   "favHits": 16,
+   "favRoi": -34.62
+  },
+  {
+   "date": "2026-08-05",
+   "races": 88,
+   "hits": 21,
+   "second": 22,
+   "third": 9,
+   "roi": -75.38,
+   "favRaces": 88,
+   "favHits": 29,
+   "favRoi": -38.68
+  },
+  {
+   "date": "2026-08-06",
+   "races": 110,
+   "hits": 32,
+   "second": 20,
+   "third": 17,
+   "roi": 20.74,
+   "favRaces": 110,
+   "favHits": 34,
+   "favRoi": -44.96
+  },
+  {
+   "date": "2026-08-07",
+   "races": 151,
+   "hits": 44,
+   "second": 26,
+   "third": 20,
+   "roi": -41.58,
+   "favRaces": 151,
+   "favHits": 49,
+   "favRoi": -44.44
+  },
+  {
+   "date": "2026-08-08",
+   "races": 217,
+   "hits": 68,
+   "second": 39,
+   "third": 30,
+   "roi": -6.32,
+   "favRaces": 217,
+   "favHits": 71,
+   "favRoi": -90.06
+  },
+  {
+   "date": "2026-08-09",
+   "races": 142,
+   "hits": 38,
+   "second": 25,
+   "third": 20,
+   "roi": -86.6,
+   "favRaces": 142,
+   "favHits": 38,
+   "favRoi": -103.96
+  },
+  {
+   "date": "2026-08-10",
+   "races": 65,
+   "hits": 22,
+   "second": 8,
+   "third": 18,
+   "roi": 1.78,
+   "favRaces": 65,
+   "favHits": 19,
+   "favRoi": -48.32
+  },
+  {
+   "date": "2026-08-11",
+   "races": 69,
+   "hits": 15,
+   "second": 11,
+   "third": 12,
+   "roi": -56.58,
+   "favRaces": 69,
+   "favHits": 15,
+   "favRoi": -47.1
+  },
+  {
+   "date": "2026-08-12",
+   "races": 62,
+   "hits": 24,
+   "second": 8,
+   "third": 9,
+   "roi": -10.4,
+   "favRaces": 62,
+   "favHits": 28,
+   "favRoi": -7.32
+  },
+  {
+   "date": "2026-08-13",
+   "races": 112,
+   "hits": 27,
+   "second": 27,
+   "third": 15,
+   "roi": -70.04,
+   "favRaces": 112,
+   "favHits": 30,
+   "favRoi": -70.24
+  },
+  {
+   "date": "2026-08-14",
+   "races": 137,
+   "hits": 40,
+   "second": 33,
+   "third": 26,
+   "roi": -73,
+   "favRaces": 137,
+   "favHits": 53,
+   "favRoi": -17.2
+  },
+  {
+   "date": "2026-08-15",
+   "races": 175,
+   "hits": 56,
+   "second": 37,
+   "third": 25,
+   "roi": -37.24,
+   "favRaces": 175,
+   "favHits": 59,
+   "favRoi": -68.36
+  },
+  {
+   "date": "2026-08-16",
+   "races": 136,
+   "hits": 45,
+   "second": 27,
+   "third": 14,
+   "roi": -53.98,
+   "favRaces": 136,
+   "favHits": 37,
+   "favRoi": -111.58
+  },
+  {
+   "date": "2026-08-17",
+   "races": 66,
+   "hits": 15,
+   "second": 15,
+   "third": 11,
+   "roi": -30.3,
+   "favRaces": 66,
+   "favHits": 15,
+   "favRoi": -68.42
+  },
+  {
+   "date": "2026-08-18",
+   "races": 82,
+   "hits": 27,
+   "second": 16,
+   "third": 9,
+   "roi": -19.76,
+   "favRaces": 82,
+   "favHits": 23,
+   "favRoi": -60.6
+  },
+  {
+   "date": "2026-08-19",
+   "races": 80,
+   "hits": 27,
+   "second": 20,
+   "third": 7,
+   "roi": -29.08,
+   "favRaces": 80,
+   "favHits": 24,
+   "favRoi": -54.62
+  },
+  {
+   "date": "2026-08-20",
+   "races": 106,
+   "hits": 32,
+   "second": 23,
+   "third": 17,
+   "roi": -52.98,
+   "favRaces": 106,
+   "favHits": 37,
+   "favRoi": -46.6
+  },
+  {
+   "date": "2026-08-21",
+   "races": 137,
+   "hits": 39,
+   "second": 29,
+   "third": 24,
+   "roi": -62.38,
+   "favRaces": 137,
+   "favHits": 39,
+   "favRoi": -78.46
+  },
+  {
+   "date": "2026-08-22",
+   "races": 205,
+   "hits": 54,
+   "second": 42,
+   "third": 37,
+   "roi": -91.38,
+   "favRaces": 205,
+   "favHits": 60,
+   "favRoi": -108.78
+  },
+  {
+   "date": "2026-08-23",
+   "races": 124,
+   "hits": 42,
+   "second": 24,
+   "third": 21,
+   "roi": -10.16,
+   "favRaces": 124,
+   "favHits": 39,
+   "favRoi": -69.52
+  },
+  {
+   "date": "2026-08-24",
+   "races": 80,
+   "hits": 16,
+   "second": 21,
+   "third": 11,
+   "roi": -65.76,
+   "favRaces": 80,
+   "favHits": 14,
+   "favRoi": -92.1
+  },
+  {
+   "date": "2026-08-25",
+   "races": 75,
+   "hits": 21,
+   "second": 8,
+   "third": 8,
+   "roi": -51.94,
+   "favRaces": 75,
+   "favHits": 22,
+   "favRoi": -49
+  },
+  {
+   "date": "2026-08-26",
+   "races": 87,
+   "hits": 25,
+   "second": 21,
+   "third": 14,
+   "roi": -37.04,
+   "favRaces": 87,
+   "favHits": 31,
+   "favRoi": -21.1
+  },
+  {
+   "date": "2026-08-27",
+   "races": 109,
+   "hits": 25,
+   "second": 26,
+   "third": 22,
+   "roi": -77.1,
+   "favRaces": 109,
+   "favHits": 31,
+   "favRoi": -46.76
+  },
+  {
+   "date": "2026-08-28",
+   "races": 155,
+   "hits": 57,
+   "second": 40,
+   "third": 24,
+   "roi": 41.8,
+   "favRaces": 155,
+   "favHits": 57,
+   "favRoi": -49.4
+  },
+  {
+   "date": "2026-08-29",
+   "races": 222,
+   "hits": 68,
+   "second": 50,
+   "third": 30,
+   "roi": -18.12,
+   "favRaces": 222,
+   "favHits": 67,
+   "favRoi": -137.1
+  },
+  {
+   "date": "2026-08-30",
+   "races": 149,
+   "hits": 35,
+   "second": 28,
+   "third": 35,
+   "roi": -72.56,
+   "favRaces": 149,
+   "favHits": 43,
+   "favRoi": -61.94
+  },
+  {
+   "date": "2026-08-31",
+   "races": 73,
+   "hits": 32,
+   "second": 11,
+   "third": 6,
+   "roi": 49.58,
+   "favRaces": 73,
+   "favHits": 20,
+   "favRoi": -53
+  },
+  {
+   "date": "2026-09-01",
+   "races": 65,
+   "hits": 15,
+   "second": 20,
+   "third": 8,
+   "roi": -45.48,
+   "favRaces": 65,
+   "favHits": 17,
+   "favRoi": -46.28
+  },
+  {
+   "date": "2026-09-02",
+   "races": 80,
+   "hits": 25,
+   "second": 17,
+   "third": 13,
+   "roi": -24.74,
+   "favRaces": 80,
+   "favHits": 29,
+   "favRoi": -27.2
+  },
+  {
+   "date": "2026-09-03",
+   "races": 94,
+   "hits": 28,
+   "second": 16,
+   "third": 14,
+   "roi": -17.26,
+   "favRaces": 94,
+   "favHits": 27,
+   "favRoi": -41.52
+  },
+  {
+   "date": "2026-09-04",
+   "races": 122,
+   "hits": 34,
+   "second": 23,
+   "third": 13,
+   "roi": -65.76,
+   "favRaces": 122,
+   "favHits": 42,
+   "favRoi": -19.28
+  },
+  {
+   "date": "2026-09-05",
+   "races": 182,
+   "hits": 63,
+   "second": 36,
+   "third": 27,
+   "roi": 71.6,
+   "favRaces": 182,
+   "favHits": 56,
+   "favRoi": -60.14
+  },
+  {
+   "date": "2026-09-06",
+   "races": 153,
+   "hits": 54,
+   "second": 20,
+   "third": 27,
+   "roi": -58.22,
+   "favRaces": 153,
+   "favHits": 67,
+   "favRoi": -1.02
+  }
+ ],
+ "tiers": {
+  "thin": {
+   "races": 1610,
+   "hits": 351,
+   "roi": -708.28
+  },
+  "lean": {
+   "races": 4472,
+   "hits": 1286,
+   "roi": -1679.22
+  },
+  "open": {
+   "races": 2126,
+   "hits": 419,
+   "roi": -748.72
+  },
+  "strong": {
+   "races": 991,
+   "hits": 448,
+   "roi": -229.44
+  }
+ },
+ "totals": {
+  "from": "2026-06-23",
+  "to": "2026-09-06",
+  "races": 9199,
+  "hits": 2504,
+  "second": 1782,
+  "third": 1424,
+  "roi": -3365.66,
+  "favRaces": 9199,
+  "favHits": 2811,
+  "favRoi": -4851.3
+ }
+}

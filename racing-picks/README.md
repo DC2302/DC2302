@@ -57,17 +57,39 @@ or the features change and paste the result into `WEIGHTS`. Training ignores
 the entries' last figure: about a week after a race the source overwrites that
 field with the figure earned in the race itself, which would leak the result.
 
-## The form database (`lib/formdb.js`)
+## The form database and the chart store
 
-The model's per-horse history comes from a crawl of every track's results
-pages over a window of past dates (`FORM_DAYS`, default 14 on the server; the
-snapshot builder uses 35). For each charted race it keeps every runner's
-finishing position, field size, purse, final time, speed figure, post,
-jockey, trainer, sire and the chart note about that horse, and flags trouble
-words (bumped, checked, broke slowly, wide and so on). From that it derives par
-times per track, distance and surface, and win rates for sires, trainers and
-jockeys. Lookups are always restricted to races before the card being rated, so
-scoring a past day never sees that day's results.
+Per-horse history comes from the results pages of every track. Each charted
+race keeps every runner's finishing position, field size, purse, final time,
+speed figure, post, jockey, trainer, sire and the chart note about that horse,
+with trouble words flagged (bumped, checked, broke slowly, wide and so on).
+From that the model derives par times per track, distance and surface, and
+win rates for sires, trainers and jockeys. Lookups are always restricted to
+races before the card being rated, so scoring a past day never sees that
+day's results.
+
+The store lives in `data/charts/`, one gzipped file per race date, and is
+grown by two GitHub Actions workflows at the repo root:
+
+- `racing-daily.yml` (7:30 am Eastern) reads yesterday and the day before into
+  the store, re-scores the season and commits `data/`.
+- `racing-weekly.yml` (Mondays) re-fits the weights with the last seven days
+  held out, writes `data/weights.json`, re-scores and commits.
+
+Both can be run by hand from the Actions tab, and the daily one accepts a
+date or a range (`2026-09-01..2026-09-07`) to backfill. Scheduled runs only
+happen on the repository's default branch.
+
+Two safeguards matter here. The source rewrites a horse's "last figure" on an
+entries page with the figure it earned in that race about a week later, so the
+store records when each day was read and the loader drops figures read more
+than five days after the race. And every commit of new charts redeploys the
+app, so the live picks always use the latest store; with no store present the
+app falls back to a short live crawl (`LIVE_FORM_DAYS`, default 10).
+
+`data/scorecard.json` is the season scorecard: every stored day re-rated with
+only the data that existed before it, using the current weights, with the
+crowd favorite alongside as a benchmark. The home page shows it.
 
 Horses that last raced before the window, or first-time starters, have no form
 rows; they are rated on connections, post and pedigree and the race is marked
@@ -80,18 +102,22 @@ cd racing-picks
 npm install
 npm run dev        # http://localhost:3000
 npm test           # parser and model tests against saved page fixtures
+npm run crawl -- 2026-09-01..2026-09-07   # read charts into data/charts
+npm run fit -- --out data/weights.json    # re-fit the weights
+npm run score                             # rebuild data/scorecard.json
 ```
 
-Deploy on Vercel with **Root Directory** set to `racing-picks/`. Optional:
-`FORM_DAYS` (default 14) sets how many past days of results feed the form
-database; the first request after a cold start crawls them, later requests
-reuse the in-memory copy for six hours.
+Deploy on Vercel with **Root Directory** set to `racing-picks/`. `FORM_DAYS`
+(default 120) sets how many stored days feed the model; the store is loaded
+once per server instance and kept for an hour.
 
 ## API
 
 - `GET /api/tracks?date=YYYY-MM-DD` — tracks racing that day with UTC first posts.
-- `GET /api/card?track=<slug>&date=YYYY-MM-DD&history=12` — the card with model
-  ratings, the track-form summary and the scorecard for races already official.
+- `GET /api/card?track=<slug>&date=YYYY-MM-DD` — the card with model ratings,
+  the track-form summary, the weights in use and the scorecard for races
+  already official.
+- `GET /api/scorecard` — the season scorecard from `data/scorecard.json`.
 
 ## Limits worth knowing
 

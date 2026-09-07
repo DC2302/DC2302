@@ -37,7 +37,7 @@ body {
   font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 a { color: var(--accent); }
-button, input[type="date"] {
+button, select, input[type="date"] {
   font: inherit;
   color: var(--ink);
   background: var(--card);

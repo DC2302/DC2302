@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { parseCard, parseDateLinks, parseIndex, toYards } from '../lib/hrn.js';
 import { buildTrackStats, normSurface, parseOdds, raceBucket, rateRace, scoreCard } from '../lib/model.js';
-import { createFormDb, hasTrouble, ingestCard, lookupHorse, nameKey, parseFinalTime, splitFootnotes, trackStatsFromForm } from '../lib/formdb.js';
+import { createFormDb, hasTrouble, indexHorses, ingestCard, lookupHorse, nameKey, parseFinalTime, splitFootnotes, trackStatsFromForm } from '../lib/formdb.js';
 
 const fixture = (name) => readFileSync(new URL(`./fixtures/${name}`, import.meta.url), 'utf8');
 
@@ -102,7 +102,9 @@ test('the form database drives the rating and the scorecard settles', () => {
   const past = parseCard(fixture('albuquerque-2026-09-06.html'), { slug: 'albuquerque-downs', date: '2026-08-30' });
   const db = createFormDb('2026-09-06', 7);
   ingestCard(db, past, 'Albuquerque Downs');
+  indexHorses(db);
   assert.equal(db.races.length, 2);
+  assert.equal(db.races[0].winPayoff, 6);
   const fanboy = lookupHorse(db, 'Fanboy', '2026-09-06');
   assert.equal(fanboy.length, 1);
   assert.equal(fanboy[0].pos, 1);
