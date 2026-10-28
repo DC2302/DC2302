@@ -8,7 +8,7 @@
 <meta name="description" content="En Boca de Todos Mexican Food, 703 S Terrell St, Midland TX. Breakfast and lunch: burritos, chilaquiles, guisados, café de olla, and menudo on Saturdays. Call (432) 218-7078 to order.">
 <meta property="og:title" content="En Boca de Todos · Mexican Food · Midland, TX">
 <meta property="og:description" content="Breakfast burritos from 6 a.m., guisados, chilaquiles divorciados and menudo on Saturdays. 703 S Terrell St, Midland.">
-<meta property="og:image" content="assets/photos/neon-sign.webp">
+<meta property="og:image" content="assets/video/hero-poster.webp">
 <meta name="theme-color" content="#141015">
 <link rel="icon" href="assets/logo.webp" type="image/webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -137,7 +137,21 @@ p { margin: 0; }
   color: var(--night-fg);
   overflow: hidden;
 }
-#picado { display: block; width: 100%; height: 180px; }
+#picado { display: block; width: 100%; height: 180px; position: relative; z-index: 1; }
+
+/* Looping background video. The overlay keeps the headline readable through the
+   video's white logo intro: dark on the text side, lighter where the video shows. */
+.hero-media { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.hero-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-media::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(20, 16, 21, .9) 0, rgba(20, 16, 21, .35) 200px, rgba(20, 16, 21, .35) 70%, rgba(20, 16, 21, .95) 100%),
+    linear-gradient(90deg, rgba(20, 16, 21, .9) 0%, rgba(20, 16, 21, .78) 42%, rgba(20, 16, 21, .3) 78%, rgba(20, 16, 21, .2) 100%);
+}
+@media (max-width: 899px) {
+  .hero-media::after { background: rgba(20, 16, 21, .74); }
+}
 .topbar {
   position: absolute; inset: 0 0 auto; z-index: 3;
   padding-top: env(safe-area-inset-top, 0px);
@@ -195,19 +209,12 @@ p { margin: 0; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 .hero-ctas .btn-ghost { color: var(--night-fg); }
 
-.hero-photo { position: relative; justify-self: center; width: min(100%, 330px); margin-bottom: 30px; }
-@media (min-width: 900px) { .hero-photo { width: min(100%, 420px); } }
-.arch {
-  aspect-ratio: 1000 / 1087; max-width: 100%; overflow: hidden;
-  border-radius: 999px 999px 16px 16px; border: 6px solid #F8F2EF;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, .55);
-}
-.arch img { width: 100%; height: 100%; object-fit: cover; }
-.seal { position: absolute; left: -26px; bottom: -34px; width: 150px; aspect-ratio: 1; }
-@media (min-width: 900px) { .seal { width: 176px; left: -56px; } }
+.hero-photo { display: none; }
+@media (min-width: 900px) { .hero-photo { display: block; justify-self: end; align-self: end; } }
+.seal { position: relative; width: 200px; aspect-ratio: 1; }
 .seal img { position: absolute; inset: 19%; width: 62%; height: 62%; border-radius: 50%; box-shadow: 0 10px 30px rgba(0, 0, 0, .5); }
 .seal svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 30s linear infinite; }
-.seal circle { fill: #141015; }
+.seal circle { fill: rgba(20, 16, 21, .82); }
 .seal text { font: 700 21px/1 var(--display); letter-spacing: .2em; fill: #F8F2EF; text-transform: uppercase; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -460,6 +467,13 @@ footer small { font-size: .82rem; }
     </div>
   </div>
 
+  <div class="hero-media" aria-hidden="true">
+    <video id="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-poster.webp">
+      <source src="assets/video/hero-480.mp4" type="video/mp4" media="(max-width: 700px)">
+      <source src="assets/video/hero-720.mp4" type="video/mp4">
+    </video>
+  </div>
+
   <canvas id="picado" aria-hidden="true"></canvas>
 
   <div class="wrap hero-grid">
@@ -480,7 +494,6 @@ footer small { font-size: .82rem; }
       </div>
     </div>
     <div class="hero-photo">
-      <div class="arch"><img src="assets/photos/neon-sign.webp" alt="The En Boca de Todos neon sign on the restaurant's green wall" width="1000" height="1087"></div>
       <div class="seal" aria-hidden="true">
         <svg viewBox="0 0 300 300">
           <defs><path id="ring" d="M150,150 m-122,0 a122,122 0 1,1 244,0 a122,122 0 1,1 -244,0"/></defs>
@@ -961,6 +974,14 @@ footer small { font-size: .82rem; }
   var cv = document.getElementById("picado"), ctx = cv.getContext("2d");
   var COLORS = ["#CE1126", "#F7A8BE", "#FFFFFF", "#2F55C8", "#F2A21B", "#E8457A"];
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* Hero video: stays on the poster frame for visitors who ask for less motion. */
+  var hv = document.getElementById("hero-video");
+  if (hv) {
+    hv.muted = true;
+    if (reduce) { hv.removeAttribute("autoplay"); hv.pause(); }
+    else { var pr = hv.play(); if (pr && pr.catch) pr.catch(function () {}); }
+  }
   var flags = [], W = 0, H = 180, dpr = 1, FW = 62, FH = 78;
 
   function makeFlag(color) {

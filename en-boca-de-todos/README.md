@@ -5,7 +5,8 @@ No build step: open `index.html`, or deploy this folder to any static host (Verc
 
 ## What's in it
 
-- Papel picado banner (animated canvas, static when the visitor prefers reduced motion)
+- Looping, muted background video in the hero
+- Papel picado banner over the video (animated canvas, static when the visitor prefers reduced motion)
 - English / Spanish toggle across the whole page, remembered per visitor
 - Live "open now / closed" badge computed in Central time from the hours below
 - Full menu transcribed from the printed menu (`assets/menu-original.jpg`)
@@ -14,10 +15,19 @@ No build step: open `index.html`, or deploy this folder to any static host (Verc
 - Tap-to-call buttons, a sticky call bar on phones, and Google Maps directions
 - `Restaurant` schema.org JSON-LD for Google (hours, phone, address)
 
+## Hero video
+
+`assets/video/hero-720.mp4` (desktop) and `hero-480.mp4` (phones, picked with `<source media>`) are muted
+H.264 loops cut from the owner's 10-second brand clip with the audio track removed. `hero-poster.webp` is the
+neon-sign frame shown before the video loads and for visitors with reduced motion turned on. To swap the clip:
+
+    ffmpeg -i new.mp4 -an -vf scale=1280:-2 -c:v libx264 -preset slow -crf 27 -pix_fmt yuv420p -movflags +faststart assets/video/hero-720.mp4
+    ffmpeg -i new.mp4 -an -vf scale=854:-2 -c:v libx264 -preset slow -crf 28 -pix_fmt yuv420p -movflags +faststart assets/video/hero-480.mp4
+
 ## Photos
 
 `assets/photos/` holds dishes from the restaurant's Facebook page (`*.webp` 820px, `*-sm.webp` 300px thumbs),
-plus `neon-sign.webp` (hero) and `street-sign.webp` (Find us panel). Get the owner's OK and, ideally,
+plus `neon-sign.webp` (no longer on the page; kept for social posts) and `street-sign.webp` (Find us panel). Get the owner's OK and, ideally,
 the original full-size files before launch.
 
 ## Editing
