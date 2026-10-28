@@ -1,0 +1,1034 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>En Boca de Todos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="En Boca de Todos Mexican Food, 703 S Terrell St, Midland TX. Breakfast and lunch: burritos, chilaquiles, guisados, café de olla, and menudo on Saturdays. Call (432) 218-7078 to order.">
+<meta property="og:title" content="En Boca de Todos · Mexican Food · Midland, TX">
+<meta property="og:description" content="Breakfast burritos from 6 a.m., guisados, chilaquiles divorciados and menudo on Saturdays. 703 S Terrell St, Midland.">
+<meta property="og:image" content="assets/photos/neon-sign.webp">
+<meta name="theme-color" content="#141015">
+<link rel="icon" href="assets/logo.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Yellowtail&family=Instrument+Sans:wght@400;500;600&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "En Boca de Todos Mexican Food",
+  "servesCuisine": "Mexican",
+  "priceRange": "$",
+  "telephone": "+1-432-218-7078",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "703 S Terrell St",
+    "addressLocality": "Midland",
+    "addressRegion": "TX",
+    "postalCode": "79701",
+    "addressCountry": "US"
+  },
+  "hasMenu": "#menu",
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "06:00", "closes": "14:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "07:00", "closes": "14:00" }
+  ]
+}
+</script>
+<style>
+/* Layout: a night-sky hero under a papel picado banner, a talavera tile band,
+   then a paper menu card in two columns, Lotería cards for the Saturday pot, and a visit block. */
+:root {
+  --paper: #FBF9F8;
+  --surface: #FFFFFF;
+  --ink: #1A1418;
+  --muted: #6C6168;
+  --line: #E7DFE1;
+  --rojo: #CE1126;
+  --rojo-ink: #B10E20;
+  --rojo-btn: #CE1126;
+  --rosa: #F7C6D2;
+  --cobalto: #1F3F95;
+  --cempasuchil: #F2A21B;
+  --night: #141015;
+  --night-2: #221A21;
+  --night-fg: #F8F2EF;
+  --night-muted: #C2B5BB;
+  --tile-ground: #FAF6EF;
+  --ok: #1E8A4C;
+
+  --display: "Big Shoulders Display", "Oswald", "Arial Narrow", Impact, sans-serif;
+  --script: "Yellowtail", "Brush Script MT", cursive;
+  --body: "Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --radius: 14px;
+  --wrap: 1180px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121013; --surface: #1B171C; --ink: #F3EDEB; --muted: #ABA0A6; --line: #30282F;
+    --rojo: #FF4B57; --rojo-ink: #FF7179; --rosa: #5A2433; --cobalto: #93ABFF;
+    --night: #0C0A0D; --night-2: #1A1419; --ok: #4CD38A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121013; --surface: #1B171C; --ink: #F3EDEB; --muted: #ABA0A6; --line: #30282F;
+  --rojo: #FF4B57; --rojo-ink: #FF7179; --rosa: #5A2433; --cobalto: #93ABFF;
+  --night: #0C0A0D; --night-2: #1A1419; --ok: #4CD38A;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 10; background: var(--night);
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+p { margin: 0; }
+:focus-visible { outline: 3px solid var(--cempasuchil); outline-offset: 3px; border-radius: 6px; }
+
+.wrap {
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 700px) {
+  .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); }
+}
+.eyebrow {
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6em;
+  padding: 0.85em 1.4em; border-radius: 999px; border: 2px solid transparent;
+  font: 600 1rem/1 var(--body); text-decoration: none; cursor: pointer;
+  transition: transform .2s ease, background-color .2s ease, color .2s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-rojo { background: var(--rojo-btn); color: #fff; }
+.btn-ghost { border-color: currentColor; background: transparent; color: inherit; }
+.btn svg { width: 1.1em; height: 1.1em; flex: none; }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  background:
+    radial-gradient(60rem 30rem at 85% 30%, rgba(206, 17, 38, .28), transparent 60%),
+    radial-gradient(40rem 26rem at 5% 90%, rgba(31, 63, 149, .35), transparent 60%),
+    var(--night);
+  color: var(--night-fg);
+  overflow: hidden;
+}
+#picado { display: block; width: 100%; height: 180px; }
+.topbar {
+  position: absolute; inset: 0 0 auto; z-index: 3;
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 14px; }
+.brand-mini { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand-mini img { width: 44px; height: 44px; border-radius: 50%; }
+.brand-mini span { font-family: var(--script); font-size: 1.5rem; line-height: 1; color: var(--night-fg); }
+.lang {
+  display: inline-flex; padding: 3px; border-radius: 999px;
+  background: rgba(20, 16, 21, .72); border: 1px solid rgba(255, 255, 255, .2);
+  backdrop-filter: blur(6px);
+}
+.lang button {
+  font: 600 0.8rem/1 var(--body); letter-spacing: .1em;
+  padding: 0.6em 0.9em; border-radius: 999px; border: 0; cursor: pointer;
+  background: transparent; color: var(--night-fg);
+}
+.lang button[aria-pressed="true"] { background: var(--night-fg); color: var(--night); }
+
+.hero-grid {
+  display: grid; gap: 40px; align-items: center;
+  grid-template-columns: minmax(0, 1fr);
+  padding-block: 8px 56px;
+  position: relative; z-index: 2;
+}
+@media (min-width: 900px) {
+  .hero-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); padding-block: 0 72px; }
+}
+.hero h1 { line-height: .82; margin-block: 14px 22px; }
+.hero h1 .script {
+  display: block; font-family: var(--script); font-weight: 400;
+  font-size: clamp(3.4rem, 10vw, 7rem); color: var(--rojo);
+  transform: rotate(-5deg); transform-origin: left bottom;
+  margin-left: .1em; margin-bottom: -.12em;
+  text-shadow: 0 6px 30px rgba(206, 17, 38, .35);
+}
+.hero h1 .block {
+  display: block; font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(4.4rem, 15vw, 10.5rem); letter-spacing: -.01em;
+}
+/* The hero band is dark in both themes, so its accents are fixed. */
+.hero .eyebrow { color: #F7C6D2; }
+.hero-lead { max-width: 34rem; font-size: 1.12rem; color: var(--night-muted); }
+.hero-lead strong { color: var(--night-fg); font-weight: 600; }
+.status {
+  display: inline-flex; align-items: center; gap: .55em;
+  margin-top: 22px; padding: .5em .95em; border-radius: 999px;
+  background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .16);
+  font-size: .92rem; font-weight: 500;
+}
+.status .dot { width: .6em; height: .6em; border-radius: 50%; background: #9A8F95; }
+.status[data-open="true"] .dot { background: #3DDC84; box-shadow: 0 0 0 0 rgba(61, 220, 132, .6); animation: pulse 2s infinite; }
+@keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(61, 220, 132, 0); } 100% { box-shadow: 0 0 0 0 rgba(61, 220, 132, 0); } }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.hero-ctas .btn-ghost { color: var(--night-fg); }
+
+.hero-photo { position: relative; justify-self: center; width: min(100%, 330px); margin-bottom: 30px; }
+@media (min-width: 900px) { .hero-photo { width: min(100%, 420px); } }
+.arch {
+  aspect-ratio: 1000 / 1087; max-width: 100%; overflow: hidden;
+  border-radius: 999px 999px 16px 16px; border: 6px solid #F8F2EF;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .55);
+}
+.arch img { width: 100%; height: 100%; object-fit: cover; }
+.seal { position: absolute; left: -26px; bottom: -34px; width: 150px; aspect-ratio: 1; }
+@media (min-width: 900px) { .seal { width: 176px; left: -56px; } }
+.seal img { position: absolute; inset: 19%; width: 62%; height: 62%; border-radius: 50%; box-shadow: 0 10px 30px rgba(0, 0, 0, .5); }
+.seal svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 30s linear infinite; }
+.seal circle { fill: #141015; }
+.seal text { font: 700 21px/1 var(--display); letter-spacing: .2em; fill: #F8F2EF; text-transform: uppercase; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.facts {
+  position: relative; z-index: 2;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+}
+.facts ul {
+  list-style: none; margin-block: 0; padding-block: 20px;
+  display: grid; gap: 14px 28px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+.facts li { display: flex; flex-direction: column; gap: 2px; }
+.facts b { font-family: var(--display); font-weight: 800; font-size: 1.6rem; letter-spacing: .02em; color: var(--night-fg); line-height: 1.05; }
+.facts span { font-size: .9rem; color: var(--night-muted); }
+
+/* ---------- Talavera band ---------- */
+.talavera {
+  height: 64px;
+  background-color: var(--tile-ground);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23FAF6EF'/%3E%3Cg fill='%231F3F95'%3E%3Ccircle cx='0' cy='0' r='12'/%3E%3Ccircle cx='64' cy='0' r='12'/%3E%3Ccircle cx='0' cy='64' r='12'/%3E%3Ccircle cx='64' cy='64' r='12'/%3E%3Cellipse cx='32' cy='18' rx='5.5' ry='11'/%3E%3Cellipse cx='32' cy='46' rx='5.5' ry='11'/%3E%3Cellipse cx='18' cy='32' rx='11' ry='5.5'/%3E%3Cellipse cx='46' cy='32' rx='11' ry='5.5'/%3E%3C/g%3E%3Cg fill='%23F2A21B'%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3Ccircle cx='64' cy='0' r='5'/%3E%3Ccircle cx='0' cy='64' r='5'/%3E%3Ccircle cx='64' cy='64' r='5'/%3E%3Ccircle cx='20' cy='20' r='3.2'/%3E%3Ccircle cx='44' cy='20' r='3.2'/%3E%3Ccircle cx='20' cy='44' r='3.2'/%3E%3Ccircle cx='44' cy='44' r='3.2'/%3E%3C/g%3E%3Ccircle cx='32' cy='32' r='6' fill='%23CE1126'/%3E%3Ccircle cx='32' cy='32' r='2.4' fill='%23FAF6EF'/%3E%3Crect x='.5' y='.5' width='63' height='63' fill='none' stroke='%231F3F95' stroke-opacity='.18'/%3E%3C/svg%3E");
+  background-size: 64px 64px;
+  border-block: 4px solid var(--cobalto);
+}
+
+/* ---------- Section heads ---------- */
+section { scroll-margin-top: 70px; }
+.sec { padding-block: 72px; }
+.sec-head { display: grid; gap: 6px; margin-bottom: 36px; max-width: 46rem; }
+.sec-head .eyebrow { color: var(--rojo-ink); }
+.sec-head h2 {
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(2.8rem, 7vw, 4.6rem); line-height: .9; letter-spacing: .005em;
+}
+.sec-head h2 em { font-family: var(--script); font-style: normal; font-weight: 400; text-transform: none; color: var(--rojo); font-size: .82em; letter-spacing: 0; }
+.sec-head p { color: var(--muted); max-width: 40rem; margin-top: 8px; }
+
+/* ---------- Talked about ---------- */
+.picks { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 160px), 1fr)); }
+@media (min-width: 700px) { .picks { gap: 18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); } }
+@media (max-width: 699px) { .pick-body { padding: 14px; } .pick h3 { font-size: 1.35rem; } .pick p { font-size: .85rem; } .pick .price { font-size: 1.7rem; } }
+.pick {
+  display: flex; flex-direction: column; overflow: hidden;
+  border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line);
+}
+.pick-img { aspect-ratio: 4 / 3; max-width: 100%; overflow: hidden; background: var(--line); }
+.pick-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.pick:hover .pick-img img { transform: scale(1.05); }
+.pick-body { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px 20px; flex: 1; }
+.pick h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.75rem; line-height: 1; }
+.pick p { color: var(--muted); font-size: .94rem; }
+.pick .price { margin-top: auto; padding-top: 8px; font-family: var(--display); font-weight: 900; font-size: 2.1rem; color: var(--rojo-ink); line-height: 1; font-variant-numeric: tabular-nums; }
+.pick .price small { font-size: .5em; vertical-align: .55em; margin-right: 1px; }
+
+/* ---------- Quote ---------- */
+.quote { padding-block: 0 72px; }
+.quote figure {
+  margin: 0; display: grid; gap: 14px; grid-template-columns: auto minmax(0, 1fr); align-items: start;
+  padding-top: 40px; border-top: 1px solid var(--line);
+}
+.quote .mark { font-family: var(--display); font-weight: 900; font-size: 7rem; line-height: .7; color: var(--rojo); }
+.quote blockquote { margin: 0; font-family: var(--script); font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.1; max-width: 30ch; }
+.quote figcaption { margin-top: 12px; font-size: .9rem; color: var(--muted); }
+.quote figcaption a { color: var(--rojo-ink); font-weight: 600; }
+
+/* ---------- Menu ---------- */
+.menu-sec { background: var(--surface); border-block: 1px solid var(--line); }
+.chips {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.chips .wrap { display: flex; gap: 8px; overflow-x: auto; padding-block: 12px; scrollbar-width: none; }
+.chips .wrap::-webkit-scrollbar { display: none; }
+.chips a {
+  flex: none; text-decoration: none; white-space: nowrap;
+  padding: .5em 1em; border-radius: 999px; border: 1px solid var(--line);
+  font-size: .9rem; font-weight: 500; color: var(--ink); background: var(--paper);
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+.chips a:hover, .chips a.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.menu-cols { columns: 1; column-gap: 64px; }
+@media (min-width: 900px) { .menu-cols { columns: 2; } }
+.cat { break-inside: avoid; padding-block: 8px 34px; scroll-margin-top: 80px; }
+.cat-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; border-bottom: 3px solid var(--ink); padding-bottom: 8px; }
+.cat-head h3 { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 2.2rem; line-height: 1; color: var(--rojo-ink); letter-spacing: .01em; }
+.cat-head .alt { font-family: var(--script); font-size: 1.35rem; color: var(--muted); line-height: 1; }
+.cat-note { font-size: .92rem; color: var(--muted); margin-top: 10px; font-style: italic; }
+.items { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 14px; }
+.item-row { display: flex; align-items: baseline; gap: 10px; }
+.item-name { font-weight: 600; font-size: 1.04rem; min-width: 0; }
+.leader { flex: 1; border-bottom: 2px dotted var(--line); transform: translateY(-4px); min-width: 16px; }
+.item-price { font-family: var(--display); font-weight: 800; font-size: 1.3rem; letter-spacing: .02em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.has-img { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; align-items: start; }
+.thumb {
+  width: 64px; height: 64px; padding: 0; border: 0; border-radius: 12px; overflow: hidden; cursor: zoom-in;
+  background: var(--line); box-shadow: 0 0 0 1px var(--line);
+}
+.thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+.thumb:hover img { transform: scale(1.1); }
+.item-desc { font-size: .9rem; color: var(--muted); margin-top: 2px; max-width: 36rem; }
+.variants { list-style: none; margin: 6px 0 0; padding: 0 0 0 14px; border-left: 2px solid var(--rosa); display: grid; gap: 4px; }
+.variants .item-row { font-size: .93rem; }
+.variants .item-name { font-weight: 500; }
+.variants .item-price { font-size: 1.1rem; }
+.extras {
+  margin-top: 14px; padding: 10px 14px; border-radius: 10px;
+  background: var(--paper); border: 1px dashed var(--line);
+  font-size: .88rem; color: var(--muted);
+}
+.extras b { color: var(--ink); font-weight: 600; margin-right: 4px; }
+.tag-sat {
+  display: inline-block; font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+  background: var(--cobalto); color: var(--surface); padding: .25em .6em; border-radius: 4px; vertical-align: .2em; margin-left: 6px;
+}
+.menu-foot { display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; justify-content: space-between; padding-top: 8px; color: var(--muted); font-size: .9rem; }
+.menu-foot a { color: var(--rojo-ink); font-weight: 600; }
+
+/* ---------- Sábados: Lotería ---------- */
+.sabado { background: var(--cobalto); color: #fff; position: relative; overflow: hidden; }
+:root[data-theme="dark"] .sabado { background: #142A66; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .sabado { background: #142A66; } }
+.sabado .sec-head .eyebrow { color: #FFD27A; }
+.sabado .sec-head h2 em { color: #FFB3BE; }
+.sabado .sec-head p { color: rgba(255, 255, 255, .78); }
+.sat-flag {
+  display: inline-flex; align-items: center; gap: .5em; margin-top: 14px;
+  background: #FFD27A; color: #1A1418; font-weight: 600; font-size: .95rem;
+  padding: .45em .9em; border-radius: 999px; width: fit-content;
+}
+.loteria { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.carta {
+  background: #FFFDF8; color: #1A1418; border-radius: 10px; padding: 12px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
+  transform: rotate(var(--tilt, 0deg)); transition: transform .35s ease;
+}
+.carta:hover { transform: rotate(0deg) translateY(-6px); }
+.carta-in {
+  border: 3px solid #1A1418; border-radius: 6px; padding: 14px 14px 16px;
+  display: grid; gap: 8px; justify-items: center; text-align: center; height: 100%;
+}
+.carta-top { width: 100%; display: flex; justify-content: space-between; align-items: center; font-family: var(--display); font-weight: 800; font-size: 1.15rem; }
+.carta-top .p { color: #B10E20; font-variant-numeric: tabular-nums; }
+.carta-art { width: 100%; max-width: 100%; aspect-ratio: 1; border-radius: 4px; background: #E9E1D8; }
+.carta-art { overflow: hidden; border: 2px solid #1A1418; }
+.carta-art img { width: 100%; height: 100%; object-fit: cover; }
+.carta h3 { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 2rem; line-height: .95; letter-spacing: .02em; }
+.carta p { font-size: .88rem; color: #5B5057; }
+
+/* ---------- Gallery ---------- */
+.gallery { display: grid; gap: 10px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: dense; }
+@media (min-width: 760px) { .gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; } }
+.tile {
+  position: relative; aspect-ratio: 1; max-width: 100%; padding: 0; border: 0; overflow: hidden; cursor: zoom-in;
+  border-radius: 12px; background: var(--line); font: inherit; text-align: left;
+}
+.tile.big { grid-column: span 2; grid-row: span 2; }
+.tile img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.tile:hover img { transform: scale(1.05); }
+.tile span {
+  position: absolute; inset: auto 0 0 0; padding: 28px 12px 10px;
+  background: linear-gradient(transparent, rgba(12, 10, 13, .85));
+  color: #fff; font-weight: 600; font-size: .9rem; line-height: 1.25;
+}
+.tile.big span { font-family: var(--display); font-weight: 800; font-size: 1.6rem; text-transform: uppercase; letter-spacing: .02em; padding: 40px 18px 14px; }
+.gallery-foot { margin-top: 20px; }
+.gallery-foot .btn-ghost { color: var(--ink); }
+
+.lb { border: 0; padding: 0; background: transparent; width: fit-content; max-width: 92vw; overflow: visible; }
+.lb::backdrop { background: rgba(12, 10, 13, .88); }
+.lb figure { margin: 0; display: grid; gap: 12px; }
+.lb img { display: block; width: auto; max-width: min(92vw, 900px); max-height: 78vh; border-radius: 12px; }
+.lb figcaption { color: #F8F2EF; font-family: var(--display); font-weight: 800; font-size: 1.6rem; text-transform: uppercase; }
+.lb-close {
+  position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(20, 16, 21, .8); color: #fff; font-size: 1.5rem; line-height: 1;
+}
+
+/* ---------- Visit ---------- */
+.visit-grid { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); align-items: start; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 24px; min-width: 0; }
+.panel h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.7rem; line-height: 1; margin-bottom: 16px; }
+.hours { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.hours td { padding: 8px 0; border-bottom: 1px solid var(--line); font-size: .97rem; }
+.hours td:last-child { text-align: right; color: var(--muted); }
+.hours tr.today td { font-weight: 600; color: var(--ink); }
+.hours tr.today td:first-child::after {
+  content: attr(data-today); margin-left: 8px; font-size: .68rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  background: var(--rojo); color: #fff; padding: .2em .55em; border-radius: 4px; vertical-align: .15em;
+}
+.hours tr.closed td:last-child { color: var(--rojo-ink); }
+.phone { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.phone a { font-family: var(--display); font-weight: 800; font-size: 1.75rem; letter-spacing: .02em; text-decoration: none; font-variant-numeric: tabular-nums; user-select: all; }
+.phone a:hover { color: var(--rojo-ink); }
+.copy {
+  font: 600 .8rem/1 var(--body); padding: .55em .9em; border-radius: 999px; cursor: pointer;
+  background: transparent; color: var(--ink); border: 1px solid var(--line);
+}
+.copy:hover { border-color: var(--ink); }
+.panel .note { font-size: .9rem; color: var(--muted); margin-top: 14px; }
+.panel-photo { margin: -26px -24px 20px; aspect-ratio: 2000 / 858; max-width: calc(100% + 48px); overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; }
+.panel-photo img { width: 100%; height: 100%; object-fit: cover; }
+.fb-link { display: inline-flex; align-items: center; gap: .5em; margin-top: 14px; font-weight: 600; color: var(--rojo-ink); }
+.fb-link svg { width: 1.2em; height: 1.2em; }
+.addr { font-size: 1.25rem; font-weight: 600; line-height: 1.35; user-select: all; }
+.panel .btn { margin-top: 18px; }
+.panel .btn-ghost { color: var(--ink); }
+
+/* ---------- Footer ---------- */
+footer { background: var(--night); color: var(--night-muted); padding-bottom: 96px; }
+@media (min-width: 760px) { footer { padding-bottom: 0; } }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between; padding-block: 40px; }
+.foot-brand { display: flex; align-items: center; gap: 14px; }
+.foot-brand img { width: 64px; height: 64px; border-radius: 50%; }
+footer a { color: var(--night-fg); }
+.foot-brand b { display: block; font-family: var(--script); font-weight: 400; font-size: 1.8rem; color: var(--night-fg); line-height: 1; }
+footer small { font-size: .82rem; }
+
+/* ---------- Mobile call bar ---------- */
+.callbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  padding: 10px max(12px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+  background: var(--night); border-top: 1px solid rgba(255, 255, 255, .12);
+  display: flex; gap: 10px;
+}
+.callbar a { flex: 1; justify-content: center; padding-block: .9em; }
+.callbar .btn-ghost { color: var(--night-fg); flex: 0 0 auto; }
+@media (min-width: 760px) { .callbar { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .seal svg, .status[data-open="true"] .dot { animation: none; }
+  .btn, .carta { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <div class="topbar">
+    <div class="wrap">
+      <a class="brand-mini" href="#top" aria-label="En Boca de Todos">
+        <img src="assets/logo.webp" alt="" width="44" height="44">
+        <span>En Boca de Todos</span>
+      </a>
+      <div class="lang" role="group" aria-label="Language / Idioma">
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" id="lang-es" data-lang="es" aria-pressed="false">ES</button>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="picado" aria-hidden="true"></canvas>
+
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow" data-i18n="eyebrow">Mexican Food · Midland, Texas</p>
+      <h1>
+        <span class="script">En Boca</span>
+        <span class="block">De Todos</span>
+      </h1>
+      <p class="hero-lead" data-i18n-html="lead">Our name means <strong>on everyone's lips</strong>. Breakfast burritos from 6 a.m., guisados, chilaquiles divorciados and café de olla, made the way it's made at home.</p>
+      <div class="status" id="status" data-open="false" role="status"><span class="dot"></span><span id="status-text">Checking hours…</span></div>
+      <div class="hero-ctas">
+        <a class="btn btn-rojo" href="#menu"><span data-i18n="ctaMenu">See the menu</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="tel:+14322187078">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
+          <span data-i18n="ctaCall">Call to order</span></a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="arch"><img src="assets/photos/neon-sign.webp" alt="The En Boca de Todos neon sign on the restaurant's green wall" width="1000" height="1087"></div>
+      <div class="seal" aria-hidden="true">
+        <svg viewBox="0 0 300 300">
+          <defs><path id="ring" d="M150,150 m-122,0 a122,122 0 1,1 244,0 a122,122 0 1,1 -244,0"/></defs>
+          <circle cx="150" cy="150" r="148"/>
+          <text><textPath href="#ring">Midland · Texas · 703 S Terrell St ·</textPath></text>
+        </svg>
+        <img src="assets/logo.webp" alt="" width="440" height="440">
+      </div>
+    </div>
+  </div>
+
+  <div class="facts">
+    <ul class="wrap">
+      <li><b>$5.99</b><span data-i18n="fact1">Breakfast and lunch burritos</span></li>
+      <li><b data-i18n="fact2b">6 a.m.</b><span data-i18n="fact2">Doors open Tuesday to Saturday</span></li>
+      <li><b data-i18n="fact3b">Saturdays</b><span data-i18n="fact3">Menudo, caldo de res and pozole</span></li>
+      <li><b data-i18n="fact4b">Call ahead</b><span>(432) 218-7078 · 218-7079</span></li>
+    </ul>
+  </div>
+</header>
+
+<div class="talavera" role="presentation"></div>
+
+<main>
+  <section class="sec" id="favoritos">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="picksEyebrow">The house favorites</p>
+        <h2 data-i18n-html="picksTitle">What everyone's <em>talking about</em></h2>
+      </div>
+      <div class="picks" id="picks"></div>
+    </div>
+  </section>
+
+  <section class="quote">
+    <div class="wrap">
+      <figure>
+        <span class="mark" aria-hidden="true">&ldquo;</span>
+        <div>
+          <blockquote>It was simple but so flavorful. Served so fresh.</blockquote>
+          <figcaption>Jessica H., <a href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener" data-i18n="onFacebook">on Facebook</a></figcaption>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="menu-sec" id="menu" aria-labelledby="menu-title">
+    <nav class="chips" aria-label="Menu sections">
+      <div class="wrap" id="chips"></div>
+    </nav>
+    <div class="wrap sec">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="menuEyebrow">Breakfast & lunch · Tuesday to Sunday</p>
+        <h2 id="menu-title" data-i18n-html="menuTitle">The <em>menu</em></h2>
+        <p data-i18n="menuSub">Tortillas, beans and salsa the way they're made back home. Every plate comes with your choice of one flour or three corn tortillas.</p>
+      </div>
+      <div class="menu-cols" id="menu-cols"></div>
+      <div class="menu-foot">
+        <span data-i18n="menuFoot">Prices are subject to change. Call to confirm today's guisados.</span>
+        <a href="assets/menu-original.jpg" target="_blank" rel="noopener" data-i18n="menuPrint">View the printed menu</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sabado sec" id="sabados">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="satEyebrow">Saturdays only</p>
+        <h2 data-i18n-html="satTitle">The Saturday <em>pot</em></h2>
+        <p data-i18n="satSub">Slow-simmered soups that only come out on Saturday. Come early. When the pot is empty, it's gone until next week.</p>
+        <span class="sat-flag" id="sat-flag" hidden></span>
+      </div>
+      <div class="loteria" id="loteria"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="cocina">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="galEyebrow">Straight from our kitchen</p>
+        <h2 data-i18n-html="galTitle">Hungry <em>yet?</em></h2>
+        <p data-i18n="galSub">Real plates, photographed at our tables on Terrell St. Tap any photo to see it bigger.</p>
+      </div>
+      <div class="gallery" id="gallery"></div>
+      <div class="gallery-foot">
+        <a class="btn btn-ghost" href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.3-1.5 1.6-1.5h1.7V4.6a22 22 0 0 0-2.5-.1c-2.4 0-4.1 1.5-4.1 4.2v2.3H7.5V14h2.7v8z"/></svg>
+          <span data-i18n="galMore">See more on Facebook</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="visita">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="visitEyebrow">Pickup & dine-in</p>
+        <h2 data-i18n-html="visitTitle">Come <em>see us</em></h2>
+      </div>
+      <div class="visit-grid">
+        <div class="panel">
+          <h3 data-i18n="hoursTitle">Hours</h3>
+          <table class="hours"><tbody id="hours"></tbody></table>
+        </div>
+        <div class="panel">
+          <h3 data-i18n="orderTitle">Order by phone</h3>
+          <div class="phone"><a href="tel:+14322187078">(432) 218-7078</a><button class="copy" type="button" id="copy-1" data-num="(432) 218-7078" data-i18n="copy">Copy</button></div>
+          <div class="phone"><a href="tel:+14322187079">(432) 218-7079</a><button class="copy" type="button" id="copy-2" data-num="(432) 218-7079" data-i18n="copy">Copy</button></div>
+          <p class="note" data-i18n="orderNote">Call ahead and your order will be ready when you get here.</p>
+          <a class="fb-link" href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.3-1.5 1.6-1.5h1.7V4.6a22 22 0 0 0-2.5-.1c-2.4 0-4.1 1.5-4.1 4.2v2.3H7.5V14h2.7v8z"/></svg>
+            <span data-i18n="fbFollow">Daily specials and closures on Facebook</span></a>
+        </div>
+        <div class="panel">
+          <div class="panel-photo"><img src="assets/photos/street-sign.webp" alt="The En Boca de Todos sign on a pole outside the restaurant" width="1200" height="515" loading="lazy"></div>
+          <h3 data-i18n="findTitle">Find us</h3>
+          <p class="addr">703 S Terrell St<br>Midland, TX 79701</p>
+          <p class="note" data-i18n="findNote">Look for our sign on Terrell St, south of downtown Midland.</p>
+          <a class="btn btn-ghost" href="https://maps.app.goo.gl/zn4fFgYzztVJzd6o9" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+            <span data-i18n="directions">Get directions</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-brand">
+      <img src="assets/logo.webp" alt="En Boca de Todos logo" width="64" height="64">
+      <div><b>En Boca de Todos</b><small data-i18n="footTag">Mexican Food · 703 S Terrell St · Midland, TX</small></div>
+    </div>
+    <small><a href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener">Facebook</a> · <span data-i18n="footNote">Website concept prepared for En Boca de Todos.</span></small>
+  </div>
+</footer>
+
+<dialog class="lb" id="lb" aria-label="Photo">
+  <button class="lb-close" type="button" id="lb-close" aria-label="Close">&times;</button>
+  <figure><img id="lb-img" alt=""><figcaption id="lb-cap"></figcaption></figure>
+</dialog>
+
+<div class="callbar">
+  <a class="btn btn-rojo" href="tel:+14322187078">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
+    <span data-i18n="callbar">Call to order</span></a>
+  <a class="btn btn-ghost" href="#menu" data-i18n="menuShort">Menu</a>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- Copy ---------- */
+  var T = {
+    en: {
+      eyebrow: "Mexican Food · Midland, Texas",
+      lead: "Our name means <strong>on everyone's lips</strong>. Breakfast burritos from 6 a.m., guisados, chilaquiles divorciados and café de olla, made the way it's made at home.",
+      ctaMenu: "See the menu", ctaCall: "Call to order",
+      fact1: "Breakfast and lunch burritos", fact2b: "6 a.m.", fact2: "Doors open Tuesday to Saturday",
+      fact3b: "Saturdays", fact3: "Menudo, caldo de res and pozole", fact4b: "Call ahead",
+      picksEyebrow: "The house favorites", picksTitle: "What everyone's <em>talking about</em>",
+      menuEyebrow: "Breakfast & lunch · Tuesday to Sunday", menuTitle: "The <em>menu</em>",
+      menuSub: "Tortillas, beans and salsa the way they're made back home. Every plate comes with your choice of one flour or three corn tortillas.",
+      menuFoot: "Prices are subject to change. Call to confirm today's guisados.", menuPrint: "View the printed menu",
+      satEyebrow: "Saturdays only", satTitle: "The Saturday <em>pot</em>",
+      satSub: "Slow-simmered soups that only come out on Saturday. Come early. When the pot is empty, it's gone until next week.",
+      satToday: "It's Saturday. The pot is on.", satNext: "Next pot: this Saturday",
+      visitEyebrow: "Pickup & dine-in", visitTitle: "Come <em>see us</em>",
+      hoursTitle: "Hours", orderTitle: "Order by phone", copy: "Copy", copied: "Copied",
+      orderNote: "Call ahead and your order will be ready when you get here.",
+      findTitle: "Find us", findNote: "Look for our sign on Terrell St, south of downtown Midland.",
+      onFacebook: "on Facebook", fbFollow: "Daily specials and closures on Facebook",
+      galEyebrow: "Straight from our kitchen", galTitle: "Hungry <em>yet?</em>",
+      galSub: "Real plates, photographed at our tables on Terrell St. Tap any photo to see it bigger.", galMore: "See more on Facebook", directions: "Get directions",
+      footTag: "Mexican Food · 703 S Terrell St · Midland, TX", footNote: "Website concept prepared for En Boca de Todos.",
+      callbar: "Call to order", menuShort: "Menu", extras: "Extras", today: "Today", closed: "Closed", tomorrow: "tomorrow",
+      days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      openUntil: function (t) { return "Open now · until " + t; },
+      opensToday: function (t) { return "Closed now · opens today at " + t; },
+      opensOn: function (d, t) { return "Closed now · opens " + d + " at " + t; },
+      time: function (h) { return (h % 12 || 12) + ":00 " + (h < 12 ? "AM" : "PM"); }
+    },
+    es: {
+      eyebrow: "Comida Mexicana · Midland, Texas",
+      lead: "Nuestro nombre lo dice todo: estamos <strong>en boca de todos</strong>. Burritos de desayuno desde las 6 a.m., guisados, chilaquiles divorciados y café de olla, hechos como en casa.",
+      ctaMenu: "Ver el menú", ctaCall: "Llama para ordenar",
+      fact1: "Burritos de desayuno y comida", fact2b: "6 a.m.", fact2: "Abrimos de martes a sábado",
+      fact3b: "Sábados", fact3: "Menudo, caldo de res y pozole", fact4b: "Llama antes",
+      picksEyebrow: "Los favoritos de la casa", picksTitle: "Lo que está <em>en boca de todos</em>",
+      menuEyebrow: "Desayuno y comida · martes a domingo", menuTitle: "El <em>menú</em>",
+      menuSub: "Tortillas, frijoles y salsa como en casa. Todos los platos vienen con una tortilla de harina o tres de maíz, a tu gusto.",
+      menuFoot: "Los precios pueden cambiar. Llama para saber los guisados del día.", menuPrint: "Ver el menú impreso",
+      satEyebrow: "Solo los sábados", satTitle: "La olla del <em>sábado</em>",
+      satSub: "Caldos de cocción lenta que solo salen los sábados. Llega temprano: cuando se acaba la olla, hasta la próxima semana.",
+      satToday: "Hoy es sábado. La olla ya está lista.", satNext: "Próxima olla: este sábado",
+      visitEyebrow: "Para llevar y para comer aquí", visitTitle: "Ven a <em>visitarnos</em>",
+      hoursTitle: "Horario", orderTitle: "Ordena por teléfono", copy: "Copiar", copied: "Copiado",
+      orderNote: "Llama antes y tu orden estará lista cuando llegues.",
+      findTitle: "Encuéntranos", findNote: "Busca nuestro letrero en Terrell St, al sur del centro de Midland.",
+      onFacebook: "en Facebook", fbFollow: "Especiales y avisos en Facebook",
+      galEyebrow: "Directo de nuestra cocina", galTitle: "¿Ya te dio <em>hambre?</em>",
+      galSub: "Platos de verdad, fotografiados en nuestras mesas de Terrell St. Toca una foto para verla en grande.", galMore: "Ver más en Facebook", directions: "Cómo llegar",
+      footTag: "Comida Mexicana · 703 S Terrell St · Midland, TX", footNote: "Concepto de sitio web preparado para En Boca de Todos.",
+      callbar: "Llama para ordenar", menuShort: "Menú", extras: "Extras", today: "Hoy", closed: "Cerrado", tomorrow: "mañana",
+      days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+      daysShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
+      openUntil: function (t) { return "Abierto ahora · hasta las " + t; },
+      opensToday: function (t) { return "Cerrado · abre hoy a las " + t; },
+      opensOn: function (d, t) { return "Cerrado · abre " + (d === "mañana" ? d : "el " + d.toLowerCase()) + " a las " + t; },
+      time: function (h) { return (h % 12 || 12) + ":00 " + (h < 12 ? "a.m." : "p.m."); }
+    }
+  };
+
+  /* ---------- Menu (from the restaurant's printed menu) ---------- */
+  var tortillas = {
+    en: "Served with beans, potatoes and your choice of (1) flour or (3) corn tortillas.",
+    es: "Con frijoles, papas y (1) tortilla de harina o (3) de maíz."
+  };
+  var MENU = [
+    { id: "desayuno", en: "Breakfast Plates", es: "Desayunos", note: tortillas, items: [
+      { img: "bistec-eggs", n: "Mexican Breakfast Plate", p: 15.99, en: "(2) eggs with a guisado", es: "(2) huevos con guisado" },
+      { n: "Breakfast Plate", p: 11.99, en: "(2) eggs with your choice of sausage, bacon or ham", es: "(2) huevos con salchicha, tocino o jamón" },
+      { n: "Omelette Plate", p: 11.99, en: "Filled with your choice of cheese, bacon or ham", es: "Relleno de queso, tocino o jamón" },
+      { n: "Scrambled Egg Plate", p: 11.99, en: "With chorizo, a la Mexicana, bacon or ham", es: "Con chorizo, a la mexicana, tocino o jamón" },
+      { img: "chilaquiles-brisket", n: "Chilaquiles", p: 9.99, en: "Green or red", es: "Verdes o rojos" },
+      { n: "Chilaquiles Divorciados", p: 9.99, en: "Half green, half red", es: "Mitad verdes, mitad rojos" },
+      { n: "Migas Plate", p: 11.99, en: "(2) eggs scrambled with corn tortillas, a la Mexicana if you like", es: "(2) huevos revueltos con tortilla de maíz, a la mexicana si gustas" },
+      { n: "Machaca Plate", p: 13.99, en: "(2) eggs scrambled with shredded beef jerky, a la Mexicana if you like", es: "(2) huevos revueltos con machaca, a la mexicana si gustas" },
+      { n: "Tamal Plate", p: 13.99, en: "(2) tamales with (2) eggs", es: "(2) tamales con (2) huevos" },
+      { img: "huevos-rancheros", n: "Huevos Rancheros", p: 12.99, en: "(2) fried eggs on a lightly fried corn tortilla, smothered in salsa", es: "(2) huevos estrellados sobre tortilla de maíz dorada, bañados en salsa" },
+      { img: "huevos-divorciados", n: "Huevos Divorciados", p: 12.99, en: "(2) fried eggs on a corn tortilla, one in green salsa and one in red", es: "(2) huevos estrellados, uno en salsa verde y otro en roja" }
+    ], extras: { en: "Chilaquiles: add (1) egg +$1.99 · bistec, fajita or brisket +$4.99", es: "Chilaquiles: (1) huevo +$1.99 · bistec, fajita o brisket +$4.99" } },
+
+    { id: "dulce", en: "On the Side", es: "Para Acompañar", items: [
+      { img: "pancakes-plate", n: "Pancakes (2)", p: 5.99, en: "", es: "" },
+      { img: "avena", n: "Oatmeal (Avena)", p: 5.99, en: "", es: "" },
+      { n: "Arroz con Leche", p: 5.99, en: "Rice pudding", es: "" }
+    ] },
+
+    { id: "burritos-desayuno", en: "Breakfast Burritos", es: "Burritos de Desayuno", items: [
+      { n: "Breakfast Burrito", p: 5.99, en: "(2) eggs with your choice of bacon, ham, sausage, spam or chorizo", es: "(2) huevos con tocino, jamón, salchicha, spam o chorizo" }
+    ], extras: { en: "Beans, cheese or potatoes +50¢ · avocado +$1.50 · guisado +$1.50", es: "Frijoles, queso o papas +50¢ · aguacate +$1.50 · guisado +$1.50" } },
+
+    { id: "burritos", en: "Lunch Burritos", es: "Burritos de Guisado", alt: { en: "guisados", es: "lunch burritos" }, items: [
+      { n: "Asado", p: 5.99 }, { n: "Chile Verde", p: 5.99 }, { n: "Chile Colorado", p: 5.99 },
+      { n: "Arriero", p: 6.99 }, { n: "Mole", p: 5.99 }, { n: "Chicharrón", p: 5.99 },
+      { n: "Bistec", p: 6.99 }, { n: "Rajas", p: 5.99 }, { n: "Chile Relleno", p: 6.99 },
+      { n: "Barbacoa", p: 6.99 }, { n: "Fiesta Brisket", p: 6.99 }, { n: "Beef / Chicken Fajita", p: 6.99 },
+      { n: "Big Dave's Burrito", p: 6.99, en: "Ground beef, beans, roasted Anaheim peppers and shredded cheese", es: "Carne molida, frijoles, chile Anaheim asado y queso rallado" }
+    ], extras: { en: "Beans, cheese or potatoes +50¢ · avocado +$1.50", es: "Frijoles, queso o papas +50¢ · aguacate +$1.50" } },
+
+    { id: "tacos", en: "Tacos", es: "Tacos", note: { en: "(4) mini tacos with charro beans, onion, cilantro, lime and salsa.", es: "(4) taquitos con frijoles charros, cebolla, cilantro, limón y salsa." }, items: [
+      { img: "tacos-al-pastor", n: "Al Pastor", p: 14.99 }, { n: "Barbacoa", p: 14.99 }, { n: "Bistec", p: 14.99 }, { n: "Brisket", p: 14.99 }
+    ] },
+
+    { id: "comidas", en: "Lunch Plates", es: "Platos de Comida", note: {
+        en: "Served with beans, rice, salad and your choice of (1) flour or (3) corn tortillas.",
+        es: "Con frijoles, arroz, ensalada y (1) tortilla de harina o (3) de maíz." }, items: [
+      { n: "En Boca Plate", p: 15.99, en: "(1) chile relleno, (1) crispy taco and (2) cheese enchiladas, red or green", es: "(1) chile relleno, (1) taco dorado y (2) enchiladas de queso, rojas o verdes" },
+      { img: "taco-plate", n: "Taco Plate", p: 12.99, en: "(3) crispy ground beef tacos with lettuce, tomato and cheese", es: "(3) tacos dorados de carne molida con lechuga, tomate y queso" },
+      { img: "enchiladas-verdes", n: "Enchiladas Plate", en: "(3) enchiladas, red or green. Make them (4) divorciadas, 2 green and 2 red, +$1.99", es: "(3) enchiladas rojas o verdes. Pídelas (4) divorciadas, 2 verdes y 2 rojas, +$1.99", v: [
+        { en: "Cheese", es: "Queso", p: 12.99 },
+        { en: "Chicken, beef, bistec or brisket", es: "Pollo, res, bistec o brisket", p: 14.99 } ] },
+      { img: "relleno-plate", n: "Relleno Plate", p: 13.99, en: "(2) chiles rellenos, cheese or ground beef, with salsa española", es: "(2) chiles rellenos de queso o carne molida, con salsa española" },
+      { img: "flautas", n: "Flautas Plate", p: 12.99, en: "(4) beef or chicken flautas with sour cream, salsa and guacamole", es: "(4) flautas de res o pollo con crema, salsa y guacamole" },
+      { n: "Fajita Plate", p: 15.99, en: "Chicken, beef or both, with guacamole and sour cream", es: "Pollo, res o mixta, con guacamole y crema" },
+      { img: "chile-colorado", n: "Lunch Plate", p: 13.99, en: "Your choice of guisado", es: "El guisado que prefieras" },
+      { img: "quesadillas", n: "Quesadilla Plate", p: 12.99, en: "Beef or chicken, with sour cream and guacamole", es: "De res o pollo, con crema y guacamole" },
+      { img: "fiesta-brisket", n: "Fiesta Brisket Plate", p: 15.99, en: "With a side of pasta salad and rice", es: "Con ensalada de pasta y arroz" },
+      { n: "Nachos Supreme", p: 12.99, en: "Chips with cheese sauce, beans, ground beef, lettuce, tomato, guacamole and sour cream. Swap in fajita, brisket or bistec +$1.99", es: "Totopos con queso, frijoles, carne molida, lechuga, tomate, guacamole y crema. Con fajita, brisket o bistec +$1.99" }
+    ] },
+
+    { id: "sabado-menu", en: "Saturdays Only", es: "Solo Sábados", sat: true, items: [
+      { img: "menudo", n: "Menudo", p: 15.99 }, { img: "caldo-de-res", n: "Caldo de Res", p: 15.99 }, { img: "pozole", n: "Pozole", p: 14.99 }
+    ] },
+
+    { id: "ninos", en: "Kids Menu", es: "Menú Infantil", note: { en: "Drink included: chocolate milk or orange juice.", es: "Incluye bebida: leche con chocolate o jugo de naranja." }, items: [
+      { n: "Mini Pancakes Plate", p: 6.99, en: "With (1) egg, ham or bacon", es: "Con (1) huevo, jamón o tocino" },
+      { n: "Chicken Tenders & Fries", p: 6.99, en: "", es: "Tiras de pollo con papas" },
+      { n: "Cheese Quesadilla & Fries", p: 6.99, en: "", es: "Quesadilla de queso con papas" }
+    ] },
+
+    { id: "bebidas", en: "Drinks", es: "Bebidas", items: [
+      { n: "Coffee", p: 2.99, es: "Café" },
+      { img: "cafe-de-olla", n: "Café de Olla", p: 4.99, en: "Coffee sweetened with piloncillo and spiced with cinnamon, cloves and star anise", es: "Café endulzado con piloncillo, con canela, clavo y anís estrella" },
+      { n: "Tea", p: 3.99, en: "Sweet or unsweet", es: "Té dulce o sin azúcar" },
+      { n: "Can Soda", p: 2.99, es: "Refresco de lata" },
+      { n: "Mexican Soda", p: 3.99, es: "Refresco mexicano" },
+      { n: "Aguas Frescas", p: 3.99 }
+    ] },
+
+    { id: "postres", en: "Dessert", es: "Postres", items: [
+      { n: "Chocoflan", p: 6.99 }, { n: "Tres Leches Cake", p: 6.99, es: "Pastel de tres leches" }, { n: "Churro Cheesecake", p: 7.99 }
+    ] }
+  ];
+
+  var PICKS = [
+    { img: "huevos-divorciados", n: "Huevos Divorciados", p: 12.99, en: "Two fried eggs, one in salsa roja and one in salsa verde, with beans and potatoes.", es: "Dos huevos estrellados, uno en salsa roja y otro en verde, con frijoles y papas." },
+    { img: "tacos-al-pastor", n: "Tacos al Pastor", p: 14.99, en: "Four mini tacos with pineapple, onion and cilantro, plus charro beans and salsa.", es: "Cuatro taquitos con piña, cebolla y cilantro, con frijoles charros y salsa." },
+    { img: "relleno-plate", n: "Relleno Plate", p: 13.99, en: "Two chiles rellenos with salsa española, rice, beans and salad.", es: "Dos chiles rellenos con salsa española, arroz, frijoles y ensalada." },
+    { img: "cafe-de-olla", n: "Café de Olla", p: 4.99, en: "Piloncillo, cinnamon, cloves and star anise, served in a clay jarrito.", es: "Piloncillo, canela, clavo y anís estrella, servido en jarrito de barro." }
+  ];
+
+  var SAT = [
+    { img: "menudo", n: "El Menudo", p: 15.99, tilt: "-2deg", en: "Beef tripe and hominy in red chile broth, with onion, lime and bolillo.", es: "Pancita y maíz en caldo de chile rojo, con cebolla, limón y bolillo." },
+    { img: "caldo-de-res", n: "El Caldo de Res", p: 15.99, tilt: "1.5deg", en: "Beef, corn on the cob, squash and carrots, with rice and tortillas.", es: "Res, elote, calabaza y zanahoria, con arroz y tortillas." },
+    { img: "pozole", n: "El Pozole", p: 14.99, tilt: "-1deg", en: "Hominy stew topped with radish, cilantro and cabbage.", es: "Pozole con rábano, cilantro y repollo." }
+  ];
+
+  var GALLERY = [
+    { img: "fiesta-brisket", big: true, en: "Fiesta Brisket Plate", es: "Plato Fiesta Brisket" },
+    { img: "huevos-rancheros", en: "Huevos Rancheros", es: "Huevos Rancheros" },
+    { img: "enchiladas-verdes", en: "Enchiladas Verdes", es: "Enchiladas Verdes" },
+    { img: "taco-plate", en: "Crispy Taco Plate", es: "Tacos Dorados" },
+    { img: "flautas", en: "Flautas Plate", es: "Flautas" },
+    { img: "chilaquiles-brisket", big: true, en: "Chilaquiles Verdes with Brisket", es: "Chilaquiles Verdes con Brisket" },
+    { img: "pancakes-plate", en: "Pancakes, Eggs & Bacon", es: "Hotcakes con Huevo y Tocino" },
+    { img: "quesadillas", en: "Quesadilla Plate", es: "Quesadillas" },
+    { img: "enchiladas-rojas", en: "Enchiladas Rojas", es: "Enchiladas Rojas" },
+    { img: "avena", en: "Avena", es: "Avena" }
+  ];
+
+  /* Hours: 0 = Sunday. [open, close] in 24h, America/Chicago. */
+  var HOURS = { 0: [7, 14], 1: null, 2: [6, 14], 3: [6, 14], 4: [6, 14], 5: [6, 14], 6: [6, 14] };
+
+  var lang = "en";
+  try {
+    var saved = localStorage.getItem("ebdt-lang");
+    if (saved === "en" || saved === "es") lang = saved;
+    else if ((navigator.language || "").toLowerCase().indexOf("es") === 0) lang = "es";
+  } catch (e) {
+    if ((navigator.language || "").toLowerCase().indexOf("es") === 0) lang = "es";
+  }
+
+  function money(p) { return "$" + p.toFixed(2); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function pick(obj) { return obj ? (obj[lang] || obj.en || "") : ""; }
+
+  function photo(name, size) { return "assets/photos/" + name + (size === "sm" ? "-sm" : "") + ".webp"; }
+
+  function renderPicks() {
+    document.getElementById("picks").innerHTML = PICKS.map(function (x) {
+      return '<article class="pick"><div class="pick-img"><img src="' + photo(x.img) + '" alt="' + esc(x.n) + '" loading="lazy" width="820" height="820"></div>' +
+        '<div class="pick-body"><h3>' + esc(x.n) + '</h3><p>' + esc(x[lang]) + '</p>' +
+        '<div class="price"><small>$</small>' + x.p.toFixed(2) + '</div></div></article>';
+    }).join("");
+  }
+
+  function row(name, price) {
+    return '<div class="item-row"><span class="item-name">' + name + '</span><span class="leader"></span>' +
+      (price != null ? '<span class="item-price">' + money(price) + '</span>' : '') + '</div>';
+  }
+
+  function renderMenu() {
+    var other = lang === "en" ? "es" : "en";
+    document.getElementById("chips").innerHTML = MENU.map(function (c) {
+      return '<a href="#' + (c.sat ? "sabados" : "cat-" + c.id) + '" data-cat="' + c.id + '">' + esc(c[lang]) + '</a>';
+    }).join("");
+    document.getElementById("menu-cols").innerHTML = MENU.map(function (c) {
+      var alt = c.alt ? c.alt[lang] : (c[other] !== c[lang] ? c[other] : "");
+      var html = '<div class="cat" id="cat-' + c.id + '"><div class="cat-head"><h3>' + esc(c[lang]) +
+        (c.sat ? '<span class="tag-sat">' + (lang === "en" ? "Sat" : "Sáb") + '</span>' : '') + '</h3>' +
+        (alt ? '<span class="alt">' + esc(alt) + '</span>' : '') + '</div>';
+      if (c.note) html += '<p class="cat-note">' + esc(c.note[lang]) + '</p>';
+      html += '<ul class="items">' + c.items.map(function (it) {
+        var desc = it[lang] || "";
+        var li = row(esc(it.n), it.p);
+        if (desc && desc !== it.n) li += '<p class="item-desc">' + esc(desc) + '</p>';
+        if (it.v) li += '<ul class="variants">' + it.v.map(function (v) { return '<li>' + row(esc(v[lang]), v.p) + '</li>'; }).join("") + '</ul>';
+        if (!it.img) return '<li>' + li + '</li>';
+        return '<li class="has-img"><button class="thumb" type="button" data-src="' + photo(it.img) + '" data-cap="' + esc(it.n) + '" aria-label="' + esc(it.n) + '">' +
+          '<img src="' + photo(it.img, "sm") + '" alt="" loading="lazy" width="300" height="300"></button><div>' + li + '</div></li>';
+      }).join("") + '</ul>';
+      if (c.extras) html += '<p class="extras"><b>' + T[lang].extras + '</b>' + esc(c.extras[lang]) + '</p>';
+      return html + '</div>';
+    }).join("");
+  }
+
+  function renderGallery() {
+    document.getElementById("gallery").innerHTML = GALLERY.map(function (g) {
+      return '<button class="tile' + (g.big ? ' big' : '') + '" type="button" data-src="' + photo(g.img) + '" data-cap="' + esc(g[lang]) + '">' +
+        '<img src="' + photo(g.img, g.big ? "" : "sm") + '" alt="' + esc(g[lang]) + '" loading="lazy" width="820" height="820"><span>' + esc(g[lang]) + '</span></button>';
+    }).join("");
+  }
+
+  function renderSat() {
+    document.getElementById("loteria").innerHTML = SAT.map(function (x) {
+      return '<article class="carta" style="--tilt:' + x.tilt + '"><div class="carta-in">' +
+        '<div class="carta-top"><span>' + (lang === "en" ? "Sat." : "Sáb.") + '</span><span class="p">' + money(x.p) + '</span></div>' +
+        '<div class="carta-art"><img src="' + photo(x.img) + '" alt="' + esc(x.n) + '" loading="lazy" width="820" height="820"></div>' +
+        '<h3>' + esc(x.n) + '</h3><p>' + esc(x[lang]) + '</p></div></article>';
+    }).join("");
+  }
+
+  /* ---------- Hours & live status (Midland runs on Central time) ---------- */
+  function midlandNow() {
+    var parts = new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", weekday: "short", hour: "numeric", minute: "numeric", hour12: false }).formatToParts(new Date());
+    var o = {}; parts.forEach(function (p) { o[p.type] = p.value; });
+    var day = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(o.weekday);
+    var hour = parseInt(o.hour, 10) % 24;
+    return { day: day, mins: hour * 60 + parseInt(o.minute, 10) };
+  }
+
+  function renderHours() {
+    var t = T[lang], now = midlandNow();
+    var order = [1, 2, 3, 4, 5, 6, 0];
+    document.getElementById("hours").innerHTML = order.map(function (d) {
+      var h = HOURS[d];
+      var cls = (d === now.day ? "today " : "") + (h ? "" : "closed");
+      return '<tr class="' + cls.trim() + '"><td data-today="' + t.today + '">' + t.days[d] + '</td><td>' +
+        (h ? t.time(h[0]) + " – " + t.time(h[1]) : t.closed) + '</td></tr>';
+    }).join("");
+
+    var el = document.getElementById("status"), txt = document.getElementById("status-text");
+    var today = HOURS[now.day], open = !!today && now.mins >= today[0] * 60 && now.mins < today[1] * 60;
+    el.setAttribute("data-open", open ? "true" : "false");
+    if (open) txt.textContent = t.openUntil(t.time(today[1]));
+    else if (today && now.mins < today[0] * 60) txt.textContent = t.opensToday(t.time(today[0]));
+    else {
+      for (var i = 1; i <= 7; i++) {
+        var d = (now.day + i) % 7;
+        if (HOURS[d]) { txt.textContent = t.opensOn(i === 1 ? t.tomorrow : t.days[d], t.time(HOURS[d][0])); break; }
+      }
+    }
+    var flag = document.getElementById("sat-flag");
+    flag.hidden = false;
+    flag.textContent = now.day === 6 ? t.satToday : t.satNext;
+  }
+
+  function applyLang() {
+    var t = T[lang];
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { if (t[el.dataset.i18n] != null) el.textContent = t[el.dataset.i18n]; });
+    document.querySelectorAll("[data-i18n-html]").forEach(function (el) { if (t[el.dataset.i18nHtml] != null) el.innerHTML = t[el.dataset.i18nHtml]; });
+    document.querySelectorAll(".lang button").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.lang === lang ? "true" : "false"); });
+    renderPicks(); renderMenu(); renderSat(); renderGallery(); renderHours();
+  }
+
+  document.querySelectorAll(".lang button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      lang = b.dataset.lang;
+      try { localStorage.setItem("ebdt-lang", lang); } catch (e) {}
+      applyLang();
+    });
+  });
+
+  document.querySelectorAll(".copy").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var num = b.dataset.num;
+      function done() { b.textContent = T[lang].copied; setTimeout(function () { b.textContent = T[lang].copy; }, 1600); }
+      function fallback() {
+        var a = b.previousElementSibling, r = document.createRange();
+        r.selectNodeContents(a); var s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      }
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(num).then(done, fallback);
+        else fallback();
+      } catch (e) { fallback(); }
+    });
+  });
+
+  /* ---------- Lightbox ---------- */
+  var lb = document.getElementById("lb"), lbImg = document.getElementById("lb-img"), lbCap = document.getElementById("lb-cap");
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest && e.target.closest("[data-src]");
+    if (!t || !lb.showModal) return;
+    lbImg.src = t.dataset.src; lbImg.alt = t.dataset.cap; lbCap.textContent = t.dataset.cap;
+    lb.showModal();
+  });
+  document.getElementById("lb-close").addEventListener("click", function () { lb.close(); });
+  lb.addEventListener("click", function (e) { if (e.target === lb) lb.close(); });
+
+  applyLang();
+  setInterval(renderHours, 60000);
+
+  /* ---------- Papel picado ---------- */
+  var cv = document.getElementById("picado"), ctx = cv.getContext("2d");
+  var COLORS = ["#CE1126", "#F7A8BE", "#FFFFFF", "#2F55C8", "#F2A21B", "#E8457A"];
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var flags = [], W = 0, H = 180, dpr = 1, FW = 62, FH = 78;
+
+  function makeFlag(color) {
+    var c = document.createElement("canvas");
+    c.width = FW * dpr; c.height = FH * dpr;
+    var g = c.getContext("2d"); g.scale(dpr, dpr);
+    g.fillStyle = color; g.fillRect(0, 0, FW, FH);
+    g.globalCompositeOperation = "destination-out";
+    // scalloped bottom edge
+    for (var x = 0; x < FW; x += 8) { g.beginPath(); g.moveTo(x, FH); g.lineTo(x + 4, FH - 6); g.lineTo(x + 8, FH); g.fill(); }
+    // border of punched dots
+    for (var i = 6; i < FW - 3; i += 7) { g.beginPath(); g.arc(i, 7, 1.6, 0, 7); g.fill(); g.beginPath(); g.arc(i, FH - 13, 1.6, 0, 7); g.fill(); }
+    for (var j = 14; j < FH - 16; j += 7) { g.beginPath(); g.arc(6, j, 1.6, 0, 7); g.fill(); g.beginPath(); g.arc(FW - 6, j, 1.6, 0, 7); g.fill(); }
+    // center flower
+    var cx = FW / 2, cy = FH / 2 - 3;
+    for (var k = 0; k < 8; k++) {
+      var a = k * Math.PI / 4;
+      g.save(); g.translate(cx + Math.cos(a) * 11, cy + Math.sin(a) * 11); g.rotate(a);
+      g.beginPath(); g.ellipse(0, 0, 6, 3, 0, 0, 7); g.fill(); g.restore();
+    }
+    g.beginPath(); g.arc(cx, cy, 4.5, 0, 7); g.fill();
+    // diamonds
+    [[15, 18], [FW - 15, 18], [15, FH - 24], [FW - 15, FH - 24]].forEach(function (p) {
+      g.beginPath(); g.moveTo(p[0], p[1] - 5); g.lineTo(p[0] + 4, p[1]); g.lineTo(p[0], p[1] + 5); g.lineTo(p[0] - 4, p[1]); g.fill();
+    });
+    return c;
+  }
+
+  var flagImgs = [];
+  function setup() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    flagImgs = COLORS.map(makeFlag);
+    var gap = 14, n = Math.ceil(W / (FW + gap)) + 1;
+    var off = (W - (n * (FW + gap) - gap)) / 2;
+    flags = [];
+    for (var i = 0; i < n; i++) flags.push({ x: off + i * (FW + gap) + FW / 2, img: flagImgs[i % flagImgs.length], ph: i * 0.9 });
+  }
+  // Rope hangs below the top bar and sags toward the middle.
+  function ropeY(x) { return 74 + 20 * Math.sin(Math.PI * Math.max(0, Math.min(1, x / W))); }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = "rgba(248, 242, 239, .55)"; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    for (var x = 0; x <= W; x += 8) { var y = ropeY(x); x ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+    ctx.stroke();
+    for (var i = 0; i < flags.length; i++) {
+      var f = flags[i], y0 = ropeY(f.x);
+      var sway = reduce ? 0 : Math.sin(t / 900 + f.ph) * 0.06;
+      var flutter = reduce ? 1 : 0.94 + 0.06 * Math.sin(t / 420 + f.ph * 2);
+      ctx.save();
+      ctx.translate(f.x, y0);
+      ctx.rotate(sway);
+      ctx.transform(1, 0, sway * 0.6, flutter, 0, 0);
+      ctx.globalAlpha = 0.95;
+      ctx.drawImage(f.img, -FW / 2, 0, FW, FH);
+      ctx.restore();
+    }
+    if (!reduce) requestAnimationFrame(draw);
+  }
+
+  setup();
+  if (reduce) draw(0); else requestAnimationFrame(draw);
+  var rz; window.addEventListener("resize", function () { clearTimeout(rz); rz = setTimeout(function () { setup(); if (reduce) draw(0); }, 150); });
+})();
+</script>
+</body>
+</html>
