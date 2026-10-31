@@ -1,4 +1,4 @@
-# En Boca de Todos — website concept
+# En Boca de Todos — website (live at en-boca.com)
 
 Single-page static site for En Boca de Todos Mexican Food (703 S Terrell St, Midland TX 79701).
 No build step: open `index.html`, or deploy this folder to any static host (Vercel, Netlify, GitHub Pages).
@@ -9,9 +9,9 @@ No build step: open `index.html`, or deploy this folder to any static host (Verc
 - Papel picado banner over the video (animated canvas, static when the visitor prefers reduced motion)
 - English / Spanish toggle across the whole page, remembered per visitor
 - Live "open now / closed" badge computed in Central time from the hours below
-- Full menu transcribed from the printed menu (`assets/menu-original.jpg`)
+- Full menu transcribed from the printed menu (`assets/menu-original.jpg`, updated to the Oct 31, 2026 menu)
 - Real dish photos from their Facebook page: favorites, menu thumbnails, gallery and lightbox
-- Saturday-only soups shown as Lotería cards with their photos
+- Weekend soups (Fri–Sun; caldo de res Sat–Sun only) shown as Lotería cards with their photos
 - Tap-to-call buttons, a sticky call bar on phones, and Google Maps directions
 - `Restaurant` schema.org JSON-LD for Google (hours, phone, address)
 
@@ -35,7 +35,7 @@ the original full-size files before launch.
 - **Hours:** `HOURS` in the script (0 = Sunday). Also update the JSON-LD block in `<head>`.
 - **Menu and prices:** the `MENU` array. Each item has `n` (name), `p` (price), and `en` / `es` descriptions.
 - **House favorites:** the `PICKS` array. Swap in the restaurant's real best sellers.
-- **Saturday soups:** the `SAT` array.
+- **Weekend soups:** the `SAT` array (`days` overrides the Fri–Sun label on a card).
 - **Page text:** the `T.en` / `T.es` objects.
 
 ## Open items for the owner

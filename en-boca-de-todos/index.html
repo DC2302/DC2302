@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>En Boca de Todos</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="En Boca de Todos Mexican Food, 703 S Terrell St, Midland TX. Breakfast and lunch: burritos, chilaquiles, guisados, café de olla, and menudo on Saturdays. Call (432) 218-7078 to order.">
+<meta name="description" content="En Boca de Todos Mexican Food, 703 S Terrell St, Midland TX. Breakfast and lunch: burritos, chilaquiles, guisados, café de olla, and weekend menudo and pozole. Call (432) 218-7078 to order.">
 <meta property="og:title" content="En Boca de Todos · Mexican Food · Midland, TX">
-<meta property="og:description" content="Breakfast burritos from 6 a.m., guisados, chilaquiles divorciados and menudo on Saturdays. 703 S Terrell St, Midland.">
+<meta property="og:description" content="Breakfast burritos from 6 a.m., guisados, chilaquiles divorciados, tortas and weekend menudo. 703 S Terrell St, Midland.">
 <meta property="og:image" content="assets/video/hero-poster.webp">
 <meta name="theme-color" content="#141015">
 <link rel="icon" href="assets/logo.webp" type="image/webp">
@@ -39,7 +39,7 @@
 </script>
 <style>
 /* Layout: a night-sky hero under a papel picado banner, a talavera tile band,
-   then a paper menu card in two columns, Lotería cards for the Saturday pot, and a visit block. */
+   then a paper menu card in two columns, Lotería cards for the weekend pot, and a visit block. */
 :root {
   --paper: #FBF9F8;
   --surface: #FFFFFF;
@@ -334,7 +334,7 @@ section { scroll-margin-top: 70px; }
 .menu-foot { display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; justify-content: space-between; padding-top: 8px; color: var(--muted); font-size: .9rem; }
 .menu-foot a { color: var(--rojo-ink); font-weight: 600; }
 
-/* ---------- Sábados: Lotería ---------- */
+/* ---------- Fin de semana: Lotería ---------- */
 .sabado { background: var(--cobalto); color: #fff; position: relative; overflow: hidden; }
 :root[data-theme="dark"] .sabado { background: #142A66; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .sabado { background: #142A66; } }
@@ -509,7 +509,7 @@ footer small { font-size: .82rem; }
     <ul class="wrap">
       <li><b>$5.99</b><span data-i18n="fact1">Breakfast and lunch burritos</span></li>
       <li><b data-i18n="fact2b">6 a.m.</b><span data-i18n="fact2">Doors open Tuesday to Saturday</span></li>
-      <li><b data-i18n="fact3b">Saturdays</b><span data-i18n="fact3">Menudo, caldo de res and pozole</span></li>
+      <li><b data-i18n="fact3b">Fri to Sun</b><span data-i18n="fact3">Menudo, caldo de res and pozole</span></li>
       <li><b data-i18n="fact4b">Call ahead</b><span>(432) 218-7078 · 218-7079</span></li>
     </ul>
   </div>
@@ -561,9 +561,9 @@ footer small { font-size: .82rem; }
   <section class="sabado sec" id="sabados">
     <div class="wrap">
       <div class="sec-head">
-        <p class="eyebrow" data-i18n="satEyebrow">Saturdays only</p>
-        <h2 data-i18n-html="satTitle">The Saturday <em>pot</em></h2>
-        <p data-i18n="satSub">Slow-simmered soups that only come out on Saturday. Come early. When the pot is empty, it's gone until next week.</p>
+        <p class="eyebrow" data-i18n="satEyebrow">Friday to Sunday</p>
+        <h2 data-i18n-html="satTitle">The weekend <em>pot</em></h2>
+        <p data-i18n="satSub">Slow-simmered soups that only come out Friday through Sunday. Come early. When the pot is empty, it's gone until next week.</p>
         <span class="sat-flag" id="sat-flag" hidden></span>
       </div>
       <div class="loteria" id="loteria"></div>
@@ -626,7 +626,7 @@ footer small { font-size: .82rem; }
       <img src="assets/logo.webp" alt="En Boca de Todos logo" width="64" height="64">
       <div><b>En Boca de Todos</b><small data-i18n="footTag">Mexican Food · 703 S Terrell St · Midland, TX</small></div>
     </div>
-    <small><a href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener">Facebook</a> · <span data-i18n="footNote">Website concept prepared for En Boca de Todos.</span></small>
+    <small><a href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener">Facebook</a> · <span data-i18n="footNote">© 2026 En Boca de Todos. Website by OSO Optimization.</span></small>
   </div>
 </footer>
 
@@ -653,14 +653,14 @@ footer small { font-size: .82rem; }
       lead: "Our name means <strong>on everyone's lips</strong>. Breakfast burritos from 6 a.m., guisados, chilaquiles divorciados and café de olla, made the way it's made at home.",
       ctaMenu: "See the menu", ctaCall: "Call to order",
       fact1: "Breakfast and lunch burritos", fact2b: "6 a.m.", fact2: "Doors open Tuesday to Saturday",
-      fact3b: "Saturdays", fact3: "Menudo, caldo de res and pozole", fact4b: "Call ahead",
+      fact3b: "Fri to Sun", fact3: "Menudo, caldo de res and pozole", fact4b: "Call ahead",
       picksEyebrow: "The house favorites", picksTitle: "What everyone's <em>talking about</em>",
       menuEyebrow: "Breakfast & lunch · Tuesday to Sunday", menuTitle: "The <em>menu</em>",
       menuSub: "Tortillas, beans and salsa the way they're made back home. Every plate comes with your choice of one flour or three corn tortillas.",
       menuFoot: "Prices are subject to change. Call to confirm today's guisados.", menuPrint: "View the printed menu",
-      satEyebrow: "Saturdays only", satTitle: "The Saturday <em>pot</em>",
-      satSub: "Slow-simmered soups that only come out on Saturday. Come early. When the pot is empty, it's gone until next week.",
-      satToday: "It's Saturday. The pot is on.", satNext: "Next pot: this Saturday",
+      satEyebrow: "Friday to Sunday", satTitle: "The weekend <em>pot</em>",
+      satSub: "Slow-simmered soups that only come out Friday through Sunday. Come early. When the pot is empty, it's gone until next week.",
+      satToday: "It's the weekend. The pot is on.", satNext: "Next pot: this Friday",
       visitEyebrow: "Pickup & dine-in", visitTitle: "Come <em>see us</em>",
       hoursTitle: "Hours", orderTitle: "Order by phone", copy: "Copy", copied: "Copied",
       orderNote: "Call ahead and your order will be ready when you get here.",
@@ -668,7 +668,7 @@ footer small { font-size: .82rem; }
       onFacebook: "on Facebook", fbFollow: "Daily specials and closures on Facebook",
       galEyebrow: "Straight from our kitchen", galTitle: "Hungry <em>yet?</em>",
       galSub: "Real plates, photographed at our tables on Terrell St. Tap any photo to see it bigger.", galMore: "See more on Facebook", directions: "Get directions",
-      footTag: "Mexican Food · 703 S Terrell St · Midland, TX", footNote: "Website concept prepared for En Boca de Todos.",
+      footTag: "Mexican Food · 703 S Terrell St · Midland, TX", footNote: "© 2026 En Boca de Todos. Website by OSO Optimization.",
       callbar: "Call to order", menuShort: "Menu", extras: "Extras", today: "Today", closed: "Closed", tomorrow: "tomorrow",
       days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
       daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -682,14 +682,14 @@ footer small { font-size: .82rem; }
       lead: "Nuestro nombre lo dice todo: estamos <strong>en boca de todos</strong>. Burritos de desayuno desde las 6 a.m., guisados, chilaquiles divorciados y café de olla, hechos como en casa.",
       ctaMenu: "Ver el menú", ctaCall: "Llama para ordenar",
       fact1: "Burritos de desayuno y comida", fact2b: "6 a.m.", fact2: "Abrimos de martes a sábado",
-      fact3b: "Sábados", fact3: "Menudo, caldo de res y pozole", fact4b: "Llama antes",
+      fact3b: "Vie a dom", fact3: "Menudo, caldo de res y pozole", fact4b: "Llama antes",
       picksEyebrow: "Los favoritos de la casa", picksTitle: "Lo que está <em>en boca de todos</em>",
       menuEyebrow: "Desayuno y comida · martes a domingo", menuTitle: "El <em>menú</em>",
       menuSub: "Tortillas, frijoles y salsa como en casa. Todos los platos vienen con una tortilla de harina o tres de maíz, a tu gusto.",
       menuFoot: "Los precios pueden cambiar. Llama para saber los guisados del día.", menuPrint: "Ver el menú impreso",
-      satEyebrow: "Solo los sábados", satTitle: "La olla del <em>sábado</em>",
-      satSub: "Caldos de cocción lenta que solo salen los sábados. Llega temprano: cuando se acaba la olla, hasta la próxima semana.",
-      satToday: "Hoy es sábado. La olla ya está lista.", satNext: "Próxima olla: este sábado",
+      satEyebrow: "De viernes a domingo", satTitle: "La olla del <em>fin de semana</em>",
+      satSub: "Caldos de cocción lenta que solo salen de viernes a domingo. Llega temprano: cuando se acaba la olla, hasta la próxima semana.",
+      satToday: "Es fin de semana. La olla ya está lista.", satNext: "Próxima olla: este viernes",
       visitEyebrow: "Para llevar y para comer aquí", visitTitle: "Ven a <em>visitarnos</em>",
       hoursTitle: "Horario", orderTitle: "Ordena por teléfono", copy: "Copiar", copied: "Copiado",
       orderNote: "Llama antes y tu orden estará lista cuando llegues.",
@@ -697,7 +697,7 @@ footer small { font-size: .82rem; }
       onFacebook: "en Facebook", fbFollow: "Especiales y avisos en Facebook",
       galEyebrow: "Directo de nuestra cocina", galTitle: "¿Ya te dio <em>hambre?</em>",
       galSub: "Platos de verdad, fotografiados en nuestras mesas de Terrell St. Toca una foto para verla en grande.", galMore: "Ver más en Facebook", directions: "Cómo llegar",
-      footTag: "Comida Mexicana · 703 S Terrell St · Midland, TX", footNote: "Concepto de sitio web preparado para En Boca de Todos.",
+      footTag: "Comida Mexicana · 703 S Terrell St · Midland, TX", footNote: "© 2026 En Boca de Todos. Sitio web por OSO Optimization.",
       callbar: "Llama para ordenar", menuShort: "Menú", extras: "Extras", today: "Hoy", closed: "Cerrado", tomorrow: "mañana",
       days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
       daysShort: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"],
@@ -715,23 +715,24 @@ footer small { font-size: .82rem; }
   };
   var MENU = [
     { id: "desayuno", en: "Breakfast Plates", es: "Desayunos", note: tortillas, items: [
-      { img: "bistec-eggs", n: "Mexican Breakfast Plate", p: 15.99, en: "(2) eggs with a guisado", es: "(2) huevos con guisado" },
-      { n: "Breakfast Plate", p: 11.99, en: "(2) eggs with your choice of sausage, bacon or ham", es: "(2) huevos con salchicha, tocino o jamón" },
-      { n: "Omelette Plate", p: 11.99, en: "Filled with your choice of cheese, bacon or ham", es: "Relleno de queso, tocino o jamón" },
-      { n: "Scrambled Egg Plate", p: 11.99, en: "With chorizo, a la Mexicana, bacon or ham", es: "Con chorizo, a la mexicana, tocino o jamón" },
-      { img: "chilaquiles-brisket", n: "Chilaquiles", p: 9.99, en: "Green or red", es: "Verdes o rojos" },
-      { n: "Chilaquiles Divorciados", p: 9.99, en: "Half green, half red", es: "Mitad verdes, mitad rojos" },
-      { n: "Migas Plate", p: 11.99, en: "(2) eggs scrambled with corn tortillas, a la Mexicana if you like", es: "(2) huevos revueltos con tortilla de maíz, a la mexicana si gustas" },
-      { n: "Machaca Plate", p: 13.99, en: "(2) eggs scrambled with shredded beef jerky, a la Mexicana if you like", es: "(2) huevos revueltos con machaca, a la mexicana si gustas" },
-      { n: "Tamal Plate", p: 13.99, en: "(2) tamales with (2) eggs", es: "(2) tamales con (2) huevos" },
-      { img: "huevos-rancheros", n: "Huevos Rancheros", p: 12.99, en: "(2) fried eggs on a lightly fried corn tortilla, smothered in salsa", es: "(2) huevos estrellados sobre tortilla de maíz dorada, bañados en salsa" },
-      { img: "huevos-divorciados", n: "Huevos Divorciados", p: 12.99, en: "(2) fried eggs on a corn tortilla, one in green salsa and one in red", es: "(2) huevos estrellados, uno en salsa verde y otro en roja" }
-    ], extras: { en: "Chilaquiles: add (1) egg +$1.99 · bistec, fajita or brisket +$4.99", es: "Chilaquiles: (1) huevo +$1.99 · bistec, fajita o brisket +$4.99" } },
+      { img: "bistec-eggs", n: "Mexican Breakfast Plate", p: 17.99, en: "(2) eggs with a guisado", es: "(2) huevos con guisado" },
+      { n: "Breakfast Plate", p: 13.99, en: "(2) eggs with your choice of sausage, bacon or ham", es: "(2) huevos con salchicha, tocino o jamón" },
+      { n: "Omelette Plate", p: 14.99, en: "Filled with your choice of cheese, bacon or ham", es: "Relleno de queso, tocino o jamón" },
+      { n: "Scrambled Egg Plate", p: 13.99, en: "With chorizo, a la Mexicana, bacon or ham", es: "Con chorizo, a la mexicana, tocino o jamón" },
+      { img: "chilaquiles-brisket", n: "Chilaquiles", p: 12.99, en: "Red, green or divorciados (half and half), topped with cheese, sour cream, onion and cilantro, with beans and potatoes", es: "Rojos, verdes o divorciados (mitad y mitad), con queso, crema, cebolla y cilantro, frijoles y papas" },
+      { n: "Migas Plate", p: 13.99, en: "(2) eggs scrambled with corn tortillas, a la Mexicana if you like", es: "(2) huevos revueltos con tortilla de maíz, a la mexicana si gustas" },
+      { n: "Machaca Plate", p: 14.99, en: "(2) eggs scrambled with shredded beef jerky, a la Mexicana if you like", es: "(2) huevos revueltos con machaca, a la mexicana si gustas" },
+      { n: "Tamal Plate", p: 14.99, en: "(2) tamales with (2) eggs", es: "(2) tamales con (2) huevos" },
+      { img: "huevos-rancheros", n: "Huevos Rancheros", p: 13.99, en: "(2) fried eggs on a lightly fried corn tortilla, smothered in salsa", es: "(2) huevos estrellados sobre tortilla de maíz dorada, bañados en salsa" },
+      { img: "huevos-divorciados", n: "Huevos Divorciados", p: 13.99, en: "(2) fried eggs on a corn tortilla, one in green salsa and one in red", es: "(2) huevos estrellados, uno en salsa verde y otro en roja" },
+      { n: "Molletes", p: 7.99, en: "Toasted bolillo topped with refried beans and melted cheese. Extra toppings available", es: "Bolillo tostado con frijoles refritos y queso derretido. Ingredientes extra disponibles" },
+      { n: "Avocado Toast", p: 6.99, en: "Fresh avocado on (1) slice of toasted bread. Add an egg +$1.99 or bacon +$1.99", es: "Aguacate fresco sobre (1) pan tostado. Agrega huevo +$1.99 o tocino +$1.99" }
+    ], extras: { en: "Chilaquiles: add (1) egg +$1.99 · chicken, chicken fajita, beef fajita, bistec, ground beef or brisket +$5.99", es: "Chilaquiles: (1) huevo +$1.99 · pollo, fajita de pollo, fajita de res, bistec, carne molida o brisket +$5.99" } },
 
-    { id: "dulce", en: "On the Side", es: "Para Acompañar", items: [
-      { img: "pancakes-plate", n: "Pancakes (2)", p: 5.99, en: "", es: "" },
-      { img: "avena", n: "Oatmeal (Avena)", p: 5.99, en: "", es: "" },
-      { n: "Arroz con Leche", p: 5.99, en: "Rice pudding", es: "" }
+    { id: "dulce", en: "En Boca Favorites", es: "Favoritos de En Boca", items: [
+      { img: "pancakes-plate", n: "Pancakes (2)", p: 6.99, en: "", es: "" },
+      { img: "avena", n: "Oatmeal (Avena)", p: 7.99, en: "Side of fruit +$3.75", es: "Fruta como acompañante +$3.75" },
+      { n: "Arroz con Leche", p: 7.99, en: "Rice pudding", es: "" }
     ] },
 
     { id: "burritos-desayuno", en: "Breakfast Burritos", es: "Burritos de Desayuno", items: [
@@ -739,69 +740,72 @@ footer small { font-size: .82rem; }
     ], extras: { en: "Beans, cheese or potatoes +50¢ · avocado +$1.50 · guisado +$1.50", es: "Frijoles, queso o papas +50¢ · aguacate +$1.50 · guisado +$1.50" } },
 
     { id: "burritos", en: "Lunch Burritos", es: "Burritos de Guisado", alt: { en: "guisados", es: "lunch burritos" }, items: [
-      { n: "Asado", p: 5.99 }, { n: "Chile Verde", p: 5.99 }, { n: "Chile Colorado", p: 5.99 },
-      { n: "Arriero", p: 6.99 }, { n: "Mole", p: 5.99 }, { n: "Chicharrón", p: 5.99 },
-      { n: "Bistec", p: 6.99 }, { n: "Rajas", p: 5.99 }, { n: "Chile Relleno", p: 6.99 },
-      { n: "Barbacoa", p: 6.99 }, { n: "Fiesta Brisket", p: 6.99 }, { n: "Beef / Chicken Fajita", p: 6.99 },
-      { n: "Big Dave's Burrito", p: 6.99, en: "Ground beef, beans, roasted Anaheim peppers and shredded cheese", es: "Carne molida, frijoles, chile Anaheim asado y queso rallado" }
-    ], extras: { en: "Beans, cheese or potatoes +50¢ · avocado +$1.50", es: "Frijoles, queso o papas +50¢ · aguacate +$1.50" } },
+      { n: "Asado", p: 6.99 }, { n: "Chile Verde", p: 6.99 }, { n: "Chile Colorado", p: 6.99 },
+      { n: "Arriero", p: 7.99 }, { n: "Mole", p: 6.99 }, { n: "Chicharrón", p: 6.99 },
+      { n: "Bistec", p: 7.99 }, { n: "Rajas", p: 7.99 }, { n: "Chile Relleno", p: 7.99 },
+      { n: "Barbacoa", p: 7.99 }, { n: "Combination", p: 7.99, es: "Combinación" }, { n: "Beef / Chicken Fajita", p: 8.99 },
+      { n: "Brisket", p: 8.99 },
+      { n: "Big Dave's Burrito", p: 8.99, en: "Ground beef, beans, roasted Anaheim peppers and shredded cheese", es: "Carne molida, frijoles, chile Anaheim asado y queso rallado" }
+    ], extras: { en: "Beans, cheese or potatoes +50¢ · avocado +$1.50 · guisado +$1.50", es: "Frijoles, queso o papas +50¢ · aguacate +$1.50 · guisado +$1.50" } },
 
-    { id: "tacos", en: "Tacos", es: "Tacos", note: { en: "(4) mini tacos with charro beans, onion, cilantro, lime and salsa.", es: "(4) taquitos con frijoles charros, cebolla, cilantro, limón y salsa." }, items: [
-      { img: "tacos-al-pastor", n: "Al Pastor", p: 14.99 }, { n: "Barbacoa", p: 14.99 }, { n: "Bistec", p: 14.99 }, { n: "Brisket", p: 14.99 }
+    { id: "tacos", en: "Tacos", es: "Tacos", note: { en: "(4) tacos with charro beans, onion, cilantro, lime and salsa.", es: "(4) tacos con frijoles charros, cebolla, cilantro, limón y salsa." }, items: [
+      { img: "tacos-al-pastor", n: "Al Pastor", p: 15.99 }, { n: "Barbacoa", p: 15.99 }, { n: "Bistec", p: 15.99 }
+    ] },
+
+    { id: "tortas", en: "Tortas", es: "Tortas", note: { en: "With lettuce or cabbage, tomato, avocado, onion and cilantro, and a side of fries.", es: "Con lechuga o repollo, tomate, aguacate, cebolla y cilantro, y papas fritas." }, items: [
+      { n: "Al Pastor", p: 15.99 }, { n: "Barbacoa", p: 15.99 }, { n: "Bistec", p: 15.99 }, { n: "Brisket", p: 15.99 }, { n: "Jamón", p: 13.99, en: "Ham", es: "" }
     ] },
 
     { id: "comidas", en: "Lunch Plates", es: "Platos de Comida", note: {
         en: "Served with beans, rice, salad and your choice of (1) flour or (3) corn tortillas.",
         es: "Con frijoles, arroz, ensalada y (1) tortilla de harina o (3) de maíz." }, items: [
-      { n: "En Boca Plate", p: 15.99, en: "(1) chile relleno, (1) crispy taco and (2) cheese enchiladas, red or green", es: "(1) chile relleno, (1) taco dorado y (2) enchiladas de queso, rojas o verdes" },
+      { n: "En Boca Plate", p: 17.99, en: "(1) chile relleno, (1) crispy taco and (2) cheese enchiladas, red or green", es: "(1) chile relleno, (1) taco dorado y (2) enchiladas de queso, rojas o verdes" },
       { img: "taco-plate", n: "Taco Plate", p: 12.99, en: "(3) crispy ground beef tacos with lettuce, tomato and cheese", es: "(3) tacos dorados de carne molida con lechuga, tomate y queso" },
-      { img: "enchiladas-verdes", n: "Enchiladas Plate", en: "(3) enchiladas, red or green. Make them (4) divorciadas, 2 green and 2 red, +$1.99", es: "(3) enchiladas rojas o verdes. Pídelas (4) divorciadas, 2 verdes y 2 rojas, +$1.99", v: [
-        { en: "Cheese", es: "Queso", p: 12.99 },
-        { en: "Chicken, beef, bistec or brisket", es: "Pollo, res, bistec o brisket", p: 14.99 } ] },
-      { img: "relleno-plate", n: "Relleno Plate", p: 13.99, en: "(2) chiles rellenos, cheese or ground beef, with salsa española", es: "(2) chiles rellenos de queso o carne molida, con salsa española" },
-      { img: "flautas", n: "Flautas Plate", p: 12.99, en: "(4) beef or chicken flautas with sour cream, salsa and guacamole", es: "(4) flautas de res o pollo con crema, salsa y guacamole" },
-      { n: "Fajita Plate", p: 15.99, en: "Chicken, beef or both, with guacamole and sour cream", es: "Pollo, res o mixta, con guacamole y crema" },
-      { img: "chile-colorado", n: "Lunch Plate", p: 13.99, en: "Your choice of guisado", es: "El guisado que prefieras" },
-      { img: "quesadillas", n: "Quesadilla Plate", p: 12.99, en: "Beef or chicken, with sour cream and guacamole", es: "De res o pollo, con crema y guacamole" },
-      { img: "fiesta-brisket", n: "Fiesta Brisket Plate", p: 15.99, en: "With a side of pasta salad and rice", es: "Con ensalada de pasta y arroz" },
-      { n: "Nachos Supreme", p: 12.99, en: "Chips with cheese sauce, beans, ground beef, lettuce, tomato, guacamole and sour cream. Swap in fajita, brisket or bistec +$1.99", es: "Totopos con queso, frijoles, carne molida, lechuga, tomate, guacamole y crema. Con fajita, brisket o bistec +$1.99" }
+      { n: "Brisket Taco Plate", p: 14.99, en: "(3) grilled brisket tacos", es: "(3) tacos de brisket a la plancha" },
+      { img: "enchiladas-verdes", n: "Enchiladas Plate", p: 13.99, en: "(3) cheese enchiladas, red or green. Make them (4) divorciadas, 2 green and 2 red, +$1.99. Chicken, ground beef, bistec or brisket +$2.99", es: "(3) enchiladas de queso, rojas o verdes. Pídelas (4) divorciadas, 2 verdes y 2 rojas, +$1.99. De pollo, carne molida, bistec o brisket +$2.99" },
+      { img: "relleno-plate", n: "Relleno Plate", p: 15.99, en: "(2) chiles rellenos, cheese or ground beef (+$1.99), with salsa española", es: "(2) chiles rellenos de queso o carne molida (+$1.99), con salsa española" },
+      { img: "flautas", n: "Flautas Plate", p: 13.99, en: "(4) beef or chicken flautas with sour cream, salsa and guacamole", es: "(4) flautas de res o pollo con crema, salsa y guacamole" },
+      { n: "Fajita Plate", p: 17.99, en: "Chicken, beef or both, with guacamole and sour cream", es: "Pollo, res o mixta, con guacamole y crema" },
+      { img: "chile-colorado", n: "Lunch Plate", p: 14.99, en: "Your choice of guisado", es: "El guisado que prefieras" },
+      { img: "fiesta-brisket", n: "Fiesta Brisket Plate", p: 17.99, en: "With a side of rice and beans", es: "Con arroz y frijoles" },
+      { img: "quesadillas", n: "Quesadilla Plate", p: 14.99, en: "Ground beef or chicken fajita, with sour cream and guacamole", es: "De carne molida o fajita de pollo, con crema y guacamole" },
+      { n: "Nachos Supreme", p: 14.99, en: "Chips with cheese sauce, beans, ground beef, lettuce, tomato, guacamole and sour cream. Swap in fajita, brisket or bistec +$1.99", es: "Totopos con queso, frijoles, carne molida, lechuga, tomate, guacamole y crema. Con fajita, brisket o bistec +$1.99" }
     ] },
 
-    { id: "sabado-menu", en: "Saturdays Only", es: "Solo Sábados", sat: true, items: [
-      { img: "menudo", n: "Menudo", p: 15.99 }, { img: "caldo-de-res", n: "Caldo de Res", p: 15.99 }, { img: "pozole", n: "Pozole", p: 14.99 }
+    { id: "sabado-menu", en: "Weekend Soups", es: "Caldos de Fin de Semana", sat: true, items: [
+      { img: "menudo", n: "Menudo", p: 17.99 },
+      { img: "caldo-de-res", n: "Caldo de Res", p: 18.99, en: "Saturday and Sunday only", es: "Solo sábado y domingo" },
+      { img: "pozole", n: "Pozole, Red or Green", p: 17.99, es: "" }
     ] },
 
     { id: "ninos", en: "Kids Menu", es: "Menú Infantil", note: { en: "Drink included: chocolate milk or orange juice.", es: "Incluye bebida: leche con chocolate o jugo de naranja." }, items: [
-      { n: "Mini Pancakes Plate", p: 6.99, en: "With (1) egg, ham or bacon", es: "Con (1) huevo, jamón o tocino" },
-      { n: "Chicken Tenders & Fries", p: 6.99, en: "", es: "Tiras de pollo con papas" },
-      { n: "Cheese Quesadilla & Fries", p: 6.99, en: "", es: "Quesadilla de queso con papas" }
+      { n: "Mini Pancakes Plate", p: 9.99, en: "With (1) egg, ham or bacon", es: "Con (1) huevo, jamón o tocino" },
+      { n: "Cheese Quesadilla & Fries", p: 9.99, en: "", es: "Quesadilla de queso con papas" },
+      { n: "Chicken Nuggets & Fries", p: 9.99, en: "", es: "Nuggets de pollo con papas" }
     ] },
 
     { id: "bebidas", en: "Drinks", es: "Bebidas", items: [
-      { n: "Coffee", p: 2.99, es: "Café" },
-      { img: "cafe-de-olla", n: "Café de Olla", p: 4.99, en: "Coffee sweetened with piloncillo and spiced with cinnamon, cloves and star anise", es: "Café endulzado con piloncillo, con canela, clavo y anís estrella" },
+      { n: "Coffee", p: 3.99, es: "Café" },
+      { img: "cafe-de-olla", n: "Café de Olla", p: 5.99, en: "Coffee sweetened with piloncillo and spiced with cinnamon, cloves and star anise. Refill $2.99", es: "Café endulzado con piloncillo, con canela, clavo y anís estrella. Rellenado $2.99" },
+      { n: "Hot Chocolate", p: 3.99, es: "Chocolate caliente" },
       { n: "Tea", p: 3.99, en: "Sweet or unsweet", es: "Té dulce o sin azúcar" },
       { n: "Can Soda", p: 2.99, es: "Refresco de lata" },
-      { n: "Mexican Soda", p: 3.99, es: "Refresco mexicano" },
-      { n: "Aguas Frescas", p: 3.99 }
-    ] },
-
-    { id: "postres", en: "Dessert", es: "Postres", items: [
-      { n: "Chocoflan", p: 6.99 }, { n: "Tres Leches Cake", p: 6.99, es: "Pastel de tres leches" }, { n: "Churro Cheesecake", p: 7.99 }
+      { n: "Mexican Soda", p: 4.99, es: "Refresco mexicano" },
+      { n: "Aguas Frescas", p: 4.99 }
     ] }
   ];
 
   var PICKS = [
-    { img: "huevos-divorciados", n: "Huevos Divorciados", p: 12.99, en: "Two fried eggs, one in salsa roja and one in salsa verde, with beans and potatoes.", es: "Dos huevos estrellados, uno en salsa roja y otro en verde, con frijoles y papas." },
-    { img: "tacos-al-pastor", n: "Tacos al Pastor", p: 14.99, en: "Four mini tacos with pineapple, onion and cilantro, plus charro beans and salsa.", es: "Cuatro taquitos con piña, cebolla y cilantro, con frijoles charros y salsa." },
-    { img: "relleno-plate", n: "Relleno Plate", p: 13.99, en: "Two chiles rellenos with salsa española, rice, beans and salad.", es: "Dos chiles rellenos con salsa española, arroz, frijoles y ensalada." },
-    { img: "cafe-de-olla", n: "Café de Olla", p: 4.99, en: "Piloncillo, cinnamon, cloves and star anise, served in a clay jarrito.", es: "Piloncillo, canela, clavo y anís estrella, servido en jarrito de barro." }
+    { img: "huevos-divorciados", n: "Huevos Divorciados", p: 13.99, en: "Two fried eggs, one in salsa roja and one in salsa verde, with beans and potatoes.", es: "Dos huevos estrellados, uno en salsa roja y otro en verde, con frijoles y papas." },
+    { img: "tacos-al-pastor", n: "Tacos al Pastor", p: 15.99, en: "Four tacos with pineapple, onion and cilantro, plus charro beans and salsa.", es: "Cuatro tacos con piña, cebolla y cilantro, con frijoles charros y salsa." },
+    { img: "relleno-plate", n: "Relleno Plate", p: 15.99, en: "Two chiles rellenos with salsa española, rice, beans and salad.", es: "Dos chiles rellenos con salsa española, arroz, frijoles y ensalada." },
+    { img: "cafe-de-olla", n: "Café de Olla", p: 5.99, en: "Piloncillo, cinnamon, cloves and star anise, served in a clay jarrito.", es: "Piloncillo, canela, clavo y anís estrella, servido en jarrito de barro." }
   ];
 
   var SAT = [
-    { img: "menudo", n: "El Menudo", p: 15.99, tilt: "-2deg", en: "Beef tripe and hominy in red chile broth, with onion, lime and bolillo.", es: "Pancita y maíz en caldo de chile rojo, con cebolla, limón y bolillo." },
-    { img: "caldo-de-res", n: "El Caldo de Res", p: 15.99, tilt: "1.5deg", en: "Beef, corn on the cob, squash and carrots, with rice and tortillas.", es: "Res, elote, calabaza y zanahoria, con arroz y tortillas." },
-    { img: "pozole", n: "El Pozole", p: 14.99, tilt: "-1deg", en: "Hominy stew topped with radish, cilantro and cabbage.", es: "Pozole con rábano, cilantro y repollo." }
+    { img: "menudo", n: "El Menudo", p: 17.99, tilt: "-2deg", en: "Beef tripe and hominy in red chile broth, with onion, lime and bolillo.", es: "Pancita y maíz en caldo de chile rojo, con cebolla, limón y bolillo." },
+    { img: "caldo-de-res", n: "El Caldo de Res", p: 18.99, tilt: "1.5deg", days: { en: "Sat–Sun", es: "Sáb–Dom" }, en: "Beef, corn on the cob, squash and carrots, with rice and tortillas. Saturday and Sunday only.", es: "Res, elote, calabaza y zanahoria, con arroz y tortillas. Solo sábado y domingo." },
+    { img: "pozole", n: "El Pozole", p: 17.99, tilt: "-1deg", en: "Red or green, topped with radish, cilantro and cabbage.", es: "Rojo o verde, con rábano, cilantro y repollo." }
   ];
 
   var GALLERY = [
@@ -856,7 +860,7 @@ footer small { font-size: .82rem; }
     document.getElementById("menu-cols").innerHTML = MENU.map(function (c) {
       var alt = c.alt ? c.alt[lang] : (c[other] !== c[lang] ? c[other] : "");
       var html = '<div class="cat" id="cat-' + c.id + '"><div class="cat-head"><h3>' + esc(c[lang]) +
-        (c.sat ? '<span class="tag-sat">' + (lang === "en" ? "Sat" : "Sáb") + '</span>' : '') + '</h3>' +
+        (c.sat ? '<span class="tag-sat">' + (lang === "en" ? "Fri–Sun" : "Vie–Dom") + '</span>' : '') + '</h3>' +
         (alt ? '<span class="alt">' + esc(alt) + '</span>' : '') + '</div>';
       if (c.note) html += '<p class="cat-note">' + esc(c.note[lang]) + '</p>';
       html += '<ul class="items">' + c.items.map(function (it) {
@@ -883,7 +887,7 @@ footer small { font-size: .82rem; }
   function renderSat() {
     document.getElementById("loteria").innerHTML = SAT.map(function (x) {
       return '<article class="carta" style="--tilt:' + x.tilt + '"><div class="carta-in">' +
-        '<div class="carta-top"><span>' + (lang === "en" ? "Sat." : "Sáb.") + '</span><span class="p">' + money(x.p) + '</span></div>' +
+        '<div class="carta-top"><span>' + (x.days ? x.days[lang] : (lang === "en" ? "Fri–Sun" : "Vie–Dom")) + '</span><span class="p">' + money(x.p) + '</span></div>' +
         '<div class="carta-art"><img src="' + photo(x.img) + '" alt="' + esc(x.n) + '" loading="lazy" width="820" height="820"></div>' +
         '<h3>' + esc(x.n) + '</h3><p>' + esc(x[lang]) + '</p></div></article>';
     }).join("");
@@ -921,7 +925,7 @@ footer small { font-size: .82rem; }
     }
     var flag = document.getElementById("sat-flag");
     flag.hidden = false;
-    flag.textContent = now.day === 6 ? t.satToday : t.satNext;
+    flag.textContent = (now.day === 5 || now.day === 6 || now.day === 0) ? t.satToday : t.satNext;
   }
 
   function applyLang() {
