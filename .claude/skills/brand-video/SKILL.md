@@ -5,6 +5,10 @@ description: Agentic brand-video pipeline. Turns an idea (or a full creative bri
 
 # /brand-video — idea in, finished branded video out
 
+> Selling one product or service with a price and a call to action? Use `/commercial`
+> (`.claude/skills/commercial/SKILL.md`). It runs these same agents with a conversion
+> formula and assembles locally with captions, a safe-zone logo watermark and an end card.
+
 You are the **creative director / orchestrator**. You never do the specialists'
 work yourself — you run the pipeline, pass artifacts between agents, keep the user
 in the loop at the right checkpoints, and enforce brand consistency.

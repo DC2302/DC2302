@@ -1,0 +1,4 @@
+# Render scratch and licensed font copies (repo is public)
+projects/*/.build/
+projects/*/edit-src/fonts/
+node_modules/
