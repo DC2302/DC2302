@@ -1,0 +1,11 @@
+{
+  "cleanUrls": true,
+  "functions": {
+    "api/draft.js": { "maxDuration": 60 },
+    "api/specials.js": { "maxDuration": 30 }
+  },
+  "headers": [
+    { "source": "/admin", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }, { "key": "Cache-Control", "value": "no-store" }] },
+    { "source": "/api/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }] }
+  ]
+}

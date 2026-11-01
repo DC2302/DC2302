@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>En Boca Admin</title>
+<link rel="icon" href="assets/logo.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Yellowtail&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Owner panel: post today's special (note + plate photo → polished bilingual post), see what's live, take things down. */
+:root {
+  --paper: #FBF9F8; --surface: #FFFFFF; --ink: #1A1418; --muted: #6C6168; --line: #E7DFE1;
+  --rojo: #CE1126; --rojo-ink: #B10E20; --cobalto: #1F3F95; --cempasuchil: #F2A21B;
+  --night: #141015; --night-2: #221A21; --night-fg: #F8F2EF; --night-muted: #C2B5BB; --ok: #1E8A4C;
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --script: "Yellowtail", "Brush Script MT", cursive;
+  --body: "Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --radius: 14px;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #121013; --surface: #1B171C; --ink: #F3EDEB; --muted: #ABA0A6; --line: #30282F;
+    --rojo: #FF4B57; --rojo-ink: #FF7179; --cobalto: #93ABFF; --ok: #4CD38A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #121013; --surface: #1B171C; --ink: #F3EDEB; --muted: #ABA0A6; --line: #30282F;
+  --rojo: #FF4B57; --rojo-ink: #FF7179; --cobalto: #93ABFF; --ok: #4CD38A; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.5 var(--body); }
+button, input, textarea, select { font: inherit; color: inherit; }
+img { display: block; max-width: 100%; }
+[hidden] { display: none !important; }
+
+.top { background: var(--night); color: var(--night-fg); padding: 14px 16px; position: sticky; top: 0; z-index: 5; }
+.top-in { max-width: 760px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+.top img { width: 38px; height: 38px; border-radius: 50%; }
+.top b { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.35rem; letter-spacing: .02em; line-height: 1; }
+.top small { display: block; color: var(--night-muted); font-size: .78rem; }
+.top .sp { flex: 1; }
+.link { background: none; border: 0; padding: 6px 8px; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: .9rem; }
+.top a.link { color: var(--night-fg); }
+
+main { max-width: 760px; margin: 0 auto; padding: 20px 16px 120px; display: grid; gap: 22px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+h1, h2 { font-family: var(--display); font-weight: 900; text-transform: uppercase; letter-spacing: .01em; line-height: .95; margin: 0 0 6px; }
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.7rem; }
+h2 em, h1 em { font-family: var(--script); font-style: normal; font-weight: 400; text-transform: none; color: var(--rojo); font-size: .85em; }
+.sub { color: var(--muted); margin: 0 0 16px; font-size: .95rem; }
+label.lbl { display: block; font-weight: 600; font-size: .92rem; margin: 18px 0 8px; }
+label.lbl span { font-weight: 400; color: var(--muted); }
+input[type=text], input[type=password], input[type=date], textarea {
+  width: 100%; border: 1.5px solid var(--line); border-radius: 10px; background: var(--paper); padding: 12px 14px; font-size: 1rem;
+}
+textarea { min-height: 110px; resize: vertical; }
+input:focus-visible, textarea:focus-visible, button:focus-visible, .seg label:focus-within { outline: 3px solid color-mix(in srgb, var(--rojo) 45%, transparent); outline-offset: 2px; }
+
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg label { position: relative; border: 1.5px solid var(--line); border-radius: 999px; padding: 9px 15px; cursor: pointer; font-size: .92rem; font-weight: 600; background: var(--paper); }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label:has(input:checked) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.drop { display: grid; place-items: center; text-align: center; gap: 6px; border: 2px dashed var(--line); border-radius: var(--radius); padding: 26px 16px; cursor: pointer; color: var(--muted); background: var(--paper); }
+.drop:hover { border-color: var(--rojo); }
+.drop svg { width: 34px; height: 34px; color: var(--rojo); }
+.drop b { color: var(--ink); }
+.thumbwrap { position: relative; }
+.thumbwrap img { border-radius: var(--radius); width: 100%; max-height: 360px; object-fit: cover; }
+.thumbwrap button { position: absolute; top: 10px; right: 10px; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 2px solid transparent; border-radius: 999px; padding: 13px 22px; font-weight: 600; cursor: pointer; text-decoration: none; transition: transform .15s ease, opacity .15s; }
+.btn:hover { transform: translateY(-1px); }
+.btn:disabled { opacity: .55; cursor: progress; transform: none; }
+.btn-rojo { background: var(--rojo); color: #fff; }
+.btn-ink { background: var(--ink); color: var(--paper); }
+.btn-ghost { border-color: var(--line); background: var(--surface); }
+.btn-sm { padding: 7px 14px; font-size: .88rem; }
+.btn svg { width: 1.1em; height: 1.1em; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 20px; }
+.grow { flex: 1; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .two { grid-template-columns: 1fr; } }
+
+.msg { border-radius: 10px; padding: 11px 14px; font-size: .92rem; margin-top: 14px; }
+.msg.err { background: color-mix(in srgb, var(--rojo) 12%, transparent); color: var(--rojo-ink); }
+.msg.info { background: color-mix(in srgb, var(--cempasuchil) 18%, transparent); }
+.msg.ok { background: color-mix(in srgb, var(--ok) 15%, transparent); color: var(--ok); font-weight: 600; }
+
+/* Preview: the same showcase card the public page draws. */
+.pv-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
+.mini-lang { display: inline-flex; border: 1.5px solid var(--line); border-radius: 999px; overflow: hidden; }
+.mini-lang button { border: 0; background: none; padding: 6px 14px; font-weight: 600; cursor: pointer; font-size: .85rem; }
+.mini-lang button[aria-pressed=true] { background: var(--ink); color: var(--paper); }
+.show { background: var(--night); color: var(--night-fg); border-radius: 22px; overflow: hidden; display: grid; }
+.show.has-photo { grid-template-columns: 1fr; }
+.show-photo { position: relative; aspect-ratio: 4 / 3; background: var(--night-2); }
+.show-photo img { width: 100%; height: 100%; object-fit: cover; }
+.stamp { position: absolute; left: 14px; top: 14px; width: 82px; height: 82px; border-radius: 50%; background: var(--rojo); color: #fff; display: grid; place-items: center; transform: rotate(-12deg); font-family: var(--display); font-weight: 900; font-size: 1.5rem; text-transform: uppercase; box-shadow: 0 6px 18px rgba(0,0,0,.35); border: 3px dashed rgba(255,255,255,.7); outline: 4px solid var(--rojo); }
+.show-body { padding: 22px 22px 24px; display: grid; gap: 10px; }
+.show .kicker { font-family: var(--script); color: var(--cempasuchil); font-size: 1.6rem; line-height: 1; }
+.show h3 { margin: 0; font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(2rem, 7vw, 2.8rem); line-height: .92; }
+.show p { margin: 0; color: var(--night-muted); }
+.show .foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 4px; }
+.show .price { font-family: var(--display); font-weight: 900; font-size: 2.4rem; color: #fff; line-height: 1; }
+.show .price small { font-size: .5em; vertical-align: .55em; }
+.chip { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid rgba(255,255,255,.3); border-radius: 999px; padding: 5px 12px; font-size: .82rem; font-weight: 600; }
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--cempasuchil); }
+.show.notice { background: var(--cempasuchil); color: #1A1418; }
+.show.notice .kicker { color: var(--rojo-ink); }
+.show.notice p { color: #3B2F35; }
+
+details.edit { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 12px; }
+details.edit summary { cursor: pointer; font-weight: 600; }
+.edit h4 { margin: 16px 0 0; font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+
+.list { display: grid; gap: 12px; }
+.item { display: grid; grid-template-columns: 72px 1fr auto; gap: 12px; align-items: center; border: 1px solid var(--line); border-radius: 12px; padding: 10px; }
+.item .ph { width: 72px; height: 72px; border-radius: 10px; object-fit: cover; background: var(--line); }
+.item .ph.blank { display: grid; place-items: center; font-family: var(--display); font-weight: 900; color: var(--muted); }
+.item b { display: block; line-height: 1.2; }
+.pill { display: inline-block; margin-top: 4px; border-radius: 999px; padding: 2px 9px; font-size: .75rem; font-weight: 600; background: var(--line); color: var(--muted); }
+.pill.live { background: color-mix(in srgb, var(--ok) 18%, transparent); color: var(--ok); }
+.pill.soon { background: color-mix(in srgb, var(--cobalto) 15%, transparent); color: var(--cobalto); }
+.empty { color: var(--muted); font-size: .95rem; }
+.sysline { color: var(--muted); font-size: .8rem; text-align: center; }
+.spin { width: 1em; height: 1em; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: s .7s linear infinite; }
+@keyframes s { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spin { animation-duration: 2s; } .btn { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <img src="assets/logo.webp" alt="">
+    <div><b>En Boca Admin</b><small id="who">Specials &amp; messages</small></div>
+    <span class="sp"></span>
+    <a class="link" href="/" target="_blank" rel="noopener">View site</a>
+    <button class="link" type="button" id="logout" hidden>Log out</button>
+  </div>
+</header>
+
+<main>
+  <!-- Login -->
+  <section class="card" id="login" hidden>
+    <h1>Hola, <em>bienvenidos</em></h1>
+    <p class="sub">Enter the password to post specials on en-boca.com.</p>
+    <form id="login-form">
+      <label class="lbl" for="pw">Password</label>
+      <input type="password" id="pw" autocomplete="current-password" required>
+      <div class="row"><button class="btn btn-rojo" type="submit">Log in</button></div>
+      <div class="msg err" id="login-err" hidden></div>
+    </form>
+  </section>
+
+  <!-- Composer -->
+  <section class="card" id="compose" hidden>
+    <h1>New <em>post</em></h1>
+    <p class="sub">Write it the way you'd text it, in English or Spanish. We'll polish it and translate it.</p>
+
+    <label class="lbl">What is it?</label>
+    <div class="seg" role="radiogroup">
+      <label><input type="radio" name="kind" value="special" checked>Special of the day</label>
+      <label><input type="radio" name="kind" value="notice">Message / notice</label>
+      <label><input type="radio" name="kind" value="event">Event</label>
+    </div>
+
+    <label class="lbl" for="note">Tell us about it</label>
+    <textarea id="note" maxlength="1500" placeholder="Example: enchiladas suizas con arroz y frijoles, hoy nomás"></textarea>
+
+    <div id="photo-block">
+      <label class="lbl">Photo of the plate <span>(optional, but it sells)</span></label>
+      <label class="drop" id="drop" for="file">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+        <b>Add a photo</b><span>Take one or choose from your phone</span>
+      </label>
+      <input type="file" id="file" accept="image/*" hidden>
+      <div class="thumbwrap" id="thumb" hidden><img id="thumb-img" alt="Selected photo"><button class="btn btn-ghost btn-sm" type="button" id="thumb-x">Remove</button></div>
+    </div>
+
+    <div class="two">
+      <div id="price-block">
+        <label class="lbl" for="price">Price <span>(optional)</span></label>
+        <input type="text" id="price" inputmode="decimal" placeholder="11.99" maxlength="8">
+      </div>
+      <div>
+        <label class="lbl" for="starts">Starts</label>
+        <div class="seg" id="starts">
+          <label><input type="radio" name="starts" value="now" checked>Right now</label>
+          <label><input type="radio" name="starts" value="next"><span id="next-label">Tomorrow</span></label>
+        </div>
+      </div>
+    </div>
+
+    <label class="lbl">How long does it stay up?</label>
+    <div class="seg">
+      <label><input type="radio" name="runs" value="day" checked><span id="day-label">Today only</span></label>
+      <label><input type="radio" name="runs" value="date">Through a date</label>
+      <label><input type="radio" name="runs" value="forever">Until I take it down</label>
+    </div>
+    <input type="date" id="until" hidden style="margin-top:10px;max-width:220px">
+
+    <div class="row">
+      <button class="btn btn-rojo" type="button" id="write">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.8 5.6L19.5 9l-5.7 1.5L12 16l-1.8-5.5L4.5 9l5.7-1.4zM19 14l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9zM5 15l.7 1.8 1.8.7-1.8.7L5 20l-.7-1.8-1.8-.7 1.8-.7z"/></svg>
+        <span>Write it for me</span></button>
+    </div>
+    <div class="msg err" id="compose-err" hidden></div>
+  </section>
+
+  <!-- Preview + edit + publish -->
+  <section class="card" id="preview" hidden>
+    <div class="pv-head">
+      <h2>Here's how it <em>looks</em></h2>
+      <div class="mini-lang" role="group" aria-label="Preview language">
+        <button type="button" data-pl="en" aria-pressed="true">EN</button>
+        <button type="button" data-pl="es" aria-pressed="false">ES</button>
+      </div>
+    </div>
+    <div id="pv"></div>
+    <div class="msg info" id="pv-note" hidden></div>
+
+    <details class="edit">
+      <summary>Change the wording</summary>
+      <h4>English</h4>
+      <label class="lbl" for="e-kicker-en">Small label</label><input type="text" id="e-kicker-en" maxlength="36">
+      <label class="lbl" for="e-title-en">Title</label><input type="text" id="e-title-en" maxlength="80">
+      <label class="lbl" for="e-body-en">Description</label><textarea id="e-body-en" maxlength="320"></textarea>
+      <h4>Español</h4>
+      <label class="lbl" for="e-kicker-es">Etiqueta</label><input type="text" id="e-kicker-es" maxlength="36">
+      <label class="lbl" for="e-title-es">Título</label><input type="text" id="e-title-es" maxlength="80">
+      <label class="lbl" for="e-body-es">Descripción</label><textarea id="e-body-es" maxlength="320"></textarea>
+      <label class="lbl" for="e-price">Price</label><input type="text" id="e-price" inputmode="decimal" maxlength="8">
+    </details>
+
+    <div class="row">
+      <button class="btn btn-rojo grow" type="button" id="publish">Publish to the website</button>
+      <button class="btn btn-ghost" type="button" id="redo">Rewrite</button>
+      <button class="btn btn-ghost" type="button" id="back">Start over</button>
+    </div>
+    <div class="msg err" id="pub-err" hidden></div>
+  </section>
+
+  <div class="msg ok" id="done" hidden></div>
+
+  <!-- What's posted -->
+  <section class="card" id="posted" hidden>
+    <h2>On the <em>site</em></h2>
+    <p class="sub">Posts come down on their own when they end. Take one down early any time.</p>
+    <div class="list" id="list"></div>
+  </section>
+
+  <p class="sysline" id="sys"></p>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ---------- Midland time (America/Chicago) ---------- */
+  var HOURS = { 0: [7, 14], 1: null, 2: [6, 14], 3: [6, 14], 4: [6, 14], 5: [6, 14], 6: [6, 14] };
+  var DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  function parts(ms) {
+    var o = {};
+    new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", hour12: false, weekday: "short" })
+      .formatToParts(new Date(ms)).forEach(function (p) { o[p.type] = p.value; });
+    return { y: +o.year, m: +o.month, d: +o.day, h: (+o.hour) % 24, mi: +o.minute, wd: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(o.weekday) };
+  }
+  function chicago(y, m, d, h, mi) {
+    var guess = Date.UTC(y, m - 1, d, h, mi), p = parts(guess);
+    return guess - (Date.UTC(p.y, p.m - 1, p.d, p.h, p.mi) - guess);
+  }
+  function addDays(p, n) { var t = new Date(Date.UTC(p.y, p.m - 1, p.d + n)); return { y: t.getUTCFullYear(), m: t.getUTCMonth() + 1, d: t.getUTCDate(), wd: t.getUTCDay() }; }
+  /* The next day (after today, or including today when it's still before closing) the restaurant opens. */
+  function nextOpenDay(includeToday) {
+    var now = parts(Date.now());
+    for (var i = includeToday ? 0 : 1; i < 8; i++) {
+      var day = addDays(now, i), h = HOURS[day.wd];
+      if (!h) continue;
+      if (i === 0 && now.h >= h[1]) continue;
+      return { day: day, hours: h, offset: i };
+    }
+  }
+  function dayName(n) { return n.offset === 0 ? "today" : n.offset === 1 ? "tomorrow" : DAYS[n.day.wd]; }
+
+  function schedule() {
+    var startsNow = document.querySelector("input[name=starts]:checked").value === "now";
+    var runs = document.querySelector("input[name=runs]:checked").value;
+    var first = startsNow ? nextOpenDay(true) : nextOpenDay(false);
+    var startsAt = startsNow ? Date.now() : chicago(first.day.y, first.day.m, first.day.d, first.hours[0], 0) - 30 * 60000;
+    var endsAt = null, words = "until further notice";
+    if (runs === "day") {
+      endsAt = chicago(first.day.y, first.day.m, first.day.d, first.hours[1], 0);
+      words = dayName(first) + " only, until " + (first.hours[1] - 12) + " p.m.";
+    } else if (runs === "date") {
+      var v = $("until").value;
+      if (!v) return { error: "Pick the last day it runs." };
+      var b = v.split("-").map(Number), wd = new Date(Date.UTC(b[0], b[1] - 1, b[2])).getUTCDay(), h = HOURS[wd];
+      endsAt = h ? chicago(b[0], b[1], b[2], h[1], 0) : chicago(b[0], b[1], b[2], 23, 59);
+      if (endsAt <= startsAt) return { error: "That end date has already passed." };
+      words = "through " + DAYS[wd] + ", " + new Date(Date.UTC(b[0], b[1] - 1, b[2])).toLocaleDateString("en-US", { month: "long", day: "numeric", timeZone: "UTC" });
+    }
+    if (!startsNow) words = "starting " + dayName(first) + " morning, " + words;
+    return { startsAt: startsAt, endsAt: endsAt, words: words };
+  }
+
+  function refreshLabels() {
+    var later = nextOpenDay(false), today = nextOpenDay(true);
+    $("next-label").textContent = later.offset === 1 ? "Tomorrow morning" : DAYS[later.day.wd] + " morning";
+    var startsNow = document.querySelector("input[name=starts]:checked").value === "now";
+    var n = startsNow ? today : later;
+    $("day-label").textContent = n.offset === 0 ? "Today only" : n.offset === 1 ? "Tomorrow only" : DAYS[n.day.wd] + " only";
+  }
+
+  /* ---------- API ---------- */
+  function api(path, opts) {
+    opts = opts || {};
+    return fetch(path, {
+      method: opts.method || "GET", credentials: "same-origin",
+      headers: opts.body ? { "content-type": "application/json" } : {},
+      body: opts.body ? JSON.stringify(opts.body) : undefined
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) {
+        if (!r.ok) throw new Error(j.error || ("Something went wrong (" + r.status + ")."));
+        return j;
+      });
+    });
+  }
+  function show(el, text) { el.textContent = text || ""; el.hidden = !text; }
+  function busy(btn, on, label) {
+    btn.disabled = on;
+    if (on) { btn.dataset.html = btn.innerHTML; btn.innerHTML = '<span class="spin"></span><span>' + label + '</span>'; }
+    else if (btn.dataset.html) btn.innerHTML = btn.dataset.html;
+  }
+
+  /* ---------- Session ---------- */
+  function boot() {
+    api("/api/login").then(function (s) {
+      $("sys").textContent = "Storage: " + s.storage + " · Writer: " + (s.ai ? "on" : "off (add ANTHROPIC_API_KEY)");
+      if (!s.configured) { $("login").hidden = false; show($("login-err"), "The admin password hasn't been set on the server yet."); return; }
+      if (s.admin) enter(); else { $("login").hidden = false; $("pw").focus(); }
+    }).catch(function () { $("login").hidden = false; show($("login-err"), "Can't reach the server."); });
+  }
+  function enter() {
+    $("login").hidden = true; $("compose").hidden = false; $("posted").hidden = false; $("logout").hidden = false;
+    refreshLabels(); loadList();
+  }
+  $("login-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var btn = e.submitter || this.querySelector("button");
+    busy(btn, true, "Checking…"); show($("login-err"), "");
+    api("/api/login", { method: "POST", body: { password: $("pw").value } })
+      .then(function () { $("pw").value = ""; enter(); })
+      .catch(function (err) { show($("login-err"), err.message); })
+      .then(function () { busy(btn, false); });
+  });
+  $("logout").addEventListener("click", function () { api("/api/logout", { method: "POST" }).then(function () { location.reload(); }); });
+
+  /* ---------- Photo: shrink on the phone before upload ---------- */
+  var photo = null;
+  $("file").addEventListener("change", function () {
+    var f = this.files && this.files[0]; this.value = "";
+    if (!f) return;
+    show($("compose-err"), "");
+    var url = URL.createObjectURL(f), img = new Image();
+    img.onload = function () {
+      var max = 1600, s = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+      var c = document.createElement("canvas");
+      c.width = Math.round(img.naturalWidth * s); c.height = Math.round(img.naturalHeight * s);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      photo = c.toDataURL("image/jpeg", 0.85);
+      URL.revokeObjectURL(url);
+      $("thumb-img").src = photo; $("thumb").hidden = false; $("drop").hidden = true;
+    };
+    img.onerror = function () { URL.revokeObjectURL(url); show($("compose-err"), "That photo format can't be opened here. Try a JPG or PNG, or take the photo with the camera."); };
+    img.src = url;
+  });
+  $("thumb-x").addEventListener("click", function () { photo = null; $("thumb").hidden = true; $("drop").hidden = false; });
+
+  /* ---------- Form behavior ---------- */
+  document.querySelectorAll("input[name=kind]").forEach(function (r) {
+    r.addEventListener("change", function () {
+      var k = kind();
+      $("price-block").hidden = k === "notice";
+      $("photo-block").querySelector(".lbl").innerHTML = k === "special" ? 'Photo of the plate <span>(optional, but it sells)</span>' : 'Photo <span>(optional)</span>';
+      $("note").placeholder = k === "notice" ? "Example: cerrado el jueves por Thanksgiving, abrimos el viernes normal" : k === "event" ? "Example: we cater! trays of enchiladas and tamales for parties, call to order" : "Example: enchiladas suizas con arroz y frijoles, hoy nomás";
+    });
+  });
+  document.querySelectorAll("input[name=starts]").forEach(function (r) { r.addEventListener("change", refreshLabels); });
+  document.querySelectorAll("input[name=runs]").forEach(function (r) { r.addEventListener("change", function () { $("until").hidden = r.value !== "date" || !r.checked; }); });
+  function kind() { return document.querySelector("input[name=kind]:checked").value; }
+
+  /* ---------- Draft → preview ---------- */
+  var draft = null, sched = null, pvLang = "en";
+  function writeIt() {
+    show($("compose-err"), ""); show($("done"), "");
+    var note = $("note").value.trim();
+    if (!note) { show($("compose-err"), "Write a few words first."); $("note").focus(); return; }
+    sched = schedule();
+    if (sched.error) { show($("compose-err"), sched.error); return; }
+    var btn = $("write");
+    busy(btn, true, photo ? "Looking at your photo…" : "Writing…"); $("redo").disabled = true;
+    api("/api/draft", { method: "POST", body: { note: note, kind: kind(), price: kind() === "notice" ? "" : $("price").value, runs: sched.words, image: photo } })
+      .then(function (r) {
+        draft = r.draft; fillEdit(); render();
+        show($("pv-note"), r.ai ? "" : r.note);
+        $("preview").hidden = false;
+        $("preview").scrollIntoView({ behavior: "smooth", block: "start" });
+      })
+      .catch(function (err) { show($("compose-err"), err.message); })
+      .then(function () { busy(btn, false); $("redo").disabled = false; });
+  }
+  $("write").addEventListener("click", writeIt);
+  $("redo").addEventListener("click", writeIt);
+
+  var FIELDS = ["kicker", "title", "body"];
+  function fillEdit() {
+    FIELDS.forEach(function (f) { $("e-" + f + "-en").value = draft[f].en; $("e-" + f + "-es").value = draft[f].es; });
+    $("e-price").value = draft.price || "";
+  }
+  document.querySelectorAll(".edit input, .edit textarea").forEach(function (el) {
+    el.addEventListener("input", function () {
+      FIELDS.forEach(function (f) { draft[f] = { en: $("e-" + f + "-en").value, es: $("e-" + f + "-es").value }; });
+      draft.price = $("e-price").value.replace(/[^0-9.]/g, "") || null;
+      render();
+    });
+  });
+  document.querySelectorAll("[data-pl]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      pvLang = b.dataset.pl;
+      document.querySelectorAll("[data-pl]").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      render();
+    });
+  });
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function endsChip(endsAt, lang) {
+    if (!endsAt) return "";
+    var e = parts(endsAt), n = parts(Date.now()), sameDay = e.y === n.y && e.m === n.m && e.d === n.d;
+    var hr = (e.h % 12 || 12) + (e.h < 12 ? " a.m." : " p.m.");
+    if (sameDay) return lang === "es" ? "Solo hoy · hasta las " + (e.h % 12 || 12) + " p.m." : "Today only · until " + hr;
+    var d = new Date(endsAt).toLocaleDateString(lang === "es" ? "es-MX" : "en-US", { weekday: "short", month: "short", day: "numeric", timeZone: "America/Chicago" });
+    return (lang === "es" ? "Hasta el " : "Through ") + d;
+  }
+  function render() {
+    var l = pvLang, d = draft;
+    var today = sched && sched.endsAt && parts(sched.endsAt).d === parts(Date.now()).d && sched.startsAt <= Date.now();
+    var html = '<article class="show ' + (d.kind === "notice" ? "notice" : "") + '">' +
+      (photo ? '<div class="show-photo"><img src="' + photo + '" alt="">' + (d.kind === "special" && today ? '<span class="stamp">' + (l === "es" ? "¡Hoy!" : "Today!") + '</span>' : '') + '</div>' : '') +
+      '<div class="show-body"><span class="kicker">' + esc(d.kicker[l]) + '</span><h3>' + esc(d.title[l]) + '</h3>' +
+      (d.body[l] ? '<p>' + esc(d.body[l]) + '</p>' : '') +
+      '<div class="foot">' + (d.price ? '<span class="price"><small>$</small>' + esc(d.price) + '</span>' : '') +
+      (sched && sched.endsAt ? '<span class="chip">' + esc(endsChip(sched.endsAt, l)) + '</span>' : '') + '</div></div></article>';
+    $("pv").innerHTML = html;
+  }
+
+  /* ---------- Publish ---------- */
+  $("publish").addEventListener("click", function () {
+    show($("pub-err"), "");
+    var btn = this;
+    busy(btn, true, "Publishing…");
+    var payload = { kind: draft.kind, kicker: draft.kicker, title: draft.title, body: draft.body, price: draft.price, alt: draft.alt, startsAt: sched.startsAt, endsAt: sched.endsAt, image: photo };
+    api("/api/specials", { method: "POST", body: payload })
+      .then(function () {
+        resetForm();
+        show($("done"), sched.startsAt > Date.now() ? "Scheduled. It will appear on the site when it starts." : "Published. It's on en-boca.com now (it can take up to a minute to show).");
+        loadList();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      })
+      .catch(function (err) { show($("pub-err"), err.message); })
+      .then(function () { busy(btn, false); });
+  });
+  function resetForm() {
+    draft = null; photo = null;
+    $("note").value = ""; $("price").value = ""; $("until").value = ""; $("until").hidden = true;
+    $("thumb").hidden = true; $("drop").hidden = false; $("preview").hidden = true;
+    document.querySelector("input[name=runs][value=day]").checked = true;
+    document.querySelector("input[name=starts][value=now]").checked = true;
+    refreshLabels();
+  }
+  $("back").addEventListener("click", function () { resetForm(); show($("done"), ""); window.scrollTo({ top: 0, behavior: "smooth" }); });
+
+  /* ---------- What's posted ---------- */
+  function loadList() {
+    api("/api/specials?all=1").then(function (r) {
+      var items = r.specials.filter(function (s) { return s.live || s.upcoming; });
+      var past = r.specials.filter(function (s) { return !s.live && !s.upcoming; }).slice(0, 5);
+      var rows = items.concat(past);
+      if (!rows.length) { $("list").innerHTML = '<p class="empty">Nothing posted yet. Your first special will show up here.</p>'; return; }
+      $("list").innerHTML = rows.map(function (s) {
+        var status = s.live ? '<span class="pill live">Live' + (s.endsAt ? " · " + esc(endsChip(s.endsAt, "en")) : "") + '</span>'
+          : s.upcoming ? '<span class="pill soon">Starts ' + esc(new Date(s.startsAt).toLocaleString("en-US", { weekday: "short", hour: "numeric", minute: "2-digit", timeZone: "America/Chicago" })) + '</span>'
+          : '<span class="pill">Ended</span>';
+        return '<div class="item">' + (s.photo ? '<img class="ph" src="' + esc(s.photo) + '" alt="">' : '<div class="ph blank">' + (s.kind === "notice" ? "!" : "★") + '</div>') +
+          '<div><b>' + esc(s.title.en) + '</b>' + status + '</div>' +
+          '<button class="btn btn-ghost btn-sm" type="button" data-del="' + esc(s.id) + '">' + (s.live || s.upcoming ? "Take down" : "Delete") + '</button></div>';
+      }).join("");
+    }).catch(function (err) { $("list").innerHTML = '<p class="msg err">' + esc(err.message) + '</p>'; });
+  }
+  $("list").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-del]");
+    if (!b || !confirm("Take this post off the website?")) return;
+    busy(b, true, "…");
+    api("/api/specials?id=" + encodeURIComponent(b.dataset.del), { method: "DELETE" }).then(loadList).catch(function (err) { alert(err.message); busy(b, false); });
+  });
+
+  boot();
+})();
+</script>
+</body>
+</html>
