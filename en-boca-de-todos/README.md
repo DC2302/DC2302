@@ -46,3 +46,16 @@ the original full-size files before launch.
 - Confirm the second phone number: the card says (432) 218-7079, the Facebook post says (432) 218-1879.
 - The testimonial quotes Jessica H.'s public Facebook post. Ask before launch.
 - Instagram link if they have one (the menu card mentions a "Follow" QR code).
+
+## Specials admin (`/admin`)
+
+The owners post daily specials, notices (closures, holiday hours) and events at **en-boca.com/admin**.
+
+- They type a quick note, add a plate photo if they have one, and press **Write it for me**. Claude (`claude-opus-5-5`, `api/_lib/writer.js`) turns it into a bilingual post. It describes the plate it sees and never invents prices or times. With no `ANTHROPIC_API_KEY`, the owner's own words are posted as-is.
+- Live posts show on the home page:
+  - Notices: the gold strip at the top.
+  - Specials and events: the "Don't miss today" showcase, plus the pill under the open/closed status.
+- Posts come down on their own when they end: today only, through a date, or until removed.
+- Storage: private Vercel Blob store `en-boca-specials` (`BLOB_READ_WRITE_TOKEN`). Photos are served through `/api/photo`.
+- Env vars: `ADMIN_PASSWORD` (owner login), `BLOB_READ_WRITE_TOKEN` (set by the store connection), `ANTHROPIC_API_KEY` (add in the Vercel dashboard).
+- Local: `ADMIN_PASSWORD=... node scripts/dev.mjs` (data goes to `.data/`).
