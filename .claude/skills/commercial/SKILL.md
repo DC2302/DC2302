@@ -104,7 +104,7 @@ Spec reference (all times in seconds on the final timeline):
 - `endcard`: `duration`, `logoSize`, `logoY`, `lines[]` with styles `big`, `mid`, `phone`, `small`.
 - `music`: `{ file, gainDb }`, optional, ducked under the voice.
 - `ambient`: `{ gainDb }`.
-- `brand.fonts`: `{ display: {name, file}, body: {name, file} }`. The default is Arial Black / Arial Bold.
+- `brand.fonts`: `{ display: {name, file}, body: {name, file} }`. The default is Arial Black / Arial Bold, found in the macOS, Windows or Linux msttcorefonts folders, with DejaVu Sans Bold as the Linux fallback. If none exists, the renderer warns and libass substitutes a system font.
 
 ## 5. Platform-safe layout (built into the renderer)
 

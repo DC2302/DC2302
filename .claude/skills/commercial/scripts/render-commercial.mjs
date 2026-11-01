@@ -57,10 +57,25 @@ const [W, H] = spec.size ?? [1080, 1920];
 const FPS = spec.fps ?? 30;
 const brand = spec.brand ?? {};
 const colors = { primary: "#CE1126", accent: "#F2A21B", dark: "#141015", light: "#FFFFFF", ...(brand.colors ?? {}) };
-const sysFont = (f) => `/System/Library/Fonts/Supplemental/${f}`;
+// Default fonts by platform: macOS, Windows, Linux (msttcorefonts), then DejaVu (most Linux distros).
+// A brand override (brand.fonts.*) always wins; with no match, libass resolves the name via fontconfig.
+const MAC = "/System/Library/Fonts/Supplemental", WIN = "C:\\Windows\\Fonts", MS = "/usr/share/fonts/truetype/msttcorefonts";
+const DEJAVU = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf";
+const pickFont = (candidates) =>
+  candidates.find((c) => existsSync(c.file)) ?? { name: candidates[0].name, file: null };
 const fonts = {
-  display: { name: "Arial Black", file: sysFont("Arial Black.ttf"), ...(brand.fonts?.display ?? {}) },
-  body: { name: "Arial", file: sysFont("Arial Bold.ttf"), bold: true, ...(brand.fonts?.body ?? {}) },
+  display: brand.fonts?.display ?? pickFont([
+    { name: "Arial Black", file: `${MAC}/Arial Black.ttf` },
+    { name: "Arial Black", file: `${WIN}\\ariblk.ttf` },
+    { name: "Arial Black", file: `${MS}/Arial_Black.ttf` },
+    { name: "DejaVu Sans", file: DEJAVU },
+  ]),
+  body: { bold: true, ...(brand.fonts?.body ?? pickFont([
+    { name: "Arial", file: `${MAC}/Arial Bold.ttf` },
+    { name: "Arial", file: `${WIN}\\arialbd.ttf` },
+    { name: "Arial", file: `${MS}/Arial_Bold.ttf` },
+    { name: "DejaVu Sans", file: DEJAVU },
+  ])) },
 };
 const outFile = rel(spec.out ?? "commercial-9x16.mp4");
 const build = path.join(root, ".build");
@@ -88,6 +103,7 @@ if ((wm || end) && (!logo || !existsSync(logo))) die(`brand.logo not found: ${lo
 
 /* ---------- fonts for libass ---------- */
 for (const f of [fonts.display, fonts.body]) {
+  if (!f.file) { console.warn(`! no font file found for "${f.name}"; libass will substitute a system font (set brand.fonts to pin one).`); continue; }
   if (!existsSync(rel(f.file))) die(`font file not found: ${f.file}`);
   copyFileSync(rel(f.file), path.join(build, "fonts", path.basename(f.file)));
 }
