@@ -3,12 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>En Boca de Todos</title>
+<title>En Boca de Todos Mexican Food · Breakfast &amp; Lunch in Midland, TX</title>
+<link rel="canonical" href="https://en-boca.com/">
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="En Boca de Todos Mexican Food, 703 S Terrell St, Midland TX. Breakfast and lunch: burritos, chilaquiles, guisados, café de olla, and weekend menudo and pozole. Call (432) 218-7078 to order.">
 <meta property="og:title" content="En Boca de Todos · Mexican Food · Midland, TX">
 <meta property="og:description" content="Breakfast burritos from 6 a.m., guisados, chilaquiles divorciados, tortas and weekend menudo. 703 S Terrell St, Midland.">
-<meta property="og:image" content="assets/video/hero-poster.webp">
+<meta property="og:type" content="restaurant">
+<meta property="og:url" content="https://en-boca.com/">
+<meta property="og:image" content="https://en-boca.com/assets/video/hero-poster.webp">
 <meta name="theme-color" content="#141015">
 <link rel="icon" href="assets/logo.webp" type="image/webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,8 +21,13 @@
 {
   "@context": "https://schema.org",
   "@type": "Restaurant",
+  "@id": "https://en-boca.com/#restaurant",
   "name": "En Boca de Todos Mexican Food",
+  "url": "https://en-boca.com/",
+  "image": "https://en-boca.com/assets/video/hero-poster.webp",
+  "logo": "https://en-boca.com/assets/logo.webp",
   "servesCuisine": "Mexican",
+  "acceptsReservations": false,
   "priceRange": "$",
   "telephone": "+1-432-218-7078",
   "address": {
@@ -30,7 +38,13 @@
     "postalCode": "79701",
     "addressCountry": "US"
   },
-  "hasMenu": "#menu",
+  "geo": { "@type": "GeoCoordinates", "latitude": 31.9910597, "longitude": -102.0677824 },
+  "hasMap": "https://maps.google.com/?cid=13181815553918891561",
+  "sameAs": [
+    "https://maps.google.com/?cid=13181815553918891561",
+    "https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/"
+  ],
+  "hasMenu": "https://en-boca.com/#menu",
   "openingHoursSpecification": [
     { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "06:00", "closes": "14:00" },
     { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "07:00", "closes": "14:00" }
@@ -611,7 +625,7 @@ footer small { font-size: .82rem; }
           <h3 data-i18n="findTitle">Find us</h3>
           <p class="addr">703 S Terrell St<br>Midland, TX 79701</p>
           <p class="note" data-i18n="findNote">Look for our sign on Terrell St, south of downtown Midland.</p>
-          <a class="btn btn-ghost" href="https://maps.app.goo.gl/zn4fFgYzztVJzd6o9" target="_blank" rel="noopener">
+          <a class="btn btn-ghost" href="https://maps.google.com/?cid=13181815553918891561" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
             <span data-i18n="directions">Get directions</span></a>
         </div>
