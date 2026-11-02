@@ -1,0 +1,231 @@
+{
+  "title": "En Boca de Todos: Café de Olla (English, slow)",
+  "out": "en-boca-cafe-de-olla-en-9x16.mp4",
+  "size": [
+    1080,
+    1920
+  ],
+  "fps": 30,
+  "brand": {
+    "logo": "media/logo-ring.png",
+    "logoShape": "circle",
+    "colors": {
+      "primary": "#CE1126",
+      "accent": "#F2A21B",
+      "dark": "#141015",
+      "light": "#FFFFFF"
+    }
+  },
+  "timeline": [
+    {
+      "clip": "media/b1.mp4",
+      "in": 0,
+      "out": 10,
+      "speed": 0.8,
+      "punchIn": 0.089,
+      "anchor": "bottom",
+      "note": "pour + hero jarrito; punch-in hides the pitcher sliver at the top"
+    },
+    {
+      "clip": "media/b2.mp4",
+      "in": 0,
+      "out": 10,
+      "speed": 0.7,
+      "note": "piloncillo, canela, clavo, anís macros → spices into cup → pour"
+    },
+    {
+      "clip": "media/b3.mp4",
+      "in": 0,
+      "out": 10,
+      "speed": 0.8,
+      "note": "work-worn hands, sip, jarrito alone (end-card plate)"
+    }
+  ],
+  "voice": [
+    {
+      "file": "media/vo1.mp3",
+      "at": 1.6,
+      "text": "Up before the sun? This one's for you. Our café de olla, the one everybody in town is talking about."
+    },
+    {
+      "file": "media/vo2.mp3",
+      "at": 12.8,
+      "text": "Coffee, sweetened with piloncillo. Warmed with cinnamon, cloves, and star anise. Served in a clay jarrito, just like home."
+    },
+    {
+      "file": "media/vo3.mp3",
+      "at": 27.186,
+      "text": "Come get yours at 703 South Terrell, in Midland. Tuesday through Saturday, from six. Call 432, 218, 7078."
+    }
+  ],
+  "ambient": {
+    "gainDb": 9
+  },
+  "watermark": {
+    "size": 160,
+    "x": 48,
+    "y": 200,
+    "opacity": 0.92
+  },
+  "overlays": [
+    {
+      "start": 0.0,
+      "end": 3.0,
+      "style": "hook",
+      "text": "*6 a.m.* and it\nalready smells\nlike cinnamon."
+    },
+    {
+      "start": 1.6,
+      "end": 3.2,
+      "style": "caption",
+      "text": "Up before the sun?"
+    },
+    {
+      "start": 3.3,
+      "end": 4.4,
+      "style": "caption",
+      "text": "This one's for you."
+    },
+    {
+      "start": 4.5,
+      "end": 5.7,
+      "style": "caption",
+      "text": "Our café de olla,"
+    },
+    {
+      "start": 5.78,
+      "end": 8.1,
+      "style": "caption",
+      "text": "the one everybody in town\nis talking about."
+    },
+    {
+      "start": 8.4,
+      "end": 12.2,
+      "style": "claim",
+      "text": "The best café de olla\nin the Permian Basin"
+    },
+    {
+      "start": 12.57,
+      "end": 14.79,
+      "style": "label",
+      "text": "Piloncillo"
+    },
+    {
+      "start": 14.86,
+      "end": 17.07,
+      "style": "label",
+      "text": "Cinnamon"
+    },
+    {
+      "start": 17.14,
+      "end": 19.0,
+      "style": "label",
+      "text": "Cloves"
+    },
+    {
+      "start": 19.14,
+      "end": 21.0,
+      "style": "label",
+      "text": "Star anise"
+    },
+    {
+      "start": 24.21,
+      "end": 26.7,
+      "style": "label",
+      "text": "Savor it."
+    },
+    {
+      "start": 12.8,
+      "end": 15.65,
+      "style": "caption",
+      "text": "Coffee, sweetened\nwith piloncillo."
+    },
+    {
+      "start": 16.22,
+      "end": 17.35,
+      "style": "caption",
+      "text": "Warmed with cinnamon,"
+    },
+    {
+      "start": 17.78,
+      "end": 19.45,
+      "style": "caption",
+      "text": "cloves and star anise."
+    },
+    {
+      "start": 20.06,
+      "end": 21.55,
+      "style": "caption",
+      "text": "Served in a clay jarrito,"
+    },
+    {
+      "start": 22.02,
+      "end": 23.0,
+      "style": "caption",
+      "text": "just like home."
+    },
+    {
+      "start": 28.286,
+      "end": 34.786,
+      "style": "price",
+      "text": "$5.99"
+    },
+    {
+      "start": 28.686,
+      "end": 34.786,
+      "style": "sub",
+      "text": "Refills $2.99"
+    },
+    {
+      "start": 29.386,
+      "end": 34.786,
+      "style": "chip",
+      "text": "4.5 stars on Google"
+    },
+    {
+      "start": 27.186,
+      "end": 31.536,
+      "style": "caption",
+      "text": "703 S Terrell St, Midland"
+    },
+    {
+      "start": 32.136,
+      "end": 34.386,
+      "style": "caption",
+      "text": "Tue–Sat from 6 a.m.\nSun from 7 a.m.\nClosed Mondays"
+    },
+    {
+      "start": 34.436,
+      "end": 35.986,
+      "style": "caption",
+      "text": "Call (432) 218-7078"
+    }
+  ],
+  "endcard": {
+    "duration": 3.3,
+    "logoSize": 500,
+    "logoY": 300,
+    "lines": [
+      {
+        "style": "big",
+        "text": "Get your café de olla"
+      },
+      {
+        "style": "mid",
+        "text": "Call to order:"
+      },
+      {
+        "style": "phone",
+        "text": "(432) 218-7078"
+      },
+      {
+        "style": "mid",
+        "text": "703 S Terrell St, Midland"
+      },
+      {
+        "style": "small",
+        "text": "en-boca.com"
+      }
+    ]
+  }
+}

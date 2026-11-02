@@ -1,0 +1,7 @@
+{
+  "name": "commercial-render",
+  "private": true,
+  "type": "module",
+  "description": "Renders a branded vertical commercial from commercial.json (see ../SKILL.md).",
+  "dependencies": { "ffmpeg-static": "^5.2.0" }
+}
