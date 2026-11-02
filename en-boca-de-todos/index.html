@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>En Boca de Todos Mexican Food · Breakfast &amp; Lunch in Midland, TX</title>
 <link rel="canonical" href="https://en-boca.com/">
+<link rel="alternate" hreflang="en" href="https://en-boca.com/">
+<link rel="alternate" hreflang="es" href="https://en-boca.com/es/">
+<link rel="alternate" hreflang="x-default" href="https://en-boca.com/">
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="En Boca de Todos Mexican Food, 703 S Terrell St, Midland TX. Breakfast and lunch: burritos, chilaquiles, guisados, café de olla, and weekend menudo and pozole. Call (432) 218-7078 to order.">
 <meta property="og:title" content="En Boca de Todos · Mexican Food · Midland, TX">
@@ -13,7 +16,7 @@
 <meta property="og:url" content="https://en-boca.com/">
 <meta property="og:image" content="https://en-boca.com/assets/video/hero-poster.webp">
 <meta name="theme-color" content="#141015">
-<link rel="icon" href="assets/logo.webp" type="image/webp">
+<link rel="icon" href="/assets/logo.webp" type="image/webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Yellowtail&family=Instrument+Sans:wght@400;500;600&display=swap">
@@ -44,7 +47,7 @@
     "https://maps.google.com/?cid=13181815553918891561",
     "https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/"
   ],
-  "hasMenu": "https://en-boca.com/#menu",
+  "hasMenu": "https://en-boca.com/menu",
   "openingHoursSpecification": [
     { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "06:00", "closes": "14:00" },
     { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "07:00", "closes": "14:00" }
@@ -195,7 +198,8 @@ p { margin: 0; }
 @media (min-width: 900px) {
   .hero-grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); padding-block: 0 72px; }
 }
-.hero h1 { line-height: .82; margin-block: 14px 22px; }
+.hero h1 { line-height: .82; margin-block: 0 22px; }
+.hero h1 .eyebrow { display: block; font-family: var(--body); line-height: 1.4; margin-bottom: 14px; }
 .hero h1 .script {
   display: block; font-family: var(--script); font-weight: 400;
   font-size: clamp(3.4rem, 10vw, 7rem); color: var(--rojo);
@@ -500,6 +504,11 @@ footer small { font-size: .82rem; }
   .hoy-list.many .show:not(:first-child) h3 { font-size: 2.2rem; }
 }
 @media (prefers-reduced-motion: reduce) { .show-photo img { transition: none; } }
+.sat-more { margin: -8px 0 22px; }
+.sat-more a { color: #FFD27A; font-weight: 600; }
+.foot-links { display: flex; flex-wrap: wrap; gap: .4em 1.2em; margin-bottom: 10px; font-size: .9rem; }
+.foot-links a { color: inherit; }
+html[lang="en"] .only-es, html[lang="es"] .only-en { display: none; }
 </style>
 </head>
 <body>
@@ -510,7 +519,7 @@ footer small { font-size: .82rem; }
   <div class="topbar">
     <div class="wrap">
       <a class="brand-mini" href="#top" aria-label="En Boca de Todos">
-        <img src="assets/logo.webp" alt="" width="44" height="44">
+        <img src="/assets/logo.webp" alt="" width="44" height="44">
         <span>En Boca de Todos</span>
       </a>
       <div class="lang" role="group" aria-label="Language / Idioma">
@@ -521,9 +530,9 @@ footer small { font-size: .82rem; }
   </div>
 
   <div class="hero-media" aria-hidden="true">
-    <video id="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-poster.webp">
-      <source src="assets/video/hero-480.mp4" type="video/mp4" media="(max-width: 700px)">
-      <source src="assets/video/hero-720.mp4" type="video/mp4">
+    <video id="hero-video" autoplay muted loop playsinline preload="auto" poster="/assets/video/hero-poster.webp">
+      <source src="/assets/video/hero-480.mp4" type="video/mp4" media="(max-width: 700px)">
+      <source src="/assets/video/hero-720.mp4" type="video/mp4">
     </video>
   </div>
 
@@ -531,8 +540,8 @@ footer small { font-size: .82rem; }
 
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow" data-i18n="eyebrow">Mexican Food · Midland, Texas</p>
       <h1>
+        <span class="eyebrow" data-i18n="eyebrow">Mexican Breakfast &amp; Lunch · Midland, Texas</span>
         <span class="script">En Boca</span>
         <span class="block">De Todos</span>
       </h1>
@@ -554,7 +563,7 @@ footer small { font-size: .82rem; }
           <circle cx="150" cy="150" r="148"/>
           <text><textPath href="#ring">Midland · Texas · 703 S Terrell St ·</textPath></text>
         </svg>
-        <img src="assets/logo.webp" alt="" width="440" height="440">
+        <img src="/assets/logo.webp" alt="" width="440" height="440">
       </div>
     </div>
   </div>
@@ -588,7 +597,7 @@ footer small { font-size: .82rem; }
         <p class="eyebrow" data-i18n="picksEyebrow">The house favorites</p>
         <h2 data-i18n-html="picksTitle">What everyone's <em>talking about</em></h2>
       </div>
-      <div class="picks" id="picks"></div>
+      <div class="picks" id="picks"><!--@picks--><article class="pick"><div class="pick-img"><img src="/assets/photos/huevos-divorciados.webp" alt="Huevos Divorciados" loading="lazy" width="820" height="820"></div><div class="pick-body"><h3>Huevos Divorciados</h3><p>Two fried eggs, one in salsa roja and one in salsa verde, with beans and potatoes.</p><div class="price"><small>$</small>13.99</div></div></article><article class="pick"><div class="pick-img"><img src="/assets/photos/tacos-al-pastor.webp" alt="Tacos al Pastor" loading="lazy" width="820" height="820"></div><div class="pick-body"><h3>Tacos al Pastor</h3><p>Four tacos with pineapple, onion and cilantro, plus charro beans and salsa.</p><div class="price"><small>$</small>15.99</div></div></article><article class="pick"><div class="pick-img"><img src="/assets/photos/relleno-plate.webp" alt="Relleno Plate" loading="lazy" width="820" height="820"></div><div class="pick-body"><h3>Relleno Plate</h3><p>Two chiles rellenos with salsa española, rice, beans and salad.</p><div class="price"><small>$</small>15.99</div></div></article><article class="pick"><div class="pick-img"><img src="/assets/photos/cafe-de-olla.webp" alt="Café de Olla" loading="lazy" width="820" height="820"></div><div class="pick-body"><h3>Café de Olla</h3><p>Piloncillo, cinnamon, cloves and star anise, served in a clay jarrito.</p><div class="price"><small>$</small>5.99</div></div></article><!--/@picks--></div>
     </div>
   </section>
 
@@ -606,7 +615,7 @@ footer small { font-size: .82rem; }
 
   <section class="menu-sec" id="menu" aria-labelledby="menu-title">
     <nav class="chips" aria-label="Menu sections">
-      <div class="wrap" id="chips"></div>
+      <div class="wrap" id="chips"><!--@chips--><a href="#cat-desayuno" data-cat="desayuno">Breakfast Plates</a><a href="#cat-dulce" data-cat="dulce">En Boca Favorites</a><a href="#cat-burritos-desayuno" data-cat="burritos-desayuno">Breakfast Burritos</a><a href="#cat-burritos" data-cat="burritos">Lunch Burritos</a><a href="#cat-tacos" data-cat="tacos">Tacos</a><a href="#cat-tortas" data-cat="tortas">Tortas</a><a href="#cat-comidas" data-cat="comidas">Lunch Plates</a><a href="#sabados" data-cat="sabado-menu">Weekend Soups</a><a href="#cat-ninos" data-cat="ninos">Kids Menu</a><a href="#cat-bebidas" data-cat="bebidas">Drinks</a><!--/@chips--></div>
     </nav>
     <div class="wrap sec">
       <div class="sec-head">
@@ -614,10 +623,11 @@ footer small { font-size: .82rem; }
         <h2 id="menu-title" data-i18n-html="menuTitle">The <em>menu</em></h2>
         <p data-i18n="menuSub">Tortillas, beans and salsa the way they're made back home. Every plate comes with your choice of one flour or three corn tortillas.</p>
       </div>
-      <div class="menu-cols" id="menu-cols"></div>
+      <div class="menu-cols" id="menu-cols"><!--@menu-cols--><div class="cat" id="cat-desayuno"><div class="cat-head"><h3>Breakfast Plates</h3><span class="alt">Desayunos</span></div><p class="cat-note">Served with beans, potatoes and your choice of (1) flour or (3) corn tortillas.</p><ul class="items"><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/bistec-eggs.webp" data-cap="Mexican Breakfast Plate" aria-label="Mexican Breakfast Plate"><img src="/assets/photos/bistec-eggs-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Mexican Breakfast Plate</span><span class="leader"></span><span class="item-price">$17.99</span></div><p class="item-desc">(2) eggs with a guisado</p></div></li><li><div class="item-row"><span class="item-name">Breakfast Plate</span><span class="leader"></span><span class="item-price">$13.99</span></div><p class="item-desc">(2) eggs with your choice of sausage, bacon or ham</p></li><li><div class="item-row"><span class="item-name">Omelette Plate</span><span class="leader"></span><span class="item-price">$14.99</span></div><p class="item-desc">Filled with your choice of cheese, bacon or ham</p></li><li><div class="item-row"><span class="item-name">Scrambled Egg Plate</span><span class="leader"></span><span class="item-price">$13.99</span></div><p class="item-desc">With chorizo, a la Mexicana, bacon or ham</p></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/chilaquiles-brisket.webp" data-cap="Chilaquiles" aria-label="Chilaquiles"><img src="/assets/photos/chilaquiles-brisket-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Chilaquiles</span><span class="leader"></span><span class="item-price">$12.99</span></div><p class="item-desc">Red, green or divorciados (half and half), topped with cheese, sour cream, onion and cilantro, with beans and potatoes</p></div></li><li><div class="item-row"><span class="item-name">Migas Plate</span><span class="leader"></span><span class="item-price">$13.99</span></div><p class="item-desc">(2) eggs scrambled with corn tortillas, a la Mexicana if you like</p></li><li><div class="item-row"><span class="item-name">Machaca Plate</span><span class="leader"></span><span class="item-price">$14.99</span></div><p class="item-desc">(2) eggs scrambled with shredded beef jerky, a la Mexicana if you like</p></li><li><div class="item-row"><span class="item-name">Tamal Plate</span><span class="leader"></span><span class="item-price">$14.99</span></div><p class="item-desc">(2) tamales with (2) eggs</p></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/huevos-rancheros.webp" data-cap="Huevos Rancheros" aria-label="Huevos Rancheros"><img src="/assets/photos/huevos-rancheros-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Huevos Rancheros</span><span class="leader"></span><span class="item-price">$13.99</span></div><p class="item-desc">(2) fried eggs on a lightly fried corn tortilla, smothered in salsa</p></div></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/huevos-divorciados.webp" data-cap="Huevos Divorciados" aria-label="Huevos Divorciados"><img src="/assets/photos/huevos-divorciados-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Huevos Divorciados</span><span class="leader"></span><span class="item-price">$13.99</span></div><p class="item-desc">(2) fried eggs on a corn tortilla, one in green salsa and one in red</p></div></li><li><div class="item-row"><span class="item-name">Molletes</span><span class="leader"></span><span class="item-price">$7.99</span></div><p class="item-desc">Toasted bolillo topped with refried beans and melted cheese. Extra toppings available</p></li><li><div class="item-row"><span class="item-name">Avocado Toast</span><span class="leader"></span><span class="item-price">$6.99</span></div><p class="item-desc">Fresh avocado on (1) slice of toasted bread. Add an egg +$1.99 or bacon +$1.99</p></li></ul><p class="extras"><b>Extras</b>Chilaquiles: add (1) egg +$1.99 · chicken, chicken fajita, beef fajita, bistec, ground beef or brisket +$5.99</p></div><div class="cat" id="cat-dulce"><div class="cat-head"><h3>En Boca Favorites</h3><span class="alt">Favoritos de En Boca</span></div><ul class="items"><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/pancakes-plate.webp" data-cap="Pancakes (2)" aria-label="Pancakes (2)"><img src="/assets/photos/pancakes-plate-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Pancakes (2)</span><span class="leader"></span><span class="item-price">$6.99</span></div></div></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/avena.webp" data-cap="Oatmeal (Avena)" aria-label="Oatmeal (Avena)"><img src="/assets/photos/avena-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Oatmeal (Avena)</span><span class="leader"></span><span class="item-price">$7.99</span></div><p class="item-desc">Side of fruit +$3.75</p></div></li><li><div class="item-row"><span class="item-name">Arroz con Leche</span><span class="leader"></span><span class="item-price">$7.99</span></div><p class="item-desc">Rice pudding</p></li></ul></div><div class="cat" id="cat-burritos-desayuno"><div class="cat-head"><h3>Breakfast Burritos</h3><span class="alt">Burritos de Desayuno</span></div><ul class="items"><li><div class="item-row"><span class="item-name">Breakfast Burrito</span><span class="leader"></span><span class="item-price">$5.99</span></div><p class="item-desc">(2) eggs with your choice of bacon, ham, sausage, spam or chorizo</p></li></ul><p class="extras"><b>Extras</b>Beans, cheese or potatoes +50¢ · avocado +$1.50 · guisado +$1.50</p></div><div class="cat" id="cat-burritos"><div class="cat-head"><h3>Lunch Burritos</h3><span class="alt">guisados</span></div><ul class="items"><li><div class="item-row"><span class="item-name">Asado</span><span class="leader"></span><span class="item-price">$6.99</span></div></li><li><div class="item-row"><span class="item-name">Chile Verde</span><span class="leader"></span><span class="item-price">$6.99</span></div></li><li><div class="item-row"><span class="item-name">Chile Colorado</span><span class="leader"></span><span class="item-price">$6.99</span></div></li><li><div class="item-row"><span class="item-name">Arriero</span><span class="leader"></span><span class="item-price">$7.99</span></div></li><li><div class="item-row"><span class="item-name">Mole</span><span class="leader"></span><span class="item-price">$6.99</span></div></li><li><div class="item-row"><span class="item-name">Chicharrón</span><span class="leader"></span><span class="item-price">$6.99</span></div></li><li><div class="item-row"><span class="item-name">Bistec</span><span class="leader"></span><span class="item-price">$7.99</span></div></li><li><div class="item-row"><span class="item-name">Rajas</span><span class="leader"></span><span class="item-price">$7.99</span></div></li><li><div class="item-row"><span class="item-name">Chile Relleno</span><span class="leader"></span><span class="item-price">$7.99</span></div></li><li><div class="item-row"><span class="item-name">Barbacoa</span><span class="leader"></span><span class="item-price">$7.99</span></div></li><li><div class="item-row"><span class="item-name">Combination</span><span class="leader"></span><span class="item-price">$7.99</span></div></li><li><div class="item-row"><span class="item-name">Beef / Chicken Fajita</span><span class="leader"></span><span class="item-price">$8.99</span></div></li><li><div class="item-row"><span class="item-name">Brisket</span><span class="leader"></span><span class="item-price">$8.99</span></div></li><li><div class="item-row"><span class="item-name">Big Dave's Burrito</span><span class="leader"></span><span class="item-price">$8.99</span></div><p class="item-desc">Ground beef, beans, roasted Anaheim peppers and shredded cheese</p></li></ul><p class="extras"><b>Extras</b>Beans, cheese or potatoes +50¢ · avocado +$1.50 · guisado +$1.50</p></div><div class="cat" id="cat-tacos"><div class="cat-head"><h3>Tacos</h3></div><p class="cat-note">(4) tacos with charro beans, onion, cilantro, lime and salsa.</p><ul class="items"><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/tacos-al-pastor.webp" data-cap="Al Pastor" aria-label="Al Pastor"><img src="/assets/photos/tacos-al-pastor-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Al Pastor</span><span class="leader"></span><span class="item-price">$15.99</span></div></div></li><li><div class="item-row"><span class="item-name">Barbacoa</span><span class="leader"></span><span class="item-price">$15.99</span></div></li><li><div class="item-row"><span class="item-name">Bistec</span><span class="leader"></span><span class="item-price">$15.99</span></div></li></ul></div><div class="cat" id="cat-tortas"><div class="cat-head"><h3>Tortas</h3></div><p class="cat-note">With lettuce or cabbage, tomato, avocado, onion and cilantro, and a side of fries.</p><ul class="items"><li><div class="item-row"><span class="item-name">Al Pastor</span><span class="leader"></span><span class="item-price">$15.99</span></div></li><li><div class="item-row"><span class="item-name">Barbacoa</span><span class="leader"></span><span class="item-price">$15.99</span></div></li><li><div class="item-row"><span class="item-name">Bistec</span><span class="leader"></span><span class="item-price">$15.99</span></div></li><li><div class="item-row"><span class="item-name">Brisket</span><span class="leader"></span><span class="item-price">$15.99</span></div></li><li><div class="item-row"><span class="item-name">Jamón</span><span class="leader"></span><span class="item-price">$13.99</span></div><p class="item-desc">Ham</p></li></ul></div><div class="cat" id="cat-comidas"><div class="cat-head"><h3>Lunch Plates</h3><span class="alt">Platos de Comida</span></div><p class="cat-note">Served with beans, rice, salad and your choice of (1) flour or (3) corn tortillas.</p><ul class="items"><li><div class="item-row"><span class="item-name">En Boca Plate</span><span class="leader"></span><span class="item-price">$17.99</span></div><p class="item-desc">(1) chile relleno, (1) crispy taco and (2) cheese enchiladas, red or green</p></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/taco-plate.webp" data-cap="Taco Plate" aria-label="Taco Plate"><img src="/assets/photos/taco-plate-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Taco Plate</span><span class="leader"></span><span class="item-price">$12.99</span></div><p class="item-desc">(3) crispy ground beef tacos with lettuce, tomato and cheese</p></div></li><li><div class="item-row"><span class="item-name">Brisket Taco Plate</span><span class="leader"></span><span class="item-price">$14.99</span></div><p class="item-desc">(3) grilled brisket tacos</p></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/enchiladas-verdes.webp" data-cap="Enchiladas Plate" aria-label="Enchiladas Plate"><img src="/assets/photos/enchiladas-verdes-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Enchiladas Plate</span><span class="leader"></span><span class="item-price">$13.99</span></div><p class="item-desc">(3) cheese enchiladas, red or green. Make them (4) divorciadas, 2 green and 2 red, +$1.99. Chicken, ground beef, bistec or brisket +$2.99</p></div></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/relleno-plate.webp" data-cap="Relleno Plate" aria-label="Relleno Plate"><img src="/assets/photos/relleno-plate-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Relleno Plate</span><span class="leader"></span><span class="item-price">$15.99</span></div><p class="item-desc">(2) chiles rellenos, cheese or ground beef (+$1.99), with salsa española</p></div></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/flautas.webp" data-cap="Flautas Plate" aria-label="Flautas Plate"><img src="/assets/photos/flautas-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Flautas Plate</span><span class="leader"></span><span class="item-price">$13.99</span></div><p class="item-desc">(4) beef or chicken flautas with sour cream, salsa and guacamole</p></div></li><li><div class="item-row"><span class="item-name">Fajita Plate</span><span class="leader"></span><span class="item-price">$17.99</span></div><p class="item-desc">Chicken, beef or both, with guacamole and sour cream</p></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/chile-colorado.webp" data-cap="Lunch Plate" aria-label="Lunch Plate"><img src="/assets/photos/chile-colorado-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Lunch Plate</span><span class="leader"></span><span class="item-price">$14.99</span></div><p class="item-desc">Your choice of guisado</p></div></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/fiesta-brisket.webp" data-cap="Fiesta Brisket Plate" aria-label="Fiesta Brisket Plate"><img src="/assets/photos/fiesta-brisket-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Fiesta Brisket Plate</span><span class="leader"></span><span class="item-price">$17.99</span></div><p class="item-desc">With a side of rice and beans</p></div></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/quesadillas.webp" data-cap="Quesadilla Plate" aria-label="Quesadilla Plate"><img src="/assets/photos/quesadillas-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Quesadilla Plate</span><span class="leader"></span><span class="item-price">$14.99</span></div><p class="item-desc">Ground beef or chicken fajita, with sour cream and guacamole</p></div></li><li><div class="item-row"><span class="item-name">Nachos Supreme</span><span class="leader"></span><span class="item-price">$14.99</span></div><p class="item-desc">Chips with cheese sauce, beans, ground beef, lettuce, tomato, guacamole and sour cream. Swap in fajita, brisket or bistec +$1.99</p></li></ul></div><div class="cat" id="cat-sabado-menu"><div class="cat-head"><h3>Weekend Soups<span class="tag-sat">Fri–Sun</span></h3><span class="alt">Caldos de Fin de Semana</span></div><ul class="items"><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/menudo.webp" data-cap="Menudo" aria-label="Menudo"><img src="/assets/photos/menudo-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Menudo</span><span class="leader"></span><span class="item-price">$17.99</span></div></div></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/caldo-de-res.webp" data-cap="Caldo de Res" aria-label="Caldo de Res"><img src="/assets/photos/caldo-de-res-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Caldo de Res</span><span class="leader"></span><span class="item-price">$18.99</span></div><p class="item-desc">Saturday and Sunday only</p></div></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/pozole.webp" data-cap="Pozole, Red or Green" aria-label="Pozole, Red or Green"><img src="/assets/photos/pozole-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Pozole, Red or Green</span><span class="leader"></span><span class="item-price">$17.99</span></div></div></li></ul></div><div class="cat" id="cat-ninos"><div class="cat-head"><h3>Kids Menu</h3><span class="alt">Menú Infantil</span></div><p class="cat-note">Drink included: chocolate milk or orange juice.</p><ul class="items"><li><div class="item-row"><span class="item-name">Mini Pancakes Plate</span><span class="leader"></span><span class="item-price">$9.99</span></div><p class="item-desc">With (1) egg, ham or bacon</p></li><li><div class="item-row"><span class="item-name">Cheese Quesadilla &amp; Fries</span><span class="leader"></span><span class="item-price">$9.99</span></div></li><li><div class="item-row"><span class="item-name">Chicken Nuggets &amp; Fries</span><span class="leader"></span><span class="item-price">$9.99</span></div></li></ul></div><div class="cat" id="cat-bebidas"><div class="cat-head"><h3>Drinks</h3><span class="alt">Bebidas</span></div><ul class="items"><li><div class="item-row"><span class="item-name">Coffee</span><span class="leader"></span><span class="item-price">$3.99</span></div></li><li class="has-img"><button class="thumb" type="button" data-src="/assets/photos/cafe-de-olla.webp" data-cap="Café de Olla" aria-label="Café de Olla"><img src="/assets/photos/cafe-de-olla-sm.webp" alt="" loading="lazy" width="300" height="300"></button><div><div class="item-row"><span class="item-name">Café de Olla</span><span class="leader"></span><span class="item-price">$5.99</span></div><p class="item-desc">Coffee sweetened with piloncillo and spiced with cinnamon, cloves and star anise. Refill $2.99</p></div></li><li><div class="item-row"><span class="item-name">Hot Chocolate</span><span class="leader"></span><span class="item-price">$3.99</span></div></li><li><div class="item-row"><span class="item-name">Tea</span><span class="leader"></span><span class="item-price">$3.99</span></div><p class="item-desc">Sweet or unsweet</p></li><li><div class="item-row"><span class="item-name">Can Soda</span><span class="leader"></span><span class="item-price">$2.99</span></div></li><li><div class="item-row"><span class="item-name">Mexican Soda</span><span class="leader"></span><span class="item-price">$4.99</span></div></li><li><div class="item-row"><span class="item-name">Aguas Frescas</span><span class="leader"></span><span class="item-price">$4.99</span></div></li></ul></div><!--/@menu-cols--></div>
       <div class="menu-foot">
         <span data-i18n="menuFoot">Prices are subject to change. Call to confirm today's guisados.</span>
-        <a href="assets/menu-original.jpg" target="_blank" rel="noopener" data-i18n="menuPrint">View the printed menu</a>
+        <a href="/menu" data-i18n="menuPage">Full menu page</a>
+        <a href="/assets/menu-original.jpg" target="_blank" rel="noopener" data-i18n="menuPrint">View the printed menu</a>
       </div>
     </div>
   </section>
@@ -630,7 +640,8 @@ footer small { font-size: .82rem; }
         <p data-i18n="satSub">Slow-simmered soups that only come out Friday through Sunday. Come early. When the pot is empty, it's gone until next week.</p>
         <span class="sat-flag" id="sat-flag" hidden></span>
       </div>
-      <div class="loteria" id="loteria"></div>
+      <p class="sat-more"><a href="/menudo-midland" data-i18n="satMore">More about our menudo, pozole and caldo</a></p>
+      <div class="loteria" id="loteria"><!--@loteria--><article class="carta" style="--tilt:-2deg"><div class="carta-in"><div class="carta-top"><span>Fri–Sun</span><span class="p">$17.99</span></div><div class="carta-art"><img src="/assets/photos/menudo.webp" alt="El Menudo" loading="lazy" width="820" height="820"></div><h3>El Menudo</h3><p>Beef tripe and hominy in red chile broth, with onion, lime and bolillo.</p></div></article><article class="carta" style="--tilt:1.5deg"><div class="carta-in"><div class="carta-top"><span>Sat–Sun</span><span class="p">$18.99</span></div><div class="carta-art"><img src="/assets/photos/caldo-de-res.webp" alt="El Caldo de Res" loading="lazy" width="820" height="820"></div><h3>El Caldo de Res</h3><p>Beef, corn on the cob, squash and carrots, with rice and tortillas. Saturday and Sunday only.</p></div></article><article class="carta" style="--tilt:-1deg"><div class="carta-in"><div class="carta-top"><span>Fri–Sun</span><span class="p">$17.99</span></div><div class="carta-art"><img src="/assets/photos/pozole.webp" alt="El Pozole" loading="lazy" width="820" height="820"></div><h3>El Pozole</h3><p>Red or green, topped with radish, cilantro and cabbage.</p></div></article><!--/@loteria--></div>
     </div>
   </section>
 
@@ -641,7 +652,7 @@ footer small { font-size: .82rem; }
         <h2 data-i18n-html="galTitle">Hungry <em>yet?</em></h2>
         <p data-i18n="galSub">Real plates, photographed at our tables on Terrell St. Tap any photo to see it bigger.</p>
       </div>
-      <div class="gallery" id="gallery"></div>
+      <div class="gallery" id="gallery"><!--@gallery--><button class="tile big" type="button" data-src="/assets/photos/fiesta-brisket.webp" data-cap="Fiesta Brisket Plate"><img src="/assets/photos/fiesta-brisket.webp" alt="Fiesta Brisket Plate" loading="lazy" width="820" height="820"><span>Fiesta Brisket Plate</span></button><button class="tile" type="button" data-src="/assets/photos/huevos-rancheros.webp" data-cap="Huevos Rancheros"><img src="/assets/photos/huevos-rancheros-sm.webp" alt="Huevos Rancheros" loading="lazy" width="820" height="820"><span>Huevos Rancheros</span></button><button class="tile" type="button" data-src="/assets/photos/enchiladas-verdes.webp" data-cap="Enchiladas Verdes"><img src="/assets/photos/enchiladas-verdes-sm.webp" alt="Enchiladas Verdes" loading="lazy" width="820" height="820"><span>Enchiladas Verdes</span></button><button class="tile" type="button" data-src="/assets/photos/taco-plate.webp" data-cap="Crispy Taco Plate"><img src="/assets/photos/taco-plate-sm.webp" alt="Crispy Taco Plate" loading="lazy" width="820" height="820"><span>Crispy Taco Plate</span></button><button class="tile" type="button" data-src="/assets/photos/flautas.webp" data-cap="Flautas Plate"><img src="/assets/photos/flautas-sm.webp" alt="Flautas Plate" loading="lazy" width="820" height="820"><span>Flautas Plate</span></button><button class="tile big" type="button" data-src="/assets/photos/chilaquiles-brisket.webp" data-cap="Chilaquiles Verdes with Brisket"><img src="/assets/photos/chilaquiles-brisket.webp" alt="Chilaquiles Verdes with Brisket" loading="lazy" width="820" height="820"><span>Chilaquiles Verdes with Brisket</span></button><button class="tile" type="button" data-src="/assets/photos/pancakes-plate.webp" data-cap="Pancakes, Eggs &amp; Bacon"><img src="/assets/photos/pancakes-plate-sm.webp" alt="Pancakes, Eggs &amp; Bacon" loading="lazy" width="820" height="820"><span>Pancakes, Eggs &amp; Bacon</span></button><button class="tile" type="button" data-src="/assets/photos/quesadillas.webp" data-cap="Quesadilla Plate"><img src="/assets/photos/quesadillas-sm.webp" alt="Quesadilla Plate" loading="lazy" width="820" height="820"><span>Quesadilla Plate</span></button><button class="tile" type="button" data-src="/assets/photos/enchiladas-rojas.webp" data-cap="Enchiladas Rojas"><img src="/assets/photos/enchiladas-rojas-sm.webp" alt="Enchiladas Rojas" loading="lazy" width="820" height="820"><span>Enchiladas Rojas</span></button><button class="tile" type="button" data-src="/assets/photos/avena.webp" data-cap="Avena"><img src="/assets/photos/avena-sm.webp" alt="Avena" loading="lazy" width="820" height="820"><span>Avena</span></button><!--/@gallery--></div>
       <div class="gallery-foot">
         <a class="btn btn-ghost" href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.9c0-.9.3-1.5 1.6-1.5h1.7V4.6a22 22 0 0 0-2.5-.1c-2.4 0-4.1 1.5-4.1 4.2v2.3H7.5V14h2.7v8z"/></svg>
@@ -659,7 +670,7 @@ footer small { font-size: .82rem; }
       <div class="visit-grid">
         <div class="panel">
           <h3 data-i18n="hoursTitle">Hours</h3>
-          <table class="hours"><tbody id="hours"></tbody></table>
+          <table class="hours"><tbody id="hours"><!--@hours--><tr class="closed"><td>Monday</td><td>Closed</td></tr><tr><td>Tuesday</td><td>6:00 AM – 2:00 PM</td></tr><tr><td>Wednesday</td><td>6:00 AM – 2:00 PM</td></tr><tr><td>Thursday</td><td>6:00 AM – 2:00 PM</td></tr><tr><td>Friday</td><td>6:00 AM – 2:00 PM</td></tr><tr><td>Saturday</td><td>6:00 AM – 2:00 PM</td></tr><tr><td>Sunday</td><td>7:00 AM – 2:00 PM</td></tr><!--/@hours--></tbody></table>
         </div>
         <div class="panel">
           <h3 data-i18n="orderTitle">Order by phone</h3>
@@ -671,7 +682,7 @@ footer small { font-size: .82rem; }
             <span data-i18n="fbFollow">Daily specials and closures on Facebook</span></a>
         </div>
         <div class="panel">
-          <div class="panel-photo"><img src="assets/photos/street-sign.webp" alt="The En Boca de Todos sign on a pole outside the restaurant" width="1200" height="515" loading="lazy"></div>
+          <div class="panel-photo"><img src="/assets/photos/street-sign.webp" alt="The En Boca de Todos sign on a pole outside the restaurant" width="1200" height="515" loading="lazy"></div>
           <h3 data-i18n="findTitle">Find us</h3>
           <p class="addr">703 S Terrell St<br>Midland, TX 79701</p>
           <p class="note" data-i18n="findNote">Look for our sign on Terrell St, south of downtown Midland.</p>
@@ -687,9 +698,12 @@ footer small { font-size: .82rem; }
 <footer>
   <div class="wrap">
     <div class="foot-brand">
-      <img src="assets/logo.webp" alt="En Boca de Todos logo" width="64" height="64">
+      <img src="/assets/logo.webp" alt="En Boca de Todos logo" width="64" height="64">
       <div><b>En Boca de Todos</b><small data-i18n="footTag">Mexican Food · 703 S Terrell St · Midland, TX</small></div>
     </div>
+    <nav class="foot-links" aria-label="More pages">
+      <a href="/menu" data-i18n="navMenu">Full menu</a><a href="/menudo-midland" data-i18n="navMenudo">Menudo &amp; pozole</a><a href="/cafe-de-olla-midland" data-i18n="navCafe">Café de olla</a><a href="/breakfast-burritos-midland" data-i18n="navBurritos">Breakfast burritos</a><a href="/es/" hreflang="es" lang="es" class="only-en">Español</a><a href="/" hreflang="en" lang="en" class="only-es">English</a>
+    </nav>
     <small><a href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener">Facebook</a> · <span data-i18n="footNote">© 2026 En Boca de Todos. Website by OSO Optimization.</span></small>
   </div>
 </footer>
@@ -710,10 +724,11 @@ footer small { font-size: .82rem; }
 (function () {
   "use strict";
 
+  /* @data:start (read by scripts/build-seo.mjs) */
   /* ---------- Copy ---------- */
   var T = {
     en: {
-      eyebrow: "Mexican Food · Midland, Texas",
+      eyebrow: "Mexican Breakfast & Lunch · Midland, Texas",
       lead: "Our name means <strong>on everyone's lips</strong>. Breakfast burritos from 6 a.m., guisados, chilaquiles divorciados and café de olla, made the way it's made at home.",
       ctaMenu: "See the menu", ctaCall: "Call to order",
       fact1: "Breakfast and lunch burritos", fact2b: "6 a.m.", fact2: "Doors open Tuesday to Saturday",
@@ -721,7 +736,8 @@ footer small { font-size: .82rem; }
       picksEyebrow: "The house favorites", picksTitle: "What everyone's <em>talking about</em>",
       menuEyebrow: "Breakfast & lunch · Tuesday to Sunday", menuTitle: "The <em>menu</em>",
       menuSub: "Tortillas, beans and salsa the way they're made back home. Every plate comes with your choice of one flour or three corn tortillas.",
-      menuFoot: "Prices are subject to change. Call to confirm today's guisados.", menuPrint: "View the printed menu",
+      menuFoot: "Prices are subject to change. Call to confirm today's guisados.", menuPrint: "View the printed menu", menuPage: "Full menu page",
+      satMore: "More about our menudo, pozole and caldo", navMenu: "Full menu", navMenudo: "Menudo & pozole", navCafe: "Café de olla", navBurritos: "Breakfast burritos",
       satEyebrow: "Friday to Sunday", satTitle: "The weekend <em>pot</em>",
       satSub: "Slow-simmered soups that only come out Friday through Sunday. Come early. When the pot is empty, it's gone until next week.",
       satToday: "It's the weekend. The pot is on.", satNext: "Next pot: this Friday",
@@ -743,7 +759,7 @@ footer small { font-size: .82rem; }
       time: function (h) { return (h % 12 || 12) + ":00 " + (h < 12 ? "AM" : "PM"); }
     },
     es: {
-      eyebrow: "Comida Mexicana · Midland, Texas",
+      eyebrow: "Desayuno y Comida Mexicana · Midland, Texas",
       lead: "Nuestro nombre lo dice todo: estamos <strong>en boca de todos</strong>. Burritos de desayuno desde las 6 a.m., guisados, chilaquiles divorciados y café de olla, hechos como en casa.",
       ctaMenu: "Ver el menú", ctaCall: "Llama para ordenar",
       fact1: "Burritos de desayuno y comida", fact2b: "6 a.m.", fact2: "Abrimos de martes a sábado",
@@ -751,7 +767,8 @@ footer small { font-size: .82rem; }
       picksEyebrow: "Los favoritos de la casa", picksTitle: "Lo que está <em>en boca de todos</em>",
       menuEyebrow: "Desayuno y comida · martes a domingo", menuTitle: "El <em>menú</em>",
       menuSub: "Tortillas, frijoles y salsa como en casa. Todos los platos vienen con una tortilla de harina o tres de maíz, a tu gusto.",
-      menuFoot: "Los precios pueden cambiar. Llama para saber los guisados del día.", menuPrint: "Ver el menú impreso",
+      menuFoot: "Los precios pueden cambiar. Llama para saber los guisados del día.", menuPrint: "Ver el menú impreso", menuPage: "Página del menú",
+      satMore: "Más sobre nuestro menudo, pozole y caldo", navMenu: "Menú completo", navMenudo: "Menudo y pozole", navCafe: "Café de olla", navBurritos: "Burritos de desayuno",
       satEyebrow: "De viernes a domingo", satTitle: "La olla del <em>fin de semana</em>",
       satSub: "Caldos de cocción lenta que solo salen de viernes a domingo. Llega temprano: cuando se acaba la olla, hasta la próxima semana.",
       satToday: "Es fin de semana. La olla ya está lista.", satNext: "Próxima olla: este viernes",
@@ -890,8 +907,12 @@ footer small { font-size: .82rem; }
   /* Hours: 0 = Sunday. [open, close] in 24h, America/Chicago. */
   var HOURS = { 0: [7, 14], 1: null, 2: [6, 14], 3: [6, 14], 4: [6, 14], 5: [6, 14], 6: [6, 14] };
 
+  /* @data:end */
+
   var lang = "en";
-  try {
+  var onEs = /^\/es(\/|$)/.test(location.pathname);
+  if (onEs) lang = "es";
+  else try {
     var saved = localStorage.getItem("ebdt-lang");
     if (saved === "en" || saved === "es") lang = saved;
     else if ((navigator.language || "").toLowerCase().indexOf("es") === 0) lang = "es";
@@ -903,7 +924,7 @@ footer small { font-size: .82rem; }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function pick(obj) { return obj ? (obj[lang] || obj.en || "") : ""; }
 
-  function photo(name, size) { return "assets/photos/" + name + (size === "sm" ? "-sm" : "") + ".webp"; }
+  function photo(name, size) { return "/assets/photos/" + name + (size === "sm" ? "-sm" : "") + ".webp"; }
 
   function renderPicks() {
     document.getElementById("picks").innerHTML = PICKS.map(function (x) {

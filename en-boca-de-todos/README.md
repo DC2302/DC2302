@@ -37,6 +37,7 @@ the original full-size files before launch.
 - **House favorites:** the `PICKS` array. Swap in the restaurant's real best sellers.
 - **Weekend soups:** the `SAT` array (`days` overrides the Fri–Sun label on a card).
 - **Page text:** the `T.en` / `T.es` objects.
+- **After any of the edits above, run `node scripts/build-seo.mjs`** and commit what it writes. It puts the menu, favorites, weekend pot, gallery and hours into `index.html` as plain HTML (between the `<!--@id-->` markers) so Google reads them without running JavaScript. It also rebuilds the Spanish page `es/index.html`, the `/menu` page (with Menu schema), the dish pages (`/menudo-midland`, `/cafe-de-olla-midland`, `/breakfast-burritos-midland`) and `sitemap.xml`. Don't edit those generated files by hand.
 
 ## Open items for the owner
 
