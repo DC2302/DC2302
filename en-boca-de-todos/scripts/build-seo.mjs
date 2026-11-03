@@ -147,6 +147,7 @@ function page({ slug, title, description, h1, eyebrow, body, schema = [], image 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Instrument+Sans:wght@400;500;600&display=swap">
 ${ld.map((x) => `<script type="application/ld+json">${JSON.stringify(x)}</script>`).join("\n")}
+<script>try{var t=localStorage.getItem("ebdt-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <style>
 :root { --paper:#FBF9F8; --ink:#1A1418; --muted:#6C6168; --line:#E7DFE1; --rojo:#CE1126; --rojo-ink:#B10E20; --night:#141015; --night-fg:#F8F2EF; --night-muted:#C2B5BB; --gold:#F2A21B;
   --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif; --body:"Instrument Sans","Segoe UI",system-ui,sans-serif; }
