@@ -1,0 +1,22 @@
+# En Boca de Todos Mexican Food
+
+> Family-run Mexican restaurant at 703 S Terrell St, Midland, Texas 79701, serving breakfast and lunch. Known for breakfast burritos from 6 a.m., chilaquiles, guisados, café de olla served in a clay jarrito, and menudo and pozole on weekends. Order by phone: (432) 218-7078 or (432) 218-7079.
+
+Hours (Central time): Tuesday to Saturday 6 AM to 2 PM; Sunday 7 AM to 2 PM; closed Monday.
+Weekend soups: menudo and pozole Friday to Sunday; caldo de res Saturday and Sunday.
+Rated 4.5 stars on Google. The website is in English and Spanish.
+
+## Pages
+
+- [Home](https://en-boca.com/): menu, house favorites, weekend soups, hours, directions and Google reviews
+- [Inicio en español](https://en-boca.com/es/): the same page in Spanish
+- [Full menu with prices](https://en-boca.com/menu)
+- [Menudo in Midland](https://en-boca.com/menudo-midland): the weekend pot, Friday to Sunday
+- [Café de olla in Midland](https://en-boca.com/cafe-de-olla-midland)
+- [Breakfast burritos in Midland](https://en-boca.com/breakfast-burritos-midland)
+
+## Contact
+
+- Phone: (432) 218-7078
+- Address: 703 S Terrell St, Midland, TX 79701
+- Google Maps: https://maps.google.com/?cid=13181815553918891561

@@ -104,7 +104,7 @@ const swap = (from, to) => { if (!es.includes(from)) throw new Error("es: not fo
 const dataStart = es.indexOf("/* @data:start");
 es = applyStrings(es.slice(0, dataStart), T.es) + es.slice(dataStart); // leave the script's own strings alone
 swap('<html lang="en">', '<html lang="es">');
-swap('<title>En Boca de Todos Mexican Food · Breakfast &amp; Lunch in Midland, TX</title>',
+swap('<title>Mexican Breakfast &amp; Lunch, Midland TX · En Boca de Todos</title>',
   '<title>En Boca de Todos · Desayuno y Comida Mexicana en Midland, TX</title>');
 es = es.replace(/<meta name="description" content="[^"]*">/,
   '<meta name="description" content="En Boca de Todos, comida mexicana en 703 S Terrell St, Midland TX. Desayunos y comidas: burritos, chilaquiles, guisados, café de olla, y menudo y pozole los fines de semana. Llama al (432) 218-7078 para ordenar.">');
@@ -123,7 +123,10 @@ const hoursList = (lang) => '<table class="hours"><tbody>' + hoursRows(lang) + '
 const restaurantRef = { "@type": "Restaurant", "@id": SITE + "/#restaurant", name: "En Boca de Todos Mexican Food", url: SITE + "/", telephone: "+1-432-218-7078",
   address: { "@type": "PostalAddress", streetAddress: "703 S Terrell St", addressLocality: "Midland", addressRegion: "TX", postalCode: "79701", addressCountry: "US" } };
 
-function page({ slug, title, description, h1, eyebrow, body, schema = [], image = "/assets/video/hero-poster.webp", crumb }) {
+const GA_TAG = index.slice(index.indexOf("<!-- Google Analytics 4"), index.indexOf("</script>", index.indexOf("gtag(\"config\"")) + 9);
+if (!GA_TAG.includes("G-YJKHKPLM5F")) throw new Error("GA4 tag not found in index.html");
+
+function page({ slug, title, description, h1, eyebrow, body, schema = [], image = "/assets/video/hero-poster.webp", crumb, robots }) {
   const url = SITE + "/" + slug;
   const ld = [{ "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [
     { "@type": "ListItem", position: 1, name: "En Boca de Todos", item: SITE + "/" },
@@ -133,7 +136,8 @@ function page({ slug, title, description, h1, eyebrow, body, schema = [], image 
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(title)}</title>
+${GA_TAG}
+${robots ? `<meta name="robots" content="${robots}">\n` : ""}<title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${url}">
 <meta property="og:title" content="${esc(title)}">
@@ -163,7 +167,7 @@ header.top .wrap { display:flex; flex-wrap:wrap; align-items:center; justify-con
 .brand { display:flex; align-items:center; gap:10px; color:var(--night-fg); text-decoration:none; font:900 1.25rem/1 var(--display); text-transform:uppercase; letter-spacing:.02em; }
 .brand img { width:40px; height:40px; }
 header.top nav { display:flex; flex-wrap:wrap; gap:6px 16px; font-size:.92rem; }
-header.top nav a { color: var(--night-muted); text-decoration:none; }
+header.top nav a { color: var(--night-muted); text-decoration:none; display:inline-block; padding-block:6px; }
 header.top nav a:hover, header.top nav a[aria-current] { color: var(--night-fg); text-decoration: underline; }
 .hero { background: var(--night); color: var(--night-fg); padding: 28px 0 40px; }
 .eyebrow { font-size:.78rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#F7C6D2; margin:0 0 8px; }
@@ -193,7 +197,8 @@ ul.menu p { margin: 2px 0 0; color: var(--muted); font-size: .95rem; }
 .cat-note, .extras { color: var(--muted); font-size: .95rem; }
 .es { border-left: 4px solid var(--gold); padding-left: 14px; }
 footer { background: var(--night); color: var(--night-muted); padding: 28px 0 40px; font-size: .9rem; }
-footer a { color: var(--night-fg); }
+footer a { color: var(--night-fg); display:inline-block; padding-block:4px; }
+.cat h2 { font:800 1.35rem/1.2 var(--body); text-transform:none; margin:0 0 6px; }
 </style>
 </head>
 <body>
@@ -217,7 +222,7 @@ ${body.main}
 </main>
 <footer><div class="wrap">
   <p><b>En Boca de Todos Mexican Food</b> · 703 S Terrell St · Midland, TX 79701 · <a href="tel:+14322187078">(432) 218-7078</a></p>
-  <p><a href="/">Home</a> · <a href="/menu">Full menu</a> · <a href="/es/" hreflang="es" lang="es">Español</a> · <a href="${FB}" target="_blank" rel="noopener">Facebook</a></p>
+  <p><a href="/">Home</a> · <a href="/menu">Full menu</a> · <a href="/es/" hreflang="es" lang="es">Español</a> · <a href="${FB}" target="_blank" rel="noopener">Facebook</a> · <a href="/privacy">Privacy</a></p>
   <p>© 2026 En Boca de Todos. Website by OSO Optimization.</p>
 </div></footer>
 </body>
@@ -233,7 +238,7 @@ const menuSchema = { "@type": "Menu", "@id": SITE + "/menu#menu", name: "En Boca
   hasMenuSection: MENU.map((c) => ({ "@type": "MenuSection", name: c.en, ...(c.note ? { description: c.note.en } : {}),
     hasMenuItem: c.items.map((it) => ({ "@type": "MenuItem", name: it.n, ...(it.en && it.en !== it.n ? { description: it.en } : {}),
       offers: { "@type": "Offer", price: it.p.toFixed(2), priceCurrency: "USD" } })) })) };
-const menuHtml = MENU.map((c) => `<div class="cat" id="${c.id}"><h3>${esc(c.en)}${c.es !== c.en ? ` <span class="muted">· ${esc(c.es)}</span>` : ""}</h3>` +
+const menuHtml = MENU.map((c) => `<div class="cat" id="${c.id}"><h2>${esc(c.en)}${c.es !== c.en ? ` <span class="muted">· ${esc(c.es)}</span>` : ""}</h2>` +
   (c.note ? `<p class="cat-note">${esc(c.note.en)}</p>` : "") +
   `<ul class="menu">${c.items.map((it) => `<li><div class="row"><span>${esc(it.n)}</span><span>${money(it.p)}</span></div>${it.en && it.en !== it.n ? `<p>${esc(it.en)}</p>` : ""}</li>`).join("")}</ul>` +
   (c.extras ? `<p class="extras"><b>Extras:</b> ${esc(c.extras.en)}</p>` : "") + `</div>`).join("");
@@ -248,7 +253,7 @@ const pages = [
       main: `<section><div class="wrap">${menuHtml}<p><a href="/assets/menu-original.jpg" target="_blank" rel="noopener">View the printed menu</a> · <a href="/es/#menu" hreflang="es" lang="es">Ver el menú en español</a></p></div></section>` } },
 
   { slug: "menudo-midland", crumb: "Menudo & pozole", image: photo("menudo"),
-    title: "Menudo in Midland, TX · Fridays to Sundays · En Boca de Todos",
+    title: "Menudo in Midland, TX · Fri–Sun · En Boca de Todos",
     description: "Menudo and pozole every Friday to Sunday, and caldo de res Saturday and Sunday, at En Boca de Todos, 703 S Terrell St, Midland TX. Come early; when the pot is empty, it's gone until next week.",
     eyebrow: "The weekend pot · Friday to Sunday", h1: "Menudo in Midland, every Friday to Sunday",
     schema: [restaurantRef],
@@ -267,7 +272,7 @@ const pages = [
 <div class="es" lang="es"><h3>Café de olla en Midland</h3><p>Café endulzado con piloncillo, con canela, clavo y anís estrella, servido en jarrito de barro. ${money(item("Café de Olla").p)}, y el rellenado $2.99. <a href="/es/#menu" hreflang="es">Ver el menú en español</a></p></div></div></div></section>` } },
 
   { slug: "breakfast-burritos-midland", crumb: "Breakfast burritos", image: photo("bistec-eggs"),
-    title: "Breakfast Burritos in Midland, TX from 6 a.m. · En Boca de Todos",
+    title: "Breakfast Burritos in Midland, TX · En Boca de Todos",
     description: "Breakfast burritos from $5.99 starting at 6 a.m., plus guisado burritos like asado, chile verde and barbacoa, at En Boca de Todos, 703 S Terrell St, Midland TX. Call ahead: (432) 218-7078.",
     eyebrow: "From 6 a.m. · Tuesday to Saturday", h1: "Breakfast burritos in Midland",
     schema: [restaurantRef],
@@ -280,6 +285,23 @@ const pages = [
 ];
 for (const p of pages) await writeFile(path.join(root, p.slug + ".html"), page(p));
 
+/* /privacy: what the site collects. Kept out of the sitemap and noindexed. */
+await writeFile(path.join(root, "privacy.html"), page({ slug: "privacy", crumb: "Privacy", robots: "noindex",
+  title: "Privacy Policy · En Boca de Todos, Midland TX",
+  description: "How the En Boca de Todos website uses Google Analytics and what information it collects.",
+  eyebrow: "Updated November 13, 2026", h1: "Privacy policy",
+  body: { lead: `<p class="lead">This website is the online home of En Boca de Todos Mexican Food, 703 S Terrell St, Midland, Texas. We don't sell anything here and there are no accounts or forms, so we collect very little.</p>`,
+    main: `<section><div class="wrap">
+<h2>What we collect</h2>
+<p>We use <b>Google Analytics</b> to count visits: which pages are viewed, roughly where visitors are (city level), what kind of device and browser they use, and how they found us. We also count taps on our phone numbers, directions links and Google reviews link, so we know how people reach us. Google Analytics sets cookies to do this. We don't collect your name, email or phone number on this site.</p>
+<p>When you call us, the call goes through your phone company like any other call. The site remembers your language and day/night choice in your own browser; that never leaves your device.</p>
+<h2>Your choices</h2>
+<p>You can block cookies in your browser settings, or install Google's <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Analytics opt-out add-on</a>. You can read how Google uses this data at <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">policies.google.com</a>.</p>
+<h2>Questions</h2>
+<p>Call us at <a href="tel:+14322187078">(432) 218-7078</a> or stop by the restaurant.</p>
+<div class="es" lang="es"><h2>Privacidad</h2><p>Usamos Google Analytics para contar visitas: qué páginas se ven, la ciudad aproximada, el tipo de dispositivo y cómo nos encontraron. También contamos los toques en nuestros teléfonos, en las direcciones y en el enlace de reseñas de Google. Google Analytics usa cookies para esto. No recogemos tu nombre, correo ni teléfono en este sitio. Puedes bloquear las cookies en tu navegador o instalar el <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">complemento de exclusión de Google Analytics</a>. ¿Preguntas? Llámanos al <a href="tel:+14322187078">(432) 218-7078</a>.</p></div>
+</div></section>` } }));
+
 /* ---------- Sitemap ---------- */
 const urls = [["/", "1.0"], ["/es/", "0.9"], ...pages.map((p) => ["/" + p.slug, p.slug === "menu" ? "0.9" : "0.8"])];
 const alt = (u) => u === "/" || u === "/es/" ? `\n    <xhtml:link rel="alternate" hreflang="en" href="${SITE}/"/>\n    <xhtml:link rel="alternate" hreflang="es" href="${SITE}/es/"/>` : "";
@@ -288,4 +310,4 @@ await writeFile(path.join(root, "sitemap.xml"), `<?xml version="1.0" encoding="U
 ${urls.map(([u, pr]) => `  <url>\n    <loc>${SITE}${u}</loc>\n    <lastmod>${TODAY}</lastmod>\n    <priority>${pr}</priority>${alt(u)}\n  </url>`).join("\n")}
 </urlset>
 `);
-console.log("built: index.html (static menu), es/index.html, " + pages.map((p) => p.slug + ".html").join(", ") + ", sitemap.xml");
+console.log("built: index.html (static menu), es/index.html, " + pages.map((p) => p.slug + ".html").join(", ") + ", privacy.html, sitemap.xml");

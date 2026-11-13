@@ -3,6 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google Analytics 4 (property "en-boca.com · En Boca de Todos"). Only the live domain reports, so previews don't skew the numbers. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJKHKPLM5F"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+if (/(^|\.)en-boca\.com$/.test(location.hostname)) {
+  gtag("js", new Date());
+  gtag("config", "G-YJKHKPLM5F");
+  /* Calls and directions are the restaurant's leads, so count each tap. */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href]");
+    if (!a) return;
+    var h = a.getAttribute("href");
+    if (a.dataset.ga === "reviews") gtag("event", "reviews_click");
+    else if (h.indexOf("tel:") === 0) gtag("event", "call_click", { phone: h.slice(4), link_text: a.textContent.trim().slice(0, 60) });
+    else if (/maps\.google|google\.com\/maps|cid=/.test(h)) gtag("event", "directions_click", { link_text: a.textContent.trim().slice(0, 60) });
+  });
+}
+</script>
 <title>Café de Olla in Midland, TX · En Boca de Todos</title>
 <meta name="description" content="Café de olla at En Boca de Todos in Midland TX: coffee sweetened with piloncillo and spiced with cinnamon, cloves and star anise, served in a clay jarrito. $5.99, refills $2.99. From 6 a.m., 703 S Terrell St.">
 <link rel="canonical" href="https://en-boca.com/cafe-de-olla-midland">
@@ -34,7 +53,7 @@ header.top .wrap { display:flex; flex-wrap:wrap; align-items:center; justify-con
 .brand { display:flex; align-items:center; gap:10px; color:var(--night-fg); text-decoration:none; font:900 1.25rem/1 var(--display); text-transform:uppercase; letter-spacing:.02em; }
 .brand img { width:40px; height:40px; }
 header.top nav { display:flex; flex-wrap:wrap; gap:6px 16px; font-size:.92rem; }
-header.top nav a { color: var(--night-muted); text-decoration:none; }
+header.top nav a { color: var(--night-muted); text-decoration:none; display:inline-block; padding-block:6px; }
 header.top nav a:hover, header.top nav a[aria-current] { color: var(--night-fg); text-decoration: underline; }
 .hero { background: var(--night); color: var(--night-fg); padding: 28px 0 40px; }
 .eyebrow { font-size:.78rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#F7C6D2; margin:0 0 8px; }
@@ -64,7 +83,8 @@ ul.menu p { margin: 2px 0 0; color: var(--muted); font-size: .95rem; }
 .cat-note, .extras { color: var(--muted); font-size: .95rem; }
 .es { border-left: 4px solid var(--gold); padding-left: 14px; }
 footer { background: var(--night); color: var(--night-muted); padding: 28px 0 40px; font-size: .9rem; }
-footer a { color: var(--night-fg); }
+footer a { color: var(--night-fg); display:inline-block; padding-block:4px; }
+.cat h2 { font:800 1.35rem/1.2 var(--body); text-transform:none; margin:0 0 6px; }
 </style>
 </head>
 <body>
@@ -88,7 +108,7 @@ footer a { color: var(--night-fg); }
 </main>
 <footer><div class="wrap">
   <p><b>En Boca de Todos Mexican Food</b> · 703 S Terrell St · Midland, TX 79701 · <a href="tel:+14322187078">(432) 218-7078</a></p>
-  <p><a href="/">Home</a> · <a href="/menu">Full menu</a> · <a href="/es/" hreflang="es" lang="es">Español</a> · <a href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener">Facebook</a></p>
+  <p><a href="/">Home</a> · <a href="/menu">Full menu</a> · <a href="/es/" hreflang="es" lang="es">Español</a> · <a href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener">Facebook</a> · <a href="/privacy">Privacy</a></p>
   <p>© 2026 En Boca de Todos. Website by OSO Optimization.</p>
 </div></footer>
 </body>
