@@ -54,6 +54,25 @@
   ]
 }
 </script>
+<!-- Google Analytics 4 (property "en-boca.com · En Boca de Todos"). Only the live domain reports, so previews don't skew the numbers. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJKHKPLM5F"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+if (/(^|\.)en-boca\.com$/.test(location.hostname)) {
+  gtag("js", new Date());
+  gtag("config", "G-YJKHKPLM5F");
+  /* Calls and directions are the restaurant's leads, so count each tap. */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href]");
+    if (!a) return;
+    var h = a.getAttribute("href");
+    if (a.dataset.ga === "reviews") gtag("event", "reviews_click");
+    else if (h.indexOf("tel:") === 0) gtag("event", "call_click", { phone: h.slice(4), link_text: a.textContent.trim().slice(0, 60) });
+    else if (/maps\.google|google\.com\/maps|cid=/.test(h)) gtag("event", "directions_click", { link_text: a.textContent.trim().slice(0, 60) });
+  });
+}
+</script>
 <script>/* Apply a saved day/night choice before paint so the page never flashes the wrong theme. */try{var t=localStorage.getItem("ebdt-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
 <style>
 /* Layout: a night-sky hero under a papel picado banner, a talavera tile band,
@@ -300,14 +319,23 @@ section { scroll-margin-top: 70px; }
 
 /* ---------- Quote ---------- */
 .quote { padding-block: 0 72px; }
-.quote figure {
+.quote .lead-quote {
   margin: 0; display: grid; gap: 14px; grid-template-columns: auto minmax(0, 1fr); align-items: start;
   padding-top: 40px; border-top: 1px solid var(--line);
 }
 .quote .mark { font-family: var(--display); font-weight: 900; font-size: 7rem; line-height: .7; color: var(--rojo); }
-.quote blockquote { margin: 0; font-family: var(--script); font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.1; max-width: 30ch; }
-.quote figcaption { margin-top: 12px; font-size: .9rem; color: var(--muted); }
+.quote .lead-quote blockquote { margin: 0; font-family: var(--script); font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.1; max-width: 30ch; }
+.quote .lead-quote figcaption { margin-top: 12px; font-size: .9rem; color: var(--muted); }
 .quote figcaption a { color: var(--rojo-ink); font-weight: 600; }
+.quote .sec-head { margin-bottom: 8px; }
+.stars { color: var(--cempasuchil); letter-spacing: .08em; }
+.reviews { display: grid; gap: 14px; margin-top: 32px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+.review { margin: 0; padding: 18px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); display: grid; gap: 8px; align-content: start; }
+.review .stars { margin: 0; font-size: .95rem; }
+.review blockquote { margin: 0; font-size: 1rem; line-height: 1.5; }
+.review figcaption { font-size: .88rem; font-weight: 600; color: var(--muted); }
+.rev-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin: 24px 0 0; color: var(--muted); font-size: .9rem; }
+.rev-foot .btn-ghost { color: var(--ink); }
 
 /* ---------- Menu ---------- */
 .menu-sec { background: var(--surface); border-block: 1px solid var(--line); }
@@ -519,7 +547,8 @@ footer small { font-size: .82rem; }
 .sat-more { margin: -8px 0 22px; }
 .sat-more a { color: #FFD27A; font-weight: 600; }
 .foot-links { display: flex; flex-wrap: wrap; gap: .4em 1.2em; margin-bottom: 10px; font-size: .9rem; }
-.foot-links a { color: inherit; }
+.foot-links a { color: inherit; display: inline-block; padding-block: 4px; }
+footer small a, .menu-foot a { display: inline-block; padding-block: 4px; }
 html[lang="en"] .only-es, html[lang="es"] .only-en { display: none; }
 </style>
 </head>
@@ -619,15 +648,28 @@ html[lang="en"] .only-es, html[lang="es"] .only-en { display: none; }
     </div>
   </section>
 
-  <section class="quote">
+  <section class="quote" id="resenas" aria-labelledby="resenas-title">
     <div class="wrap">
-      <figure>
+      <div class="sec-head">
+        <p class="eyebrow"><span class="stars" aria-hidden="true">★★★★★</span> <span data-i18n="revEyebrow">4.5 estrellas en 40 reseñas de Google</span></p>
+        <h2 id="resenas-title" data-i18n-html="revTitle">Lo que dice <em>la gente</em></h2>
+      </div>
+      <figure class="lead-quote">
         <span class="mark" aria-hidden="true">&ldquo;</span>
         <div>
-          <blockquote>It was simple but so flavorful. Served so fresh.</blockquote>
-          <figcaption>Jessica H., <a href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener" data-i18n="onFacebook">en Facebook</a></figcaption>
+          <blockquote>Cafe de olla is hands down the best I had around. Worth a try!!</blockquote>
+          <figcaption>Jesus V. · <span data-i18n="revOnGoogle">reseña de Google</span></figcaption>
         </div>
       </figure>
+      <div class="reviews">
+        <figure class="review" lang="es"><p class="stars" aria-label="5 stars">★★★★★</p><blockquote>El mejor menudo de todo midland. Los desayunos de lo mejor y con sabor a hogar.</blockquote><figcaption>Meny B.</figcaption></figure>
+        <figure class="review"><p class="stars" aria-label="5 stars">★★★★★</p><blockquote>Amazing food! Clean! Fast! Fresh! Awesome customer service. Great family owned restaurant!!!</blockquote><figcaption>Chris L.</figcaption></figure>
+        <figure class="review" lang="es"><p class="stars" aria-label="5 stars">★★★★★</p><blockquote>Excelente servicio, la comida súper casera, tortillas recién hechas y con un excelente sazón mexicano y súper recomendado.</blockquote><figcaption>Yvonne G.</figcaption></figure>
+        <figure class="review"><p class="stars" aria-label="5 stars">★★★★★</p><blockquote>Food was delicious. My whole family enjoyed the hot chocolate. Really authentic 🙌🏾</blockquote><figcaption>Carlos R.</figcaption></figure>
+        <figure class="review" lang="es"><p class="stars" aria-label="5 stars">★★★★★</p><blockquote>Primera vez que encuentro un lugar con sazón mexicano en USA 🇲🇽 … Yo me pedí un pozole con un café de olla ☕️ tienen una variedad en su menú y tortillas hechas a mano 🙌</blockquote><figcaption>Lizbeth R.</figcaption></figure>
+        <figure class="review"><p class="stars" aria-label="5 stars">★★★★★</p><blockquote>Good food and great service. It’s also super clean. Definitely recommend 10/10</blockquote><figcaption>Jimena N.</figcaption></figure>
+      </div>
+      <p class="rev-foot"><a class="btn btn-ghost" href="https://www.google.com/maps/place/En+Boca+de+Todos+Mexican+Food/@31.9910597,-102.0677824,17z/data=!4m8!3m7!1s0x86f9631309e268b7:0xb6ef3767f20df629!8m2!3d31.9910597!4d-102.0677824!9m1!1b1!16s%2Fg%2F11x5jkqgn6?hl=en" target="_blank" rel="noopener" data-ga="reviews" data-i18n="revAll">Lee todas las reseñas en Google</a> <span data-i18n="revNote">Reseñas en las palabras de cada cliente, tomadas de Google.</span></p>
     </div>
   </section>
 
@@ -720,7 +762,7 @@ html[lang="en"] .only-es, html[lang="es"] .only-en { display: none; }
       <div><b>En Boca de Todos</b><small data-i18n="footTag">Comida Mexicana · 703 S Terrell St · Midland, TX</small></div>
     </div>
     <nav class="foot-links" aria-label="More pages">
-      <a href="/menu" data-i18n="navMenu">Menú completo</a><a href="/menudo-midland" data-i18n="navMenudo">Menudo y pozole</a><a href="/cafe-de-olla-midland" data-i18n="navCafe">Café de olla</a><a href="/breakfast-burritos-midland" data-i18n="navBurritos">Burritos de desayuno</a><a href="/es/" hreflang="es" lang="es" class="only-en">Español</a><a href="/" hreflang="en" lang="en" class="only-es">English</a>
+      <a href="/menu" data-i18n="navMenu">Menú completo</a><a href="/menudo-midland" data-i18n="navMenudo">Menudo y pozole</a><a href="/cafe-de-olla-midland" data-i18n="navCafe">Café de olla</a><a href="/breakfast-burritos-midland" data-i18n="navBurritos">Burritos de desayuno</a><a href="/es/" hreflang="es" lang="es" class="only-en">Español</a><a href="/" hreflang="en" lang="en" class="only-es">English</a><a href="/privacy" data-i18n="navPrivacy">Privacidad</a>
     </nav>
     <small><a href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener">Facebook</a> · <span data-i18n="footNote">© 2026 En Boca de Todos. Sitio web por OSO Optimization.</span></small>
   </div>
@@ -755,7 +797,7 @@ html[lang="en"] .only-es, html[lang="es"] .only-en { display: none; }
       menuEyebrow: "Breakfast & lunch · Tuesday to Sunday", menuTitle: "The <em>menu</em>",
       menuSub: "Tortillas, beans and salsa the way they're made back home. Every plate comes with your choice of one flour or three corn tortillas.",
       menuFoot: "Prices are subject to change. Call to confirm today's guisados.", menuPrint: "View the printed menu", menuPage: "Full menu page",
-      satMore: "More about our menudo, pozole and caldo", navMenu: "Full menu", navMenudo: "Menudo & pozole", navCafe: "Café de olla", navBurritos: "Breakfast burritos",
+      satMore: "More about our menudo, pozole and caldo", navMenu: "Full menu", navMenudo: "Menudo & pozole", navCafe: "Café de olla", navBurritos: "Breakfast burritos", navPrivacy: "Privacy", revEyebrow: "4.5 stars from 40 Google reviews", revTitle: "What people <em>are saying</em>", revOnGoogle: "Google review", revAll: "Read all our Google reviews", revNote: "Reviews in the customer's own words, from Google.",
       satEyebrow: "Friday to Sunday", satTitle: "The weekend <em>pot</em>",
       satSub: "Slow-simmered soups that only come out Friday through Sunday. Come early. When the pot is empty, it's gone until next week.",
       satToday: "It's the weekend. The pot is on.", satNext: "Next pot: this Friday",
@@ -786,7 +828,7 @@ html[lang="en"] .only-es, html[lang="es"] .only-en { display: none; }
       menuEyebrow: "Desayuno y comida · martes a domingo", menuTitle: "El <em>menú</em>",
       menuSub: "Tortillas, frijoles y salsa como en casa. Todos los platos vienen con una tortilla de harina o tres de maíz, a tu gusto.",
       menuFoot: "Los precios pueden cambiar. Llama para saber los guisados del día.", menuPrint: "Ver el menú impreso", menuPage: "Página del menú",
-      satMore: "Más sobre nuestro menudo, pozole y caldo", navMenu: "Menú completo", navMenudo: "Menudo y pozole", navCafe: "Café de olla", navBurritos: "Burritos de desayuno",
+      satMore: "Más sobre nuestro menudo, pozole y caldo", navMenu: "Menú completo", navMenudo: "Menudo y pozole", navCafe: "Café de olla", navBurritos: "Burritos de desayuno", navPrivacy: "Privacidad", revEyebrow: "4.5 estrellas en 40 reseñas de Google", revTitle: "Lo que dice <em>la gente</em>", revOnGoogle: "reseña de Google", revAll: "Lee todas las reseñas en Google", revNote: "Reseñas en las palabras de cada cliente, tomadas de Google.",
       satEyebrow: "De viernes a domingo", satTitle: "La olla del <em>fin de semana</em>",
       satSub: "Caldos de cocción lenta que solo salen de viernes a domingo. Llega temprano: cuando se acaba la olla, hasta la próxima semana.",
       satToday: "Es fin de semana. La olla ya está lista.", satNext: "Próxima olla: este viernes",

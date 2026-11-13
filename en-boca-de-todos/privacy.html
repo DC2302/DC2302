@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google Analytics 4 (property "en-boca.com · En Boca de Todos"). Only the live domain reports, so previews don't skew the numbers. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJKHKPLM5F"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+if (/(^|\.)en-boca\.com$/.test(location.hostname)) {
+  gtag("js", new Date());
+  gtag("config", "G-YJKHKPLM5F");
+  /* Calls and directions are the restaurant's leads, so count each tap. */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href]");
+    if (!a) return;
+    var h = a.getAttribute("href");
+    if (a.dataset.ga === "reviews") gtag("event", "reviews_click");
+    else if (h.indexOf("tel:") === 0) gtag("event", "call_click", { phone: h.slice(4), link_text: a.textContent.trim().slice(0, 60) });
+    else if (/maps\.google|google\.com\/maps|cid=/.test(h)) gtag("event", "directions_click", { link_text: a.textContent.trim().slice(0, 60) });
+  });
+}
+</script>
+<meta name="robots" content="noindex">
+<title>Privacy Policy · En Boca de Todos, Midland TX</title>
+<meta name="description" content="How the En Boca de Todos website uses Google Analytics and what information it collects.">
+<link rel="canonical" href="https://en-boca.com/privacy">
+<meta property="og:title" content="Privacy Policy · En Boca de Todos, Midland TX">
+<meta property="og:description" content="How the En Boca de Todos website uses Google Analytics and what information it collects.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://en-boca.com/privacy">
+<meta property="og:image" content="https://en-boca.com/assets/video/hero-poster.webp">
+<meta name="theme-color" content="#141015">
+<link rel="icon" href="/assets/logo.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Instrument+Sans:wght@400;500;600&display=swap">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"En Boca de Todos","item":"https://en-boca.com/"},{"@type":"ListItem","position":2,"name":"Privacy","item":"https://en-boca.com/privacy"}]}</script>
+<script>try{var t=localStorage.getItem("ebdt-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<style>
+:root { --paper:#FBF9F8; --ink:#1A1418; --muted:#6C6168; --line:#E7DFE1; --rojo:#CE1126; --rojo-ink:#B10E20; --night:#141015; --night-fg:#F8F2EF; --night-muted:#C2B5BB; --gold:#F2A21B;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif; --body:"Instrument Sans","Segoe UI",system-ui,sans-serif; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --paper:#141015; --ink:#F8F2EF; --muted:#C2B5BB; --line:#3A2F37; --rojo-ink:#FF6B7A; } }
+:root[data-theme="dark"] { --paper:#141015; --ink:#F8F2EF; --muted:#C2B5BB; --line:#3A2F37; --rojo-ink:#FF6B7A; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--paper); color:var(--ink); font:400 1.05rem/1.6 var(--body); }
+a { color: var(--rojo-ink); }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 0 16px; }
+@media (min-width:700px) { .wrap { padding: 0 32px; } }
+header.top { background: var(--night); color: var(--night-fg); }
+header.top .wrap { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 20px; padding-block:14px; }
+.brand { display:flex; align-items:center; gap:10px; color:var(--night-fg); text-decoration:none; font:900 1.25rem/1 var(--display); text-transform:uppercase; letter-spacing:.02em; }
+.brand img { width:40px; height:40px; }
+header.top nav { display:flex; flex-wrap:wrap; gap:6px 16px; font-size:.92rem; }
+header.top nav a { color: var(--night-muted); text-decoration:none; display:inline-block; padding-block:6px; }
+header.top nav a:hover, header.top nav a[aria-current] { color: var(--night-fg); text-decoration: underline; }
+.hero { background: var(--night); color: var(--night-fg); padding: 28px 0 40px; }
+.eyebrow { font-size:.78rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:#F7C6D2; margin:0 0 8px; }
+h1 { font:900 clamp(2.4rem,7vw,4.2rem)/.95 var(--display); text-transform:uppercase; margin:0 0 14px; }
+.hero p.lead { color: var(--night-muted); max-width: 40rem; margin: 0 0 22px; font-size: 1.1rem; }
+.btn { display:inline-flex; align-items:center; gap:.5em; padding:.8em 1.3em; border-radius:999px; background:var(--rojo); color:#fff; font-weight:600; text-decoration:none; margin:0 8px 8px 0; }
+.btn.ghost { background:transparent; color:var(--night-fg); border:2px solid rgba(255,255,255,.35); }
+main section { padding: 40px 0; border-bottom: 1px solid var(--line); }
+h2 { font:900 clamp(1.7rem,4.5vw,2.4rem)/1 var(--display); text-transform:uppercase; margin:0 0 14px; }
+h3 { font:800 1.35rem/1.1 var(--display); text-transform:uppercase; margin:0 0 6px; }
+.cards { display:grid; gap:18px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.card { border:1px solid var(--line); border-radius:14px; overflow:hidden; background: color-mix(in srgb, var(--paper) 92%, var(--ink)); }
+.card img { width:100%; height:auto; aspect-ratio:1; object-fit:cover; display:block; }
+.card div { padding:14px 16px 16px; }
+.price { font-weight:700; color: var(--rojo-ink); }
+.muted { color: var(--muted); }
+.cols { display:grid; gap:24px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.hours { border-collapse: collapse; width: 100%; max-width: 360px; }
+.hours td { padding: 4px 0; border-bottom: 1px dashed var(--line); }
+.hours td + td { text-align: right; }
+.hours tr.closed td { color: var(--muted); }
+ul.menu { list-style:none; padding:0; margin:0 0 8px; }
+ul.menu li { padding: 8px 0; border-bottom: 1px dashed var(--line); }
+ul.menu .row { display:flex; justify-content:space-between; gap:12px; font-weight:600; }
+ul.menu p { margin: 2px 0 0; color: var(--muted); font-size: .95rem; }
+.cat { margin-bottom: 28px; }
+.cat-note, .extras { color: var(--muted); font-size: .95rem; }
+.es { border-left: 4px solid var(--gold); padding-left: 14px; }
+footer { background: var(--night); color: var(--night-muted); padding: 28px 0 40px; font-size: .9rem; }
+footer a { color: var(--night-fg); display:inline-block; padding-block:4px; }
+.cat h2 { font:800 1.35rem/1.2 var(--body); text-transform:none; margin:0 0 6px; }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="/"><img src="/assets/logo.webp" alt="" width="40" height="40">En Boca de Todos</a>
+  <nav aria-label="Pages"><a href="/menu">Menu</a><a href="/menudo-midland">Menudo & pozole</a><a href="/cafe-de-olla-midland">Café de olla</a><a href="/breakfast-burritos-midland">Breakfast burritos</a><a href="/es/" hreflang="es" lang="es">Español</a></nav>
+</div></header>
+<main>
+<section class="hero"><div class="wrap">
+  <p class="eyebrow">Updated November 13, 2026</p>
+  <h1>Privacy policy</h1>
+  <p class="lead">This website is the online home of En Boca de Todos Mexican Food, 703 S Terrell St, Midland, Texas. We don't sell anything here and there are no accounts or forms, so we collect very little.</p>
+  <a class="btn" href="tel:+14322187078">Call to order (432) 218-7078</a><a class="btn ghost" href="https://maps.google.com/?cid=13181815553918891561" target="_blank" rel="noopener">Directions</a>
+</div></section>
+<section><div class="wrap">
+<h2>What we collect</h2>
+<p>We use <b>Google Analytics</b> to count visits: which pages are viewed, roughly where visitors are (city level), what kind of device and browser they use, and how they found us. We also count taps on our phone numbers, directions links and Google reviews link, so we know how people reach us. Google Analytics sets cookies to do this. We don't collect your name, email or phone number on this site.</p>
+<p>When you call us, the call goes through your phone company like any other call. The site remembers your language and day/night choice in your own browser; that never leaves your device.</p>
+<h2>Your choices</h2>
+<p>You can block cookies in your browser settings, or install Google's <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Analytics opt-out add-on</a>. You can read how Google uses this data at <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">policies.google.com</a>.</p>
+<h2>Questions</h2>
+<p>Call us at <a href="tel:+14322187078">(432) 218-7078</a> or stop by the restaurant.</p>
+<div class="es" lang="es"><h2>Privacidad</h2><p>Usamos Google Analytics para contar visitas: qué páginas se ven, la ciudad aproximada, el tipo de dispositivo y cómo nos encontraron. También contamos los toques en nuestros teléfonos, en las direcciones y en el enlace de reseñas de Google. Google Analytics usa cookies para esto. No recogemos tu nombre, correo ni teléfono en este sitio. Puedes bloquear las cookies en tu navegador o instalar el <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">complemento de exclusión de Google Analytics</a>. ¿Preguntas? Llámanos al <a href="tel:+14322187078">(432) 218-7078</a>.</p></div>
+</div></section>
+<section><div class="wrap cols">
+  <div><h2>Hours</h2><table class="hours"><tbody><tr class="closed"><td>Monday</td><td>Closed</td></tr><tr><td>Tuesday</td><td>6:00 AM – 2:00 PM</td></tr><tr><td>Wednesday</td><td>6:00 AM – 2:00 PM</td></tr><tr><td>Thursday</td><td>6:00 AM – 2:00 PM</td></tr><tr><td>Friday</td><td>6:00 AM – 2:00 PM</td></tr><tr><td>Saturday</td><td>6:00 AM – 2:00 PM</td></tr><tr><td>Sunday</td><td>7:00 AM – 2:00 PM</td></tr></tbody></table></div>
+  <div><h2>Find us</h2><p>703 S Terrell St<br>Midland, TX 79701</p><p>Call <a href="tel:+14322187078">(432) 218-7078</a> or <a href="tel:+14322187079">(432) 218-7079</a>. Call ahead and your order will be ready when you get here.</p><p><a href="https://maps.google.com/?cid=13181815553918891561" target="_blank" rel="noopener">Open in Google Maps</a></p></div>
+</div></section>
+</main>
+<footer><div class="wrap">
+  <p><b>En Boca de Todos Mexican Food</b> · 703 S Terrell St · Midland, TX 79701 · <a href="tel:+14322187078">(432) 218-7078</a></p>
+  <p><a href="/">Home</a> · <a href="/menu">Full menu</a> · <a href="/es/" hreflang="es" lang="es">Español</a> · <a href="https://www.facebook.com/people/En-Boca-de-Todos-Mexican-Food/61574979775180/" target="_blank" rel="noopener">Facebook</a> · <a href="/privacy">Privacy</a></p>
+  <p>© 2026 En Boca de Todos. Website by OSO Optimization.</p>
+</div></footer>
+</body>
+</html>
