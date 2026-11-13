@@ -257,6 +257,9 @@ p { margin: 0; }
 @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(61, 220, 132, 0); } 100% { box-shadow: 0 0 0 0 rgba(61, 220, 132, 0); } }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
 .hero-ctas .btn-ghost { color: var(--night-fg); }
+.hero-rating { display: flex; width: fit-content; align-items: center; gap: 8px; margin-top: 14px; padding-block: 6px; color: var(--night-muted); font-size: .92rem; font-weight: 600; text-decoration: none; }
+.hero-rating .stars { color: var(--cempasuchil); letter-spacing: .08em; }
+.hero-rating:hover span:last-child { color: var(--night-fg); text-decoration: underline; }
 
 .hero-photo { display: none; }
 @media (min-width: 900px) { .hero-photo { display: block; justify-self: end; align-self: end; } }
@@ -595,6 +598,7 @@ html[lang="en"] .only-es, html[lang="es"] .only-en { display: none; }
       <p class="hero-lead" data-i18n-html="lead">Our name means <strong>on everyone's lips</strong>. Breakfast burritos from 6 a.m., guisados, chilaquiles divorciados and café de olla, made the way it's made at home.</p>
       <div class="status" id="status" data-open="false" role="status"><span class="dot"></span><span id="status-text">Checking hours…</span></div>
       <a class="hoy-teaser" id="hoy-teaser" href="#hoy" hidden><span class="tag" data-i18n="hoyTag">Today</span><span id="hoy-teaser-text"></span></a>
+      <a class="hero-rating" href="#resenas"><span class="stars" aria-hidden="true">★★★★★</span> <span data-i18n="heroRating">4.5 on Google · 40 reviews</span></a>
       <div class="hero-ctas">
         <a class="btn btn-rojo" href="#menu"><span data-i18n="ctaMenu">See the menu</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -797,7 +801,7 @@ html[lang="en"] .only-es, html[lang="es"] .only-en { display: none; }
       menuEyebrow: "Breakfast & lunch · Tuesday to Sunday", menuTitle: "The <em>menu</em>",
       menuSub: "Tortillas, beans and salsa the way they're made back home. Every plate comes with your choice of one flour or three corn tortillas.",
       menuFoot: "Prices are subject to change. Call to confirm today's guisados.", menuPrint: "View the printed menu", menuPage: "Full menu page",
-      satMore: "More about our menudo, pozole and caldo", navMenu: "Full menu", navMenudo: "Menudo & pozole", navCafe: "Café de olla", navBurritos: "Breakfast burritos", navPrivacy: "Privacy", revEyebrow: "4.5 stars from 40 Google reviews", revTitle: "What people <em>are saying</em>", revOnGoogle: "Google review", revAll: "Read all our Google reviews", revNote: "Reviews in the customer's own words, from Google.",
+      satMore: "More about our menudo, pozole and caldo", navMenu: "Full menu", navMenudo: "Menudo & pozole", navCafe: "Café de olla", navBurritos: "Breakfast burritos", navPrivacy: "Privacy", revEyebrow: "4.5 stars from 40 Google reviews", heroRating: "4.5 on Google · 40 reviews", revTitle: "What people <em>are saying</em>", revOnGoogle: "Google review", revAll: "Read all our Google reviews", revNote: "Reviews in the customer's own words, from Google.",
       satEyebrow: "Friday to Sunday", satTitle: "The weekend <em>pot</em>",
       satSub: "Slow-simmered soups that only come out Friday through Sunday. Come early. When the pot is empty, it's gone until next week.",
       satToday: "It's the weekend. The pot is on.", satNext: "Next pot: this Friday",
@@ -828,7 +832,7 @@ html[lang="en"] .only-es, html[lang="es"] .only-en { display: none; }
       menuEyebrow: "Desayuno y comida · martes a domingo", menuTitle: "El <em>menú</em>",
       menuSub: "Tortillas, frijoles y salsa como en casa. Todos los platos vienen con una tortilla de harina o tres de maíz, a tu gusto.",
       menuFoot: "Los precios pueden cambiar. Llama para saber los guisados del día.", menuPrint: "Ver el menú impreso", menuPage: "Página del menú",
-      satMore: "Más sobre nuestro menudo, pozole y caldo", navMenu: "Menú completo", navMenudo: "Menudo y pozole", navCafe: "Café de olla", navBurritos: "Burritos de desayuno", navPrivacy: "Privacidad", revEyebrow: "4.5 estrellas en 40 reseñas de Google", revTitle: "Lo que dice <em>la gente</em>", revOnGoogle: "reseña de Google", revAll: "Lee todas las reseñas en Google", revNote: "Reseñas en las palabras de cada cliente, tomadas de Google.",
+      satMore: "Más sobre nuestro menudo, pozole y caldo", navMenu: "Menú completo", navMenudo: "Menudo y pozole", navCafe: "Café de olla", navBurritos: "Burritos de desayuno", navPrivacy: "Privacidad", revEyebrow: "4.5 estrellas en 40 reseñas de Google", heroRating: "4.5 en Google · 40 reseñas", revTitle: "Lo que dice <em>la gente</em>", revOnGoogle: "reseña de Google", revAll: "Lee todas las reseñas en Google", revNote: "Reseñas en las palabras de cada cliente, tomadas de Google.",
       satEyebrow: "De viernes a domingo", satTitle: "La olla del <em>fin de semana</em>",
       satSub: "Caldos de cocción lenta que solo salen de viernes a domingo. Llega temprano: cuando se acaba la olla, hasta la próxima semana.",
       satToday: "Es fin de semana. La olla ya está lista.", satNext: "Próxima olla: este viernes",
